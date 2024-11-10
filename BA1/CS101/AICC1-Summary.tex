@@ -1,0 +1,376 @@
+\documentclass[10pt,a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage[ruled, lined]{algorithm2e}
+\usepackage[shortlabels]{enumitem}
+\usepackage{textcomp}
+
+\setlength{\parindent}{20pt}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\ind}{\hspace*{\parindent}}
+
+\title{AICC 1 - Notes and Summary}
+\author{Faustine Flicoteaux}
+\date{Fall Semester 2024}
+
+\begin{document}
+\maketitle
+
+\pagebreak
+
+\section*{Introduction}
+
+These are my notes for the Advanced Information, Communication and Computation I course given during the fall semester of 2024.\\
+They are not be exempt of errors. If you find one, please contact me at $faustine.flicoteaux@epfl.ch$.
+
+
+\chapter{Propositional Logic}
+
+This is some text
+
+\chapter{Predicate Logic}
+
+This is some other text
+
+\chapter{Relations}
+
+\section{Binary relations}
+
+\paragraph*{Definition}
+A binary relation $R$ from a set $A$ to a set $B$ is a subset R $\subseteq A \times B$.
+
+\paragraph*{Example}
+Let $A = {0,1}$ and $B = {a,b,c}$, then
+\begin{itemize}
+\item $A \times B ={(0, a),(0, b),(0, c),(1, a), (1, b), (1, c)}$
+\item $R_1 ={(0, a), (0, b), (1, a)}$is a relation from $A$ to $B$
+\item $R_2 ={(0, a), (1,b)}$ is a relation from $A$ to $B$
+\end{itemize}
+
+\paragraph*{Functions and Relations}
+$\ $\\
+\hspace*{\parindent}A function $f:A \to B$ can also be defined as a subset of $A \times B$, meaning, as a relation.\\
+\hspace*{\parindent}A function $f$ from $A$ to $B$ contains one, and only one ordered pair $(a,b)$ for every element $a \in A$.
+
+\section{Symmetric and Antisymmetric Relations}
+
+\paragraph*{Definition of symmetry}
+$\ $\\
+\hspace*{\parindent}A relation $R$ on a set $A$ is called \textit{symmetric} if, and only if, $(b,a) \in R$ whenever $(a,b) \in R$, for all $a,b \in A$.\\
+\hspace*{\parindent}Therefore, $R$ is symmetric if, and only if, $\forall x \forall y ((x,y) \in R \to (y,x) \in R)$.
+
+\paragraph*{Definition of antisymmetry}
+$\ $\\
+\hspace*{\parindent}A relation $R$ on a set $A$ is called \textit{antisymmetric} if, and only if, $(b,a) \in R$ and $(a,b) \in R$ then $a = b$, for all $a,b \in A$.\\
+\hspace*{\parindent}Therefore, $R$ is antisymmetric if, and only if, $\forall x \forall y ((x,y) \in R \land (y,x) \in R) \to x = y$.
+
+\paragraph*{Remark}
+Symmetric and antisymmetric are not opposites of each other
+ 
+\subparagraph*{Personal remark}
+There is only one relation for any set $A$ that is both symmetric and antisymmetric. It is the relation $R = \{(a,a)|a \in A \ \forall a\}$
+
+\section{Transitive Relations}
+
+\paragraph*{Definition}
+$\ $\\
+\hspace*{\parindent}A relation $R$ on a set $A$ is called \textit{transitive}, if and only if, whenever $(a,b) \in R$ and $(b,c) \in R$, then $(a,c) \in R$ for all $a,b,c \in A$.\\
+\hspace*{\parindent}In other words, $R$ is transitive if and only if, $\forall a \forall b \forall c ((a,b) \in R \land (b,c) \in R \to (a,c) \in R$.
+
+\section{Number of Relations on a Set}
+\begin{itemize}
+\item $A \times A$ has $|A|^2$ elements when $A$ has $|A|$ elements.
+\item Every subset of $A \times A$ can be a relation.
+\item Therefore, there are $2^{{|A|}^2}$ relations on a set $A$.
+\end{itemize}
+
+\section{Combining Relations}
+Given two relations $R_1$ and $R_2$, we can combine them using basic set operations to form new relations, namely
+\begin{itemize}
+\item $R_1 \cup R_2$
+\item $R_1 \cap R_2$
+\item $R_1 - R_2$
+\item $R_2 - R_1$
+\end{itemize}
+
+\section{Composition of Relations}
+\paragraph*{Definition}
+$\ $\\
+\hspace*{\parindent}Let $R$ be a relation from a set $A$ to a set $B$. Let $S$ be a relation from $B$ to a set $C$ ($R : A \to B$ and $S : B \to C$)\\
+\hspace*{\parindent}The composite of $R$ and $S$ is the relation consisting of ordered pairs $(a,c)$, where $a \in A$, $c \in C$, and for which there exists an element $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S$.
+\subparagraph*{Personal Remark}
+In other words, the composite is the relation mapping elements of $A$ to elements of $C$ according to the relations $R$ and $S$.\\
+\\
+We denote the composite of $R$ and $S$ by $S \circ R$.
+
+\section{Equivalence Relations and Classes}
+\paragraph*{Definition}
+$\ $\\
+\hspace*{\parindent}A relation on a set $A$ is called an equivalence relation if, and only if, it is reflexive, symmetric and transitive.\\
+\hspace*{\parindent}Two elements $a$ and $b$ that are related by an equivalence relation are called equivalent. The notation $a \sim b$ is often used to denote equivalent elements.
+\paragraph*{Example}
+The relation $R = \{(a,a),(a,b),(b,b),(b,a),(c,c)\}$ on the set $A = \{a,b,c\}$ is an equivalence relation.\\
+\hspace*{\parindent}The relation $R = \{(a,b) \in \R \times \R \mid a - b \in \mathbb{Z}\}$ is an equivalence relation on the set $\mathbb{R}$.
+\paragraph*{Definition}
+$\ $\\
+\hspace*{\parindent}Let $R$ be an equivalence relation on a set $A$. The set of all elements that are related to an element $a$ of $A$, in that relation $R$, is called the equivalence class of $a$.\\
+\hspace*{\parindent}We denote the equivalence class of an element $a$  $[a]_R$, such that \[[a]_R = \{s \mid (a,s) \in R\}\]
+\paragraph*{Example}
+Given the set $A = \{a,b,c\}$ and the equivalence relation $R = \{(a,a),$\\$(a,b),(b,b),(b,a),(c,c)\}$\\
+Then $[a]_R = \{a,b\}$
+\paragraph*{Applications of Equivalence}
+\subparagraph*{Mathematics}
+Building $\mathbb{R}$, the set of real numbers
+\subparagraph*{Computer Science}
+Traditional C compilers build equivalence classes for variable names
+
+\section{Partition of a Set}
+\paragraph*{Definition}
+$\ $\\
+\hspace*{\parindent}A partition of a set $S$ is a collection of disjoint non-empty subsets of $S$ that have $S$ as their union. Mathematically, the collection of subsets $A_i$ where $i \in I$ forms a partition of $S$ if, and only if 
+\[A_{i} \neq \emptyset \ for \  i \in I\]
+\[A_{i} \cap A_j = \emptyset \  when \ i \neq j\]
+\[\bigcup_{i \in I}^{n} A_{i} = S\]
+
+\section{Partial Ordering and Posets}
+\paragraph*{Definition}
+A relation $R$ on a set $S$ is called a partial ordering, or partial order, if it is reflexive, antisymmetric and transitive (unlike equivalence relations, which are symmetric).\\
+A set together with a partial ordering $R$ is called a partially ordered set, or \textbf{poset}, and is denoted by $(S,R)$.
+\paragraph*{Example}
+Given $R = \{(a,b) \in \mathbb{Z} \times \mathbb{Z} \mid a \geqslant b \}$\\
+$R$ is a partial ordering on $\mathbb{Z}$ and $(\mathbb{Z}, \geqslant)$ is a poset.
+\paragraph*{Notation}
+Different poset use different symbols. Therefore, the symbol $\preceq$ is used to symbolise the ordering relation in an arbitrary poset.
+\paragraph*{Definition}
+The elements $a$ and $b$ of a poset $(S,\preceq)$ are $\mathbf{comparable}$ if $a \preceq b$ or $b \preceq a$.\\
+When $a$ and $b$ are elements of $S$ so that neither $a \preceq b$ nor $b \preceq a$, then $a$ and $b$ are called $\mathbf{incomparable}$.\\
+When $a$ and $b$ are elements of a poset $(S,\preceq)$, it is not necessary that either $a \preceq b$ or $b \preceq a$.
+\paragraph*{Example}
+$(\mathbb{Z},|)$ is a poset. However, not all elements are comparable. 3 and 9 or 2 and 4 are comparable but 5 and 7 aren't.
+
+\chapter{Algorithms}
+
+\section{What is an algorithm?}
+An algorithm is a finite sete of well-defined instructions, in order to perform a specific task, for example
+\begin{itemize}
+\item to perform a computation ($x^2 + 3$, $\sum_{i=1}^{n} 4n$)
+\item to solve a certain problem (Sorting, ordering)
+\item to reach a certain destination (mostly in maps and graphs\footnote{The most famous problem being the travelling salesman.})
+\end{itemize}
+For a little bit of background history, the most ancient proof of an algorithm dates back to 2500BC, in the Babylonian era. It was used to perform a division. The name "Algorithm" comes from Al-Khwārizmī, a Persian polymath who worked on the systematic solving of quadratic equations circa 780AD. However, the most famous mathematician who worked on algorithms remains Alan Turing ($1912-1954$), who worked on breaking the Enigma Code, along with the team at Bletchley Park\footnote{If you wanna learn more or enjoy a great film, go watch \textit{The Imitation Game}.}.
+\paragraph*{Specifying Algorithms}
+Algorithms and their set of instructions can be presented in different ways:
+\begin{itemize}
+\item Natural language
+\item Pseudo-code (non-specific code)
+\item Programming language (specific code)
+\end{itemize}
+\paragraph*{Pseudo-code}
+Pseudo-code is an intermediate step between natural language and code. It is precise enough that we know precisely each step but general enough that steps specific to coding (such as variable types or pointers) aren't specified.\\
+\hspace*{\parindent} This mean of writing an algorithm allows us to analyse the properties of an algorithm independently of any programming language. This is often a useful step in programming, before the implementation of any code.
+\paragraph*{Typical problems}
+\begin{itemize}
+\item Searching Problems: finding the position of an element in a list (ordered set).
+\item Sorting Problems: putting the elements of a list into an increasing order. This can be expanded to other orders and is not limited to numbers (for example, we can sort strings in alphabetical order).
+\item Optimisation Problems: determining the optimal value (maximum or minimum) of a particular quantity over all possible inputs. 
+\end{itemize}
+
+\section{Searching Problems}
+\paragraph*{Goal}
+Given a list $S = a_{1},a_{2},a_{3},...,a_{n}$ of distinct elements and some $x$, if $x \in S$, return $i$ such that $a_{i} = x$. Else, return $-1$.
+\paragraph*{Use examples}
+Finding a word in a dictionary, finding a name in a student list, finding an amount in a transaction table.
+
+\subsection{Linear Search}
+\paragraph*{Definition}
+The linear search algorithm goes through the list, one element at a time, from the first to the last.
+\begin{procedure}
+$i$ := 1\\
+location := 1\\
+\While{($i \leq n$ and $x \neq a_{i}$}{$i = i+1$}
+\If{$i \leq n$}{location := $i$}
+%\caption{linear_search()}
+\end{procedure}
+
+\subsection{Binary Search}
+\paragraph*{Definition}
+We assume here that the input is a list of items in \textbf{increasing order}.\\
+The algorithms starts by comparing the target value with the middle element of the list. If the middle element is smaller, the algorithm proceeds with the right half of the list. Otherwise, the search proceeds with the left half of the list, including the middle position.\\
+We repeat this process until we have a list of size 1. If our target is equal to the element in the singleton, we return its position. Otherwise, we return 0 (or -1, depends) to indicate that the target was not located.
+
+\subsection{Linear vs. Binary Search}
+\begin{multicols}{2}
+Linear search:
+\begin{itemize}
+\item[+]can be applied to \textit{any list}
+\item[-]is not efficient
+\item[-]is very slow if the element is not in the list (worst-case scenario)\\
+$\ $
+\end{itemize}
+\columnbreak
+Binary Search:
+\begin{itemize}
+\item[+]very efficient on long lists
+\item[+]still efficient if the element is not in the list
+\item[-]all elements must be \textit{comparable}
+\item[-]list has to be \textit{sorted}
+\end{itemize}
+\end{multicols}
+Binary search is more efficient than linear search on long lists because it removes half of the remaining list, instead of only one element per step.
+
+\section{Sorting Problems}
+\paragraph*{Goal}
+Given a list $S = a_{1},a_{2},a_{3},...,a_{n}$, return a list where the elements are sorted in increasing order. (Once again, this can be extended to other orders.)\\
+Sorting is important because a non-negligible part of computing resources are devoted to sorting (for example in large databases). \\
+A great number of fundamentally different algorithms have been invented for sorting and research is still ongoing\footnote{Recently, researches have turned to deep reinforcement learning, as a means to be faster and more efficient.}.
+
+\subsection{Selection Sort}
+Selection sort makes multiple passes (or iterations) through a list of length $n$:
+\begin{itemize}
+\item In the first iteration, the minimum of the list is found and put into the first position by swapping the first element with the minimum element.
+\item Since the first element is now guaranteed to be the smallest after the first pass, we do not take it into account anymore.
+\item In the second iteration, the minimum of the list from position 2 to $n$ ($\equiv$ the second least element) is found and put into the second position by swapping the second element with the second minimum.
+\item In the $k^{th}$ iteration, the minimum from position $k$ to $n$ is found and put into the $k^{th}$ position by swapping the $k^{th}$ element with the $k^{th}$ minimum.
+\item And so on ...
+\end{itemize}
+
+\subsection{Bubble Sort}
+Selection sort makes multiple passes through a list:
+\begin{itemize}
+\item In one iteration, every pair of elements that are found to be out of order are swapped (i.e. if $a_i > a_{i+1}$, we swap them).
+\item Since the last element is now guaranteed to be the largest after the first iteration, in the second iteration, it doesn't need to be inspected.
+\item In each iteration, one more element at the end becomes sorted and no longer needs inspection, until all elements are sorted.
+\end{itemize}
+We can visualise this process as the biggest elements "bubbling" all the way to the end of the list, each one after the other.
+
+\subsection{Insertion Sort}
+\begin{itemize}
+\item We compare the 2$^{nd}$ element with the 1$^{st}$. If the 2$^{nd} <$ 1$^{st}$, we put the 2$^{nd}$ before the 1$^{st}$ : the first two elements are sorted.
+\item Then, the 3$^{rd}$ element is compared to the 2$^{nd}$. If 3$^{rd} <$ 2$^{nd}$, it is compared to the first one and put in the correct position : the first 3 elements are sorted.
+\item In each following iteration, the $j$+1$^{st}$ element is put into its correct position amongst the first $j$+1 elements.
+\end{itemize}
+
+\section{Optimisation Problems}
+Optimization problems minimize or maximize some parameter over all possible inputs. 
+\paragraph*{Examples}
+\begin{itemize}
+\item Finding a route between two cities with the smallest total distance (travelling salesman problem)
+\item Determining how to encode messages using the fewest possible bits (used in .zip compression)
+\end{itemize}
+Interestingly enough, the mapping problem can be declined into different problems, according to your priority : fastest or shortest way, fewest connections, least elevation, ... However, these are more complex and precise, and involve more data than we will see during this course.
+
+\subsection{Greedy Algorithms}
+\ind Optimization problems can often be solved using a \textit{greedy algorithm}, which makes the "best" choice at each step. This means that it relies on making the locally optimal choice. However, this does not necessarily produce an optimal solution to the overall problem.\\
+\ind Thus, after presenting a greedy algorithm, we either prove that it is the optimal approach or find a counterexample to show that it is not.\\
+\ind One of the principles of greedy programming is that it never reconsiders its choices, contrary to the concept of \textit{dynamic programming}, which is exhaustive but ultimately guaranteed to find the solution.\\
+\ind Funnily enough, greedy algorithms sometimes not only find a bad solution, but produce the unique worst possible solution to certain problems.
+
+\subsection{Cashier's Algorithm}
+\paragraph*{Problem}
+Find for any amount of $n$ cents, the least total number of coins needed using the following coins : quarters (25 cents), dimes (10 cents), nickels (5 cents) and pennies (1 cent).
+\paragraph*{(Greedy) Solution}
+At each step, choose the coin with the largest possible value that does not exceed the amount left. \\
+\ind We see here how the choice made is local, because the algorithm does not take into account the amount that will be left after, only what is left at the moment.
+\paragraph*{Proving Optimality}
+We want to prove that the cashier's algorithm using quarters, dimes, nickels and pennies leads to the optimal solution.
+\subparagraph*{Lemma}
+If $n > 0$, then $n$ cents in change using quarters, dimes, nickels and pennies, using the fewest coins possible, 
+\begin{enumerate}
+\item has at most 2 dimes, at most 1 nickel, at most 4 pennies
+\item cannot have 2 dimes ($2*10$\textcent) and 1 nickel ($1*5$\textcent)
+\item and the total amount of change in dimes, nickels and pennies cannot exceed 24 cents.
+\end{enumerate}
+\subparagraph*{Proof of Lemma 1.1}
+\textit{If $n > 0$, then $n$ cents in change using quarters, dimes, nickels and pennies, using the fewest coins possible, has at most 2 dimes, at most 1 nickel, at most 4 pennies.}
+\begin{enumerate}[(a)]
+\item Dimes, by contradiction : If we have 3 dimes, we have $3*10 = 30$ cents, which we replace by 1 quarter ($1*25$\textcent) and 1 nickel ($1*5$\textcent) = 2 coins $<$ 3 coins.
+\item Nickels, by contradiction : If we have 2 nickels $= 2*5 = 10$ cents, we replace them by 1 dime ($1*10$\textcent) = 1 coin $<$ 2 coins.
+\item Pennies, by contradiction : If we have 5 pennies $= 5*1 = 5$ cents, we replace them by 1 nickel ($1*5$\textcent) = 1 coin $<$ 5 coins. 
+\end{enumerate}
+\subparagraph*{Proof of Lemma 1.2}
+\textit{If $n > 0$, then $n$ cents in change using quarters, dimes, nickels and pennies, using the fewest coins possible, cannot have 2 dimes ($2*10$\textcent) and 1 nickel ($1*5$\textcent).}\\
+\ind By contradiction : If we have 2 dimes + 1 nickel $= 25$ \textcent, we replace them with 1 quarter $= 25$ \textcent.
+\subparagraph*{Proof of Lemma 1.3}
+\textit{Given $n$ cents, with $n > 0$, then the total amount of change in dimes, nickels and pennies cannot exceed 24 cents.}\\
+\subparagraph*{Proving Optimality}
+Theorem : The greedy change-making algorithm for U.S. coins produces change using the fewest coins possible.
+Proof by contradiction :
+\begin{enumerate}
+\item Assume that a solution $S'$ exists, is optimal and uses fewer coins than $S$, the solution produced by the Cashier's Algorithm.
+\item let $q'$ be the number of quarters in $S'$. $q' \leqslant q$ because the cashier's algorithm picks the maximum amount of quarters.\\
+Can $q' < q$? If $q' < q$, then $S'$ must have $\geqslant 25$ cents with dimes, nickels and pennies. This cannot be optimal, as per Lemma 1.3.\\
+Thus, $q' = q$.
+\item Since $q' = q$, $S$ and $S'$ have to change the same remaining amount of money by using dimes, pennies and nickels.
+\item $d' \leqslant d$ because the cashier's algorithm takes the maximum possible amount of dimes.\\
+Can $d' < d$? If $d' < d$, we need at leasts 2 extra nickels to make up for the value of the missing dime. This cannot be optimal, due to Lemma 1.1.\\
+Thus, $d' = d$.
+\item Since $q' = q$ and $d' = d$, $S$ and $S'$ have to change the same remaining amount of money using nickels and pennies.
+\item $n' \leqslant n$, because the cashier's algorithm takes the maximum possible amount of nickels.\\
+Can $n' < n$? If $n' < n$, then $S'$ would have at least 5 extra pennies to make up for the missing nickel(s). This cannot be, as per Lemma 1.1.\\
+Thus, $n' = n$.
+\item Since $q' = q$, $d' = d$ and $n' = n$, the remaining amount of money is the same for $S$ and $S'$. They need the same amount of pennies, leading to $p' = p$.
+\item We assumed $S'$ to be optimal, so $S$ is optimal too.
+\end{enumerate}
+\subparagraph*{Remark}
+It is important to note that we have only proven that the Cashier's Algorithm is optimal when using the American coin system. Using another set of coins does not guarantee that the greedy solution is optimal, we would have to prove that. 
+
+\section{Matching and Stable Matching}
+\paragraph*{Goal}
+Pair elements from two equally sized groups considering their preferences for members of the other group so that there are no ways to improve the matching (according to the preferences).
+\paragraph*{Matching}
+Given a finite set $A$, a \textit{matching} of $A$ is any set of unordered pairs of \textit{distinct} elements of $A$ where any element occurs in at most one pair. (Such pairs are called \textit{independent}.) This mean that any element can appear at most once per matching set.
+\paragraph*{Maximum matching}
+A \textit{maximum matching} is a matching that contains the largest possible number of independent pairs.
+\paragraph*{Preference list}
+A \textit{preference list} $L_x$ defines for every element $x \in A$ the order in which the element prefers to be paired with another element. 
+\paragraph*{Example}
+Let $L_x$ be the preference list of $x$. If $L_x = [a,b,c]$, x would rather be paired with $a$, then, if not possible, with $b$, then $c$.
+\paragraph*{Stability and Instability}
+A matching is \textit{unstable} id there are two pairs $(a,b),(c,d)$ in the matching such that $a$ prefers $c$ over $b$ and $c$ prefers $a$ to $d$. This means that we can exchange to elements between pairs and get a better match, according to their preferences.\\
+A \textit{stable} matching is a matching that is not unstable. This means that there is no pair of participants that prefer each other to their assigned match. 
+\paragraph*{Example}
+Given the set $A = \{Peter, Dana, Egon, Ray\}$ and the preference lists
+\begin{itemize}
+\item $L_{Peter} = [Dana, Egon, Ray]$
+\item $L_{Dana} = [Peter, Egon, Ray]$
+\item $L_{Egon} = [Peter, Dana, Ray]$
+\item $L_{Ray} = [Peter, Dana, Egon]$
+\end{itemize}
+The matching $\{(Ray, Dana), (Egon, Peter)\}$ is unstable but the matching $\{(Peter, Dana), (Egon, Ray)\}$ is stable.
+
+\subsection{Marriage Problem}
+\paragraph*{Definition}
+Given a set $A$ with even cardinality (= even number of elements), partition $A$ into two disjoint subsets $A_1$ and $A_2$ with $A_1 \cup A_2 = A$ and $|A_1| = |A_2|$. A matching is a bijection from the element of one set to the element of the other set.\\
+That means that pairs can only consist of one element of $A_1$ and $A_2$ each.
+\paragraph*{Goal}
+Find a \textit{maximum stable matching} for $A_1 \cup A_2 = A$. This is called the marriage problem.
+\paragraph*{Gale-Shapley Algorithm}
+This is a greedy algorithm, also known as the deferred acceptance algorithm and propose-and-reject algorithm, used to construct a stable maximum matching to answer the marriage problem. \\
+\ind This algorithm is named after David Gale and Lloyd Shapley, who proved in 1982 that it is always possible to find a stable matching that answers the marriage problem. An very similar algorithm has been used since the 1950s to match medical school students to residency programs across the U.S.
+\begin{algorithm}
+Let $M$ be the set of pairs under construction\\
+Initially $M = \emptyset$\\
+\While{$\mid M\mid < \mid A_1\mid$}
+{Select an unpaired $x \in A_1$\\
+Let $x$ propose to the first element $y \in A_2$ on $L_x$\\
+\eIf{$y$ is unpaired}
+{Add the pair $(x,y)$ to $M$}
+{Let $x' \in A_1$ be the element that $y$ is paired to (i.e. $(x',y) \in M$\\
+\eIf{$x'$ precedes $x$ on $L_y$}{Remove $y$ from $L_x$}{Replace $(x',y) \in M$ by $(x,y)$ and remove $y$ from $L_{x'}$}}}
+\caption{Gale-Shapley Algorithm}
+\end{algorithm}
+
+\section{Unsolvable Problems}
+Can every problem be solved by an algorithm? This question was solved by Turing and the answer is "No". To prove that, Turing defined an unsolvable problem : the \textit{halting problem}.
+\paragraph*{The Halting Problem}
+$\ $\\
+\ind Can we develop a procedure that takes as input a computer program and an input and determines whether the program will eventually finish running or continue to run forever?\\
+\ind This problem is unsolvable because, as long as the program is running, we cannot determine if it will stop or not. More particularly, if a program halts, we can determine that it does in fact halt. But if it never halts, we cannot determine whether it will halt or not, until it halts, which it will not.
+\paragraph*{Decidability}
+An \textit{undecidable} problem is a decision problem for which it has been proven that no algorithm can always output a correct yes-or-no answer.
+
+\end{document}

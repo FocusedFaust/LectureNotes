@@ -11,6 +11,7 @@
 \setlength{\parindent}{20pt}
 
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
 \newcommand{\ind}{\hspace*{\parindent}}
 
 \title{AICC 1 - Notes and Summary}
@@ -188,13 +189,13 @@ Finding a word in a dictionary, finding a name in a student list, finding an amo
 \subsection{Linear Search}
 \paragraph*{Definition}
 The linear search algorithm goes through the list, one element at a time, from the first to the last.
-\begin{procedure}
-$i$ := 1\\
-location := 1\\
-\While{($i \leq n$ and $x \neq a_{i}$}{$i = i+1$}
+\begin{algorithm}
+\DontPrintSemicolon
+$i$ := 1\;
+location := 1\;
+\While{($i \leq n$ and $x \neq a_{i}$)}{$i = i+1$}
 \If{$i \leq n$}{location := $i$}
-%\caption{linear_search()}
-\end{procedure}
+\end{algorithm}
 
 \subsection{Binary Search}
 \paragraph*{Definition}
@@ -340,7 +341,7 @@ Given the set $A = \{Peter, Dana, Egon, Ray\}$ and the preference lists
 \item $L_{Egon} = [Peter, Dana, Ray]$
 \item $L_{Ray} = [Peter, Dana, Egon]$
 \end{itemize}
-The matching $\{(Ray, Dana), (Egon, Peter)\}$ is unstable but the matching $\{(Peter, Dana), (Egon, Ray)\}$ is stable.
+The matching $\{(Ray, Dana), (Egon, Peter)\}$ is unstable but the matching $\{(Peter,$\\$ Dana), (Egon, Ray)\}$ is stable.
 
 \subsection{Marriage Problem}
 \paragraph*{Definition}
@@ -352,14 +353,15 @@ Find a \textit{maximum stable matching} for $A_1 \cup A_2 = A$. This is called t
 This is a greedy algorithm, also known as the deferred acceptance algorithm and propose-and-reject algorithm, used to construct a stable maximum matching to answer the marriage problem. \\
 \ind This algorithm is named after David Gale and Lloyd Shapley, who proved in 1982 that it is always possible to find a stable matching that answers the marriage problem. An very similar algorithm has been used since the 1950s to match medical school students to residency programs across the U.S.
 \begin{algorithm}
-Let $M$ be the set of pairs under construction\\
-Initially $M = \emptyset$\\
+\DontPrintSemicolon
+Let $M$ be the set of pairs under construction\;
+Initially $M = \emptyset$\;
 \While{$\mid M\mid < \mid A_1\mid$}
-{Select an unpaired $x \in A_1$\\
-Let $x$ propose to the first element $y \in A_2$ on $L_x$\\
+{Select an unpaired $x \in A_1$\;
+Let $x$ propose to the first element $y \in A_2$ on $L_x$\;
 \eIf{$y$ is unpaired}
 {Add the pair $(x,y)$ to $M$}
-{Let $x' \in A_1$ be the element that $y$ is paired to (i.e. $(x',y) \in M$\\
+{Let $x' \in A_1$ be the element that $y$ is paired to (i.e. $(x',y) \in M$\;
 \eIf{$x'$ precedes $x$ on $L_y$}{Remove $y$ from $L_x$}{Replace $(x',y) \in M$ by $(x,y)$ and remove $y$ from $L_{x'}$}}}
 \caption{Gale-Shapley Algorithm}
 \end{algorithm}
@@ -372,5 +374,47 @@ $\ $\\
 \ind This problem is unsolvable because, as long as the program is running, we cannot determine if it will stop or not. More particularly, if a program halts, we can determine that it does in fact halt. But if it never halts, we cannot determine whether it will halt or not, until it halts, which it will not.
 \paragraph*{Decidability}
 An \textit{undecidable} problem is a decision problem for which it has been proven that no algorithm can always output a correct yes-or-no answer.
+
+\section{Efficiency of algorithms}
+In order to compare different algorithms, we have to different extreme precision degrees:
+\begin{enumerate}
+\item Precise count of everything involved (such as computer instructions, disk accesses, ...)\\
+This means that the efficiency would be a function the size of the problem, which is inconvenient and not always well-defined.
+\item "It took a few seconds on my laptop"\\
+That statement is not informative. What if you run it at NASA? And what about on a Smaky 4? Then, the time and resources needed are not predictable.
+\end{enumerate}
+Therefore, we use another way of estimating the efficiency of an algorithm (or any procedure or computation), that is the next chapter of this class.
+
+\chapter{Growth of Functions}
+\paragraph*{Introduction}
+Imagine that you run the following algorithm:
+\begin{algorithm}
+\DontPrintSemicolon
+Create a list of 3000 random numbers and sort it using bubble sort (task 1)\;
+Create $n$ lists of length 1500 and sort them using bubble sort (task 2)\;
+Create a list of length $400*n$ and sort it using bubble sort (task 3)
+\caption{$Sort\_tasks(n: integer)$}
+\end{algorithm}\\
+\ind We measure how much time is spent on each task depending on $n$ ($n = 1,2,3,...,20$) and we find that it is approximately
+\begin{itemize}
+\item[-]1000 milli-seconds for task 1, independent of $n$
+\item[-]$200\cdot n$ milli-seconds for task 2
+\item[-]$1.5\cdot n^2$ milli-seconds for task 3
+\end{itemize}
+\ind Now, we can estimate the time spent for all tasks as a function of $n$: $f(n)=1.5n^{2}+200n+1000$\\
+\ind Let $g(n)=1.5\cdot n^2$, $h(n)=200\cdot n$ and $j(n)=1000$, such that $f(n)=g(n)+h(n)+j(n)$.\\
+$\ $\\
+\ind We notice that for a small value of $n$, $j(n)$ holds the most significant value. Then, $h(n)$ takes over and, ultimately, only $g(n)$ is relevant.\\
+\paragraph*{Observation}
+\ind If we generalize that observation, let $f(n)$ estimate the time to solve a problem of size $n$. If $f(n)=g(n)+h(n)+...+j(n)$ for functions g,h,...,j: $\N \to \R$. Then, the "ultimately largest" of g,h,...,j determines the behaviour of $f$ as $n$ grows.\\
+\ind Let $g(n)$ be the "ultimately most relevant part" of $f(n)$. Then, the growth rate of $f(n)$ is independent of multiplicative constants in $g(n)$:
+$\frac{g(m)}{g(n)}=\frac{c\cdot g(m)}{c\cdot g(n)}$\\
+\ind With all of those observations, we can deduce than when considering a runtime function (here $f(n)$), we 
+\begin{itemize}
+\item[-]only focus on the part that grows the "fastest" (as we care about the cases where $n \to \infty$)
+\item[-]forget about any multiplicative constant, because the absolute value is not important here, rather than the growth
+\end{itemize}
+only focus on the part that grows the "fastest" (for $n \to \infty$)
+
 
 \end{document}

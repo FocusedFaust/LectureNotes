@@ -4,7 +4,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{multicol}
-\usepackage[ruled, lined]{algorithm2e}
+\usepackage[ruled, lined, longend]{algorithm2e}
 \usepackage[shortlabels]{enumitem}
 \usepackage{textcomp}
 
@@ -12,6 +12,7 @@
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
 \newcommand{\ind}{\hspace*{\parindent}}
 
 \title{AICC 1 - Notes and Summary}
@@ -53,21 +54,21 @@ Let $A = {0,1}$ and $B = {a,b,c}$, then
 \end{itemize}
 
 \paragraph*{Functions and Relations}
-$\ $\\
-\hspace*{\parindent}A function $f:A \to B$ can also be defined as a subset of $A \times B$, meaning, as a relation.\\
-\hspace*{\parindent}A function $f$ from $A$ to $B$ contains one, and only one ordered pair $(a,b)$ for every element $a \in A$.
+$\ $\par 
+A function $f:A \to B$ can also be defined as a subset of $A \times B$, meaning, as a relation.\par
+A function $f$ from $A$ to $B$ contains one, and only one ordered pair $(a,b)$ for every element $a \in A$.
 
 \section{Symmetric and Antisymmetric Relations}
 
 \paragraph*{Definition of symmetry}
-$\ $\\
-\hspace*{\parindent}A relation $R$ on a set $A$ is called \textit{symmetric} if, and only if, $(b,a) \in R$ whenever $(a,b) \in R$, for all $a,b \in A$.\\
-\hspace*{\parindent}Therefore, $R$ is symmetric if, and only if, $\forall x \forall y ((x,y) \in R \to (y,x) \in R)$.
+$\ $\par 
+A relation $R$ on a set $A$ is called \textit{symmetric} if, and only if, $(b,a) \in R$ whenever $(a,b) \in R$, for all $a,b \in A$.\par
+Therefore, $R$ is symmetric if, and only if, $\forall x \forall y ((x,y) \in R \to (y,x) \in R)$.
 
 \paragraph*{Definition of antisymmetry}
-$\ $\\
-\hspace*{\parindent}A relation $R$ on a set $A$ is called \textit{antisymmetric} if, and only if, $(b,a) \in R$ and $(a,b) \in R$ then $a = b$, for all $a,b \in A$.\\
-\hspace*{\parindent}Therefore, $R$ is antisymmetric if, and only if, $\forall x \forall y ((x,y) \in R \land (y,x) \in R) \to x = y$.
+$\ $\par
+A relation $R$ on a set $A$ is called \textit{antisymmetric} if, and only if, $(b,a) \in R$ and $(a,b) \in R$ then $a = b$, for all $a,b \in A$.\par
+Therefore, $R$ is antisymmetric if, and only if, $\forall x \forall y ((x,y) \in R \land (y,x) \in R) \to x = y$.
 
 \paragraph*{Remark}
 Symmetric and antisymmetric are not opposites of each other
@@ -78,9 +79,9 @@ There is only one relation for any set $A$ that is both symmetric and antisymmet
 \section{Transitive Relations}
 
 \paragraph*{Definition}
-$\ $\\
-\hspace*{\parindent}A relation $R$ on a set $A$ is called \textit{transitive}, if and only if, whenever $(a,b) \in R$ and $(b,c) \in R$, then $(a,c) \in R$ for all $a,b,c \in A$.\\
-\hspace*{\parindent}In other words, $R$ is transitive if and only if, $\forall a \forall b \forall c ((a,b) \in R \land (b,c) \in R \to (a,c) \in R$.
+$\ $\par
+A relation $R$ on a set $A$ is called \textit{transitive}, if and only if, whenever $(a,b) \in R$ and $(b,c) \in R$, then $(a,c) \in R$ for all $a,b,c \in A$.\par
+In other words, $R$ is transitive if and only if, $\forall a \forall b \forall c ((a,b) \in R \land (b,c) \in R \to (a,c) \in R$.
 
 \section{Number of Relations on a Set}
 \begin{itemize}
@@ -100,26 +101,26 @@ Given two relations $R_1$ and $R_2$, we can combine them using basic set operati
 
 \section{Composition of Relations}
 \paragraph*{Definition}
-$\ $\\
-\hspace*{\parindent}Let $R$ be a relation from a set $A$ to a set $B$. Let $S$ be a relation from $B$ to a set $C$ ($R : A \to B$ and $S : B \to C$)\\
-\hspace*{\parindent}The composite of $R$ and $S$ is the relation consisting of ordered pairs $(a,c)$, where $a \in A$, $c \in C$, and for which there exists an element $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S$.
+$\ $\par
+Let $R$ be a relation from a set $A$ to a set $B$. Let $S$ be a relation from $B$ to a set $C$ ($R : A \to B$ and $S : B \to C$)\par
+The composite of $R$ and $S$ is the relation consisting of ordered pairs $(a,c)$, where $a \in A$, $c \in C$, and for which there exists an element $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S$.
 \subparagraph*{Personal Remark}
-In other words, the composite is the relation mapping elements of $A$ to elements of $C$ according to the relations $R$ and $S$.\\
-\\
+In other words, the composite is the relation mapping elements of $A$ to elements of $C$ according to the relations $R$ and $S$.\par
+$\ $\\
 We denote the composite of $R$ and $S$ by $S \circ R$.
 
 \section{Equivalence Relations and Classes}
 \paragraph*{Definition}
-$\ $\\
-\hspace*{\parindent}A relation on a set $A$ is called an equivalence relation if, and only if, it is reflexive, symmetric and transitive.\\
-\hspace*{\parindent}Two elements $a$ and $b$ that are related by an equivalence relation are called equivalent. The notation $a \sim b$ is often used to denote equivalent elements.
+$\ $\par
+A relation on a set $A$ is called an equivalence relation if, and only if, it is reflexive, symmetric and transitive.\par
+Two elements $a$ and $b$ that are related by an equivalence relation are called equivalent. The notation $a \sim b$ is often used to denote equivalent elements.
 \paragraph*{Example}
-The relation $R = \{(a,a),(a,b),(b,b),(b,a),(c,c)\}$ on the set $A = \{a,b,c\}$ is an equivalence relation.\\
-\hspace*{\parindent}The relation $R = \{(a,b) \in \R \times \R \mid a - b \in \mathbb{Z}\}$ is an equivalence relation on the set $\mathbb{R}$.
+The relation $R = \{(a,a),(a,b),(b,b),(b,a),(c,c)\}$ on the set $A = \{a,b,c\}$ is an equivalence relation.\par
+The relation $R = \{(a,b) \in \R \times \R \mid a - b \in \mathbb{Z}\}$ is an equivalence relation on the set $\mathbb{R}$.
 \paragraph*{Definition}
-$\ $\\
-\hspace*{\parindent}Let $R$ be an equivalence relation on a set $A$. The set of all elements that are related to an element $a$ of $A$, in that relation $R$, is called the equivalence class of $a$.\\
-\hspace*{\parindent}We denote the equivalence class of an element $a$  $[a]_R$, such that \[[a]_R = \{s \mid (a,s) \in R\}\]
+$\ $\par
+Let $R$ be an equivalence relation on a set $A$. The set of all elements that are related to an element $a$ of $A$, in that relation $R$, is called the equivalence class of $a$.\par
+We denote the equivalence class of an element $a$  $[a]_R$, such that \[[a]_R = \{s \mid (a,s) \in R\}\]
 \paragraph*{Example}
 Given the set $A = \{a,b,c\}$ and the equivalence relation $R = \{(a,a),$\\$(a,b),(b,b),(b,a),(c,c)\}$\\
 Then $[a]_R = \{a,b\}$
@@ -131,8 +132,8 @@ Traditional C compilers build equivalence classes for variable names
 
 \section{Partition of a Set}
 \paragraph*{Definition}
-$\ $\\
-\hspace*{\parindent}A partition of a set $S$ is a collection of disjoint non-empty subsets of $S$ that have $S$ as their union. Mathematically, the collection of subsets $A_i$ where $i \in I$ forms a partition of $S$ if, and only if 
+$\ $\par
+A partition of a set $S$ is a collection of disjoint non-empty subsets of $S$ that have $S$ as their union. Mathematically, the collection of subsets $A_i$ where $i \in I$ forms a partition of $S$ if, and only if 
 \[A_{i} \neq \emptyset \ for \  i \in I\]
 \[A_{i} \cap A_j = \emptyset \  when \ i \neq j\]
 \[\bigcup_{i \in I}^{n} A_{i} = S\]
@@ -171,8 +172,8 @@ Algorithms and their set of instructions can be presented in different ways:
 \item Programming language (specific code)
 \end{itemize}
 \paragraph*{Pseudo-code}
-Pseudo-code is an intermediate step between natural language and code. It is precise enough that we know precisely each step but general enough that steps specific to coding (such as variable types or pointers) aren't specified.\\
-\hspace*{\parindent} This mean of writing an algorithm allows us to analyse the properties of an algorithm independently of any programming language. This is often a useful step in programming, before the implementation of any code.
+Pseudo-code is an intermediate step between natural language and code. It is precise enough that we know precisely each step but general enough that steps specific to coding (such as variable types or pointers) aren't specified.\par
+This mean of writing an algorithm allows us to analyse the properties of an algorithm independently of any programming language. This is often a useful step in programming, before the implementation of any code.
 \paragraph*{Typical problems}
 \begin{itemize}
 \item Searching Problems: finding the position of an element in a list (ordered set).
@@ -209,8 +210,8 @@ Linear search:
 \begin{itemize}
 \item[+]can be applied to \textit{any list}
 \item[-]is not efficient
-\item[-]is very slow if the element is not in the list (worst-case scenario)\\
-$\ $
+\item[-]is very slow if the element is not in the list (worst-case scenario)\par
+$\ $\par
 \end{itemize}
 \columnbreak
 Binary Search:
@@ -265,10 +266,10 @@ Optimization problems minimize or maximize some parameter over all possible inpu
 Interestingly enough, the mapping problem can be declined into different problems, according to your priority : fastest or shortest way, fewest connections, least elevation, ... However, these are more complex and precise, and involve more data than we will see during this course.
 
 \subsection{Greedy Algorithms}
-\ind Optimization problems can often be solved using a \textit{greedy algorithm}, which makes the "best" choice at each step. This means that it relies on making the locally optimal choice. However, this does not necessarily produce an optimal solution to the overall problem.\\
-\ind Thus, after presenting a greedy algorithm, we either prove that it is the optimal approach or find a counterexample to show that it is not.\\
-\ind One of the principles of greedy programming is that it never reconsiders its choices, contrary to the concept of \textit{dynamic programming}, which is exhaustive but ultimately guaranteed to find the solution.\\
-\ind Funnily enough, greedy algorithms sometimes not only find a bad solution, but produce the unique worst possible solution to certain problems.
+\ind Optimization problems can often be solved using a \textit{greedy algorithm}, which makes the "best" choice at each step. This means that it relies on making the locally optimal choice. However, this does not necessarily produce an optimal solution to the overall problem.\par
+Thus, after presenting a greedy algorithm, we either prove that it is the optimal approach or find a counterexample to show that it is not.\par
+One of the principles of greedy programming is that it never reconsiders its choices, contrary to the concept of \textit{dynamic programming}, which is exhaustive but ultimately guaranteed to find the solution.\par
+Funnily enough, greedy algorithms sometimes not only find a bad solution, but produce the unique worst possible solution to certain problems.
 
 \subsection{Cashier's Algorithm}
 \paragraph*{Problem}
@@ -293,10 +294,11 @@ If $n > 0$, then $n$ cents in change using quarters, dimes, nickels and pennies,
 \item Pennies, by contradiction : If we have 5 pennies $= 5*1 = 5$ cents, we replace them by 1 nickel ($1*5$\textcent) = 1 coin $<$ 5 coins. 
 \end{enumerate}
 \subparagraph*{Proof of Lemma 1.2}
-\textit{If $n > 0$, then $n$ cents in change using quarters, dimes, nickels and pennies, using the fewest coins possible, cannot have 2 dimes ($2*10$\textcent) and 1 nickel ($1*5$\textcent).}\\
-\ind By contradiction : If we have 2 dimes + 1 nickel $= 25$ \textcent, we replace them with 1 quarter $= 25$ \textcent.
+\textit{If $n > 0$, then $n$ cents in change using quarters, dimes, nickels and pennies, using the fewest coins possible, cannot have 2 dimes ($2*10$\textcent) and 1 nickel ($1*5$\textcent).}\par
+By contradiction : If we have 2 dimes + 1 nickel $= 25$ \textcent, we replace them with 1 quarter $= 25$ \textcent.
 \subparagraph*{Proof of Lemma 1.3}
-\textit{Given $n$ cents, with $n > 0$, then the total amount of change in dimes, nickels and pennies cannot exceed 24 cents.}\\
+\textit{Given $n$ cents, with $n > 0$, then the total amount of change in dimes, nickels and pennies cannot exceed 24 cents.}\par
+Per Lemma 1.1, we have at most 2 dimes, 1 nickel and 4 pennies, which is worth 29 cents. Per Lemma 1.2, we cannot have 2 dimes and 1 nickel. If we remove the nickel, which holds the least value, the total is 24 cents.
 \subparagraph*{Proving Optimality}
 Theorem : The greedy change-making algorithm for U.S. coins produces change using the fewest coins possible.
 Proof by contradiction :
@@ -341,7 +343,7 @@ Given the set $A = \{Peter, Dana, Egon, Ray\}$ and the preference lists
 \item $L_{Egon} = [Peter, Dana, Ray]$
 \item $L_{Ray} = [Peter, Dana, Egon]$
 \end{itemize}
-The matching $\{(Ray, Dana), (Egon, Peter)\}$ is unstable but the matching $\{(Peter,$\\$ Dana), (Egon, Ray)\}$ is stable.
+The matching $\{(Ray, Dana), (Egon, Peter)\}$ is unstable, because we can exchange Peter and Ray (Peter and Dana prefer each other to their assigned matches). Therefore, the matching $\{(Peter, Dana), (Egon, Ray)\}$ is stable.
 
 \subsection{Marriage Problem}
 \paragraph*{Definition}
@@ -401,10 +403,10 @@ Create a list of length $400*n$ and sort it using bubble sort (task 3)
 \item[-]$200\cdot n$ milli-seconds for task 2
 \item[-]$1.5\cdot n^2$ milli-seconds for task 3
 \end{itemize}
-\ind Now, we can estimate the time spent for all tasks as a function of $n$: $f(n)=1.5n^{2}+200n+1000$\\
-\ind Let $g(n)=1.5\cdot n^2$, $h(n)=200\cdot n$ and $j(n)=1000$, such that $f(n)=g(n)+h(n)+j(n)$.\\
-$\ $\\
-\ind We notice that for a small value of $n$, $j(n)$ holds the most significant value. Then, $h(n)$ takes over and, ultimately, only $g(n)$ is relevant.\\
+\ind Now, we can estimate the time spent for all tasks as a function of $n$: $f(n)=1.5n^{2}+200n+1000$\par
+Let $g(n)=1.5\cdot n^2$, $h(n)=200\cdot n$ and $j(n)=1000$, such that $f(n)=g(n)+h(n)+j(n)$.\par
+$\ $\par
+We notice that for a small value of $n$, $j(n)$ holds the most significant value. Then, $h(n)$ takes over and, ultimately, only $g(n)$ is relevant.
 \paragraph*{Observation}
 \ind If we generalize that observation, let $f(n)$ estimate the time to solve a problem of size $n$. If $f(n)=g(n)+h(n)+...+j(n)$ for functions g,h,...,j: $\N \to \R$. Then, the "ultimately largest" of g,h,...,j determines the behaviour of $f$ as $n$ grows.\\
 \ind Let $g(n)$ be the "ultimately most relevant part" of $f(n)$. Then, the growth rate of $f(n)$ is independent of multiplicative constants in $g(n)$:
@@ -415,6 +417,49 @@ $\frac{g(m)}{g(n)}=\frac{c\cdot g(m)}{c\cdot g(n)}$\\
 \item[-]forget about any multiplicative constant, because the absolute value is not important here, rather than the growth
 \end{itemize}
 only focus on the part that grows the "fastest" (for $n \to \infty$)
+
+\chapter{Incursion, Recursion}
+Induction and recursion are different approaches to proving 
+results and solving problems.\\
+They both in the first place rely on the ability to achieve the 
+desired result for the smallest possible version of the problem 
+at hand.\\
+Induction extends this ability to problems of any size, while recursion reduces a problem of any size to the smallest 
+possible ones.\\
+\paragraph*{Definition}
+A \textit{recursive definition} of a function $f$ with the set of non-negative integers as its domain consists of two steps:\\
+\ind Basis step: specify the value of $f$ at 0.\\
+\ind Recursive step: Give a rule for finding its value at $f(n)$, with $n$ an integer, from its values at smaller values of $n$.\\
+A function $f(n): \Z_{\geqslant 0} \to \R$ is the same as a sequence $a_0,a_1,a_2,...$ where $a_i$ is a real number for every $i \in \Z_{\geqslant 0}$\footnote{aka a "\textit{suite}" $(a_n)$}.\\
+Recursive functions can be seen as a more generalized general version of recursive sequences, because their domain of definition is not limited to integers.
+\paragraph*{Example}
+The factorial function $n!$ can be defined recursively as $f(0)=1$ (basis step) and $f(n+1)=(n+1)\cdot f(n)$.\\
+The Fibonacci numbers are defined as\\
+$f_{0}=0$\\$f_{1}=1$\\$f_{n}=f_{n-1}+f_{n-2}$
+\section{Recursion on Strings}
+\paragraph*{Definition}
+The set $\Sigma^{*}$ of strings over the alphabet $\Sigma$ is defined inductively by\par
+Basis step: $\lambda \in \Sigma^{*}$ (where $\lambda$ is the empty string)\par
+Inductive step: If $w \in \Sigma^{*}$ and $x \in \Sigma$ ($x$ is a character), then $wx \in \Sigma^{*}$\\
+The recursive definition of $l(w)$, the function returning the length of the string $w$ is:\par
+Basis step: $l(\lambda)=0$\par
+Recursive step $l(wx)=l(w)+1$ if $w\in \Sigma^{*}$ (a sequence of characters) and $x \in \Sigma$ (a single character).
+\paragraph*{Theorem}
+$l(xy)=l(x)+l(y)$, where $x$ and $y$ belong to $\Sigma^{*}$, the set of strings over the alphabet $\Sigma$.\\
+Here the induction proof is not over $P(n)$ but over $P(x,y)$. In order to do the proof, we have to focus on one parameter only: $P(x,y)$ becomes $P(y)= \forall x \in \Sigma^{*}, l(xy)=l(x)+l(y)$
+\begin{itemize}
+\item Basis step: we always use $\lambda = ""$ as the base case for strings\\
+$\forall x \in \Sigma^{*}, l(x\lambda) = l(x)+l(\lambda) = l(x)$
+\item Inductive step: $P(y) \to P(yc)$ is true $\forall c \in \Sigma$ (c is a character)\\
+$P(yc) = \forall x \in \Sigma^{*},\ l(xyc) = l(xy) + 1$ (by definition of recursive $l$)\\
+$\hspace*{100pt} = l(x) + l(y) +1$ (by induction hypothesis)\\
+$\hspace*{100pt} = l(x) + l(yc)$ (by definition of recursive $l$)
+\end{itemize}
+\section{Recursive Algorithms}
+An algorithm is called \textit{recursive} if it solves a problem by reducing it to an instance of the same problem with a smaller input.\par
+For the algorithm to terminate, the instance of the problem must eventually be reduced to some initial case for which the solution is known.
+
+
 
 
 \end{document}

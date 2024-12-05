@@ -4,6 +4,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{multicol}
+\usepackage{hyperref}
 \usepackage[ruled, lined, longend]{algorithm2e}
 \usepackage[shortlabels]{enumitem}
 \usepackage{textcomp}
@@ -21,26 +22,61 @@
 
 \begin{document}
 \maketitle
+\tableofcontents
+\newpage
 
-\pagebreak
 
 \section*{Introduction}
+These are my notes for the Advanced Information, Communication and Computation I (CS-101) course given during the fall semester of 2024 at EPFL. Please note that the content is not mine but belongs to Professor Thomas Bourgeat and Professor Tanja Käser, who taught it. I have however changed some formulations, added definitions from other sources and personal notes, when I thought it useful.\par
+This summary is not exempt of errors. If you find one, you can contact me at my EPFL e-mail address: \texttt{\href{mailto:faustine.flicoteaux@epfl.ch}{faustine.flicoteaux@epfl.ch}} or through the GitHub page \url{https://github.com/FocusedFaust/LectureNotes}.
 
-These are my notes for the Advanced Information, Communication and Computation I course given during the fall semester of 2024.\\
-They are not be exempt of errors. If you find one, please contact me at $faustine.flicoteaux@epfl.ch$.
-
+\part{Logic and Mathematical Reasoning}
 
 \chapter{Propositional Logic}
-
-This is some text
+\section{What is Logic?}
+Logic is the "language of mathematics". It is more precise than human language by avoiding expression interpretation (imprecise 'if', 'or', 'then', ...), which you will see when presented with propositions later. Logic is also the basis for mathematical proofs and automated reasoning, which we will both study during the semester. Finally, logic is omnipresent in computing (if condition is true, then do something).\par 
+Logic is about statements that are either \textbf{true} or \textbf{false}. \par 
+We will start by studying \textit{propositional logic}, which is the most basic form of logic.
+\paragraph{First, a bit of background}
+Logic was first developed by Greek philosophers to formalize reasoning. Then, modern mathematicians formulated propositional logic.\par 
+Though basic, propositional logic introduces many fundamental concepts for mathematics (and computer science) such as formal language, variables and operators, axioms, inference, proof, truth value, ...\par 
+A point of importance is that, for anything expressed in propositional logic, we can automatically decide whether it is true or false, which is not the case for other logics.
+\section{Propositions}
+A \textit{proposition} is a declarative sentence that is either true or false.
+\paragraph*{Atomic Propositions}
+An atomic proposition is a proposition that cannot be expressed as simpler propositions. We use letters to denote these propositional variables: $p,q,r,s,...$\\
+A proposition that is always true is denoted by T\\
+A proposition that is always false is denoted by F
+\paragraph*{Compound Proposition}
+Compound propositions are constructed using logical connectives and other propositions. The logical connectives are:
+\begin{itemize}
+\item[-] Negation $\neg$
+\item[-] Conjunction $\land$
+\item[-] Disjunction $\lor$
+\item[-] Implication $\Rightarrow$
+\item[-] Biconditional $\Leftrightarrow$
+\end{itemize}
+\paragraph*{Truth tables}
+A \textit{truth table} lists all possible truth values of the propositional variables occurring in a compound proposition and the corresponding truth values of the compound proposition.
+\paragraph*{Negation}
+Let $p$ be a proposition. The negation of $p$, denoted by $\neg p$ (or $\bar{p}$), is the statement "It is not the case that $p$".\par 
+The proposition $\neg p$ is read "not $p$". The truth value of $\neg p$ is the opposite of the truth value of $p$. \par
+$\Rrightarrow$ $\neg T = F$, $\neg F = T$
+\begin{tabular}{ c c c }
+ cell1 & cell2 & cell3 \\ 
+ cell4 & cell5 & cell6 \\  
+ cell7 & cell8 & cell9    
+\end{tabular}
+\paragraph*{Conjunction}
+Let $p$ and $q$ be propositions 
 
 \chapter{Predicate Logic}
 
 This is some other text
 
-\chapter{Relations}
+\part{Basic Structures}
 
-\section{Binary relations}
+\chapter{Binary relations}
 
 \paragraph*{Definition}
 A binary relation $R$ from a set $A$ to a set $B$ is a subset R $\subseteq A \times B$.
@@ -154,9 +190,9 @@ When $a$ and $b$ are elements of a poset $(S,\preceq)$, it is not necessary that
 \paragraph*{Example}
 $(\mathbb{Z},|)$ is a poset. However, not all elements are comparable. 3 and 9 or 2 and 4 are comparable but 5 and 7 aren't.
 
-\chapter{Algorithms}
+\part{Algorithms}
 
-\section{What is an algorithm?}
+\chapter{What is an algorithm?}
 An algorithm is a finite sete of well-defined instructions, in order to perform a specific task, for example
 \begin{itemize}
 \item to perform a computation ($x^2 + 3$, $\sum_{i=1}^{n} 4n$)
@@ -387,7 +423,7 @@ That statement is not informative. What if you run it at NASA? And what about on
 \end{enumerate}
 Therefore, we use another way of estimating the efficiency of an algorithm (or any procedure or computation), that is the next chapter of this class.
 
-\chapter{Growth of Functions}
+\chapter{Growth of Functions and Algorithm Complexity}
 \paragraph*{Introduction}
 Imagine that you run the following algorithm:
 \begin{algorithm}
@@ -417,15 +453,132 @@ $\frac{g(m)}{g(n)}=\frac{c\cdot g(m)}{c\cdot g(n)}$\\
 \item[-]forget about any multiplicative constant, because the absolute value is not important here, rather than the growth
 \end{itemize}
 only focus on the part that grows the "fastest" (for $n \to \infty$)
+\section{Big-O Notation}
+Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that \textbf{$f(x)$ is $\mathcal{O}(g(x))$} if there exist constants $C$ and $k$ such that
+\[\mid f(x)\mid \leq C\mid g(x)\mid,\ whenever\ x>k\] 
+This is read as "$f(x)$ is big-$O$ of $g(x)$" or "\textit{g is an asymptotical bound (above) for f}" which is a complicated way to say that it is an upper bound (or limit) on the growth rate of $f$.\par
+The constants $C$ and $k$ are called witnesses to the big-$O$ relationship. Only one pair of witnesses is needed. However, to show that $f(x)$ is \textit{not} big-$O$ of $g(x)$, we have to show that we cannot find such a pair. This can be done using a proof by contradiction.
+\paragraph*{Example and common uses}
+\begin{align*}
+&75 \text{ is } \mathcal{O}(1) &&\text{ and }1\text{ is }\mathcal{O}(75)\\
+&cos(x)\text{ is also }\mathcal{O}(1)&&\text{ and }sin(x)\text{ is }\mathcal{O}(1)\\
+&1\text{ is }\mathcal{O}(x) &&\text{ but }x\text{ is not }\mathcal{O}(1)\\
+&x\text{ is }\mathcal{O}(x^2) &&\text{ but }x^2\text{ is not }\mathcal{O}(x)\\
+&x^2\text{ is }\mathcal{O}(x^2) &&\text{ and }x^2\text{ is }\mathcal{O}(x^3)\\
+&x^2\text{ is }\mathcal{O}(6x^2+x+3) &&\text{ and }6x^2+x+3\text{ is }\mathcal{O}(x^2)&
+\end{align*}
+However, We rarely use $\mathcal{O}(6x^2+x+3)$ and $\mathcal{O}(75)$ because our goal is to simplify, so that it is easy to grasp the growth rate of a function.
+\subsection{Big-O Estimates for Polynomials}
+$\ $\\
+\textbf{Theorem:} Let $f(x)=a_nx^n+a_{n-1}x^{n-1}+...+a_1x^1+A_0$ where $a_0,a_1,...,a_n$ are real numbers with $a_n \neq 0$.\par 
+Then $f(x)$ is $\mathcal{O}(x^n)$. The leading term $a_nx^n$ of a polynomial dominates its growth.\par
+It follows that if a polynomial is $\mathcal{O}(x^n)$, then its degree is $\leqslant n$.
+\subsection{Combinations of Functions}
+Many algorithms are made up of two or more separate sub-procedures. The number of steps used by a computer to solve a problem with an input of a specified size $n$ using such an algorithm is the sum of the number of steps used by these sub-procedures.
+\paragraph*{Sum of functions}
+$\ $\par
+\textbf{Theorem:} Suppose that $f_{1}(x)$ is $\mathcal{O}(g_{1}(x))$ and that $f_{2}(x)$ is $\mathcal{O}(g_{2}(x))$. Then $(f_{1}+f_{2})(x)$ is $\mathcal{O}(g(x))$ where $g(x)=max(|g_1(x)|, |g_2(x)|)$ for all $x$.\par
+\textbf{Corollary:} Suppose that $f_{1}(x)$ and $f_{2}(x)$ are both $\mathcal{O}(g(x))$. Then $(f_{1}+f_{2})(x)$ is $\mathcal{O}(g(x))$.
+\paragraph*{Product of functions}
+$\ $\par 
+\textbf{Theorem:} Suppose that $f_{1}(x)$ is $\mathcal{O}(g_{1}(x))$ and that $f_{2}(x)$ is $\mathcal{O}(g_{2}(x))$. Then $(f_{1}\cdot f_{2})(x)$ is $\mathcal{O}(g_1(x)\cdot g_2(x))$.
+\paragraph*{Transitivity}
+$\ $\par
+Suppose that $f(x)$ is $\mathcal{O}(g(x))$ and $g(x)$ is $\mathcal{O}(h(x))$. Then $f(x)$ is $\mathcal{O}(h(x))$.
+\subsection{Useful Big-O Estimates}
+\begin{itemize}
+	\item{\makebox[7cm]{$n^c$ is $\mathcal{O}(n^d)$ but $n^d$ is not $\mathcal{0}(n^c)$\hfill} for $d > c > 1$}
+    \item{\makebox[7cm]{$(log_bn)^c$ is $\mathcal{O}(n^d)$, but $n^d$ is not $\mathcal{O}((log_bn)^c)$\hfill} for $b>1,c,d>0$}
+    \item{\makebox[7cm]{$n^d$ is $\mathcal{O}(b^n)$ but $b^n$ is not $\mathcal{O}(n^d)$\hfill} for $d>0,b>1$}
+    \item{\makebox[7cm]{$b^n$ is $\mathcal{O}(c^n)$ but $c^n$ is not $\mathcal{O}(b^n)$\hfill} for $c>b>1$}
+    \item{\makebox[7cm]{$c^n$ is $\mathcal{O}(n!)$ but $n!$ is not $\mathcal{O}(c^n)$\hfill} for $c>1$}
+\end{itemize}
+%ADD GRAPH ON GROWTH FUNCTIONS WITH EXPONENTIAL SCALE
+\paragraph*{Notation}
+If we want to write a big-O relation with mathematical signs, we can write $f(x) \in \mathcal{O}(g(x))$, because $\mathcal{O}(g(x))$ represents the set of functions that are $\mathcal{O}(g(x))$.
+\paragraph*{Summary of Big-O Notation and nomenclature}
+\begin{itemize}
+	\item{\makebox[4cm]{Constant: \hfill} $\mathcal{O}(1)$}
+    \item{\makebox[4cm]{Logarithmic: \hfill} $\mathcal{O}(logx)$}
+    \item{\makebox[4cm]{Poly-logarithmic:\hfill} $\mathcal{O}((logx)^d),d>1$}
+    \item{\makebox[4cm]{Linear:\hfill} $\mathcal{O}(x)$}
+    \item{\makebox[4cm]{Linearithmic:\hfill} $\mathcal{O}(xlogx)$}
+    \item{\makebox[4cm]{Polynomial:\hfill} $\mathcal{O}(x^d),d>1$}
+    \item{\makebox[4cm]{Exponential:\hfill} $\mathcal{O}(b^x),b>1$}
+    \item{\makebox[4cm]{Factorial:\hfill} $\mathcal{O}(x!)$}
+\end{itemize}
+\section{Big-Omega Notation}
+Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that \textbf{$f(x)$ is $\Omega (g(x))$} if there are constants $C > 0$ and $k$ such that \[\mid f(x)\mid \geq C\mid g(x)\mid\text{ whenever }x > k\]\par
+This is read as "$f(x)$ is big-Omega of $g(x)$". Big-Omega tells us that a function grows \textit{at least as fast} as another (big-Omega is the lower bound to the growth of a function).\par 
+$f(x)$ is $\Omega (g(x))$ if and only if $g(x)$ is $\mathcal{O}(f(x))$
+\section{Big-Theta Notation}
+Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that \textbf{$f(x)$ is $\Theta (g(x))$} if $f(x)$ is $\mathcal{O}(g(x))$ and $f(x)$ is $\Omega (g(x))$\par
+This is read as "$f(x)$ is big-Theta of $g(x)$" or $f(x)$ is of \textit{order} $g(x)$". \par 
+$f(x)$ is $\Theta (g(x))$ if and only if there exist positive constants $C_1,C_2$ and $k$ such that \[C_1\mid g(x)\mid \leq \mid f(x)\mid \leq C_2\mid g(x)\mid \text{ if }x>k\]\par
+When $f(x)$ is $\Theta (g(x))$ then $g(x)$ is $\Theta (f(x))$
+\subsection{Big-Theta Estimates for Polynomials}
+\paragraph*{Theorem}
+Let $f(x)=a_nx^n+a_{n-1}x^{n-1}+...+a_1x^1+A_0$ where $a_0,a_1,...,a_n$ are real numbers with $a_n \neq 0$.\par
+We already saw that the leading term $a_nx^n$ of a polynomial dominates its growth. Then $f(x)$ is of order $x^n$ or $f(x)$ is $\Theta (x^n)$.
+\section{Little-o Notation}
+We say that \textbf{$f(x)$ is $o (g(x))$} if \[ \lim_{x\to\infty} \frac{f(x)}{g(x)} = 0 \]
+We also say the "$f$ is little-o of $g$" or "$f$ is little-omicron of $g$"
+\paragraph*{Examples}
+$\ $\par
+$x^2$ is $\mathcal{O}(x^3)$ and it is also $o(x^3)$ as $\lim_{x\to \infty} \frac{x^2}{x^3} = 0$\par
+$x^2+x+1 is \mathcal{O}(x^2)$ but it is not $o(x^2)$ as $\lim_{x\to \infty} \frac{x^2+x+1}{x^2} =1$\par 
+In general, we can say that $x^n$ is $o(x^{n+1})\ \forall x \geq 0$ because $\lim_{n\to \infty} \frac{x^n}{x^{n+1}} =0$
+\subsection{Little-o and Big-O}
+If $f(x)$ and $g(x)$ are functions such that $f(x)$ is $o(g(x))$, then $f(x)$ is $\mathcal{O}(g(x))$\par 
+However, if $f(x)$ is $\mathcal{O}(g(x))$, it does not necessarily follow that $f(x)$ is $o(g(x))$.\par 
+$f(x) \in o(g(x)) \implies f(x) \in \mathcal{O}(g(x))$
+\paragraph*{Theorem: finite limit and Big-O}
+$\ $\par 
+If $\lim_{x\to \infty} \frac{f(x)}{g(x)}=c$ with $c$ finite, then $f(x) \in \mathcal{O}(g(x))$\par 
+This is proved as follows:
+\begin{enumerate}
+\item $\forall \varepsilon >0, \forall x>k, |\frac{f(x)}{g(x)} -c| \leqslant \varepsilon$ (definition of the limit)
+\item $|\frac{f(x)}{g(x)}| \ =\ |\frac{f(x)}{g(x)} -c +c| \ \leqslant \ |\frac{f(x)}{g(x)} -c| + |c|\ =\ \varepsilon+|c|$
+\item We take $\varepsilon = 1$ (but we can pick any value we want). $|\frac{f(x)}{g(x)}|\ \leqslant \ 1+|c|$.
+\item It follows that $|f(x)|\ \leqslant \ (1+|c|)\ |g(x)|$
+\end{enumerate}
+\section{Back on Algorithm Complexity}
+Given an algorithm, we want to measure how efficient it is for solving a problem given an input of a particular size (\textit{computational complexity}). For that, we differentiate two types:
+\begin{itemize}
+\item \textbf{Time complexity}: How much time is needed to solve the problem of an input of a given size
+\item \textbf{Space complexity}: How much computer memory is used
+\end{itemize}
+Understanding complexity is important to understand whether it is practical to use an algorithm for inputs of a particular size and to compare the efficiency of different algorithms designed to solve the same problem.\par 
+This course focuses only on time complexity, which corresponds to the number of operations performed is the algorithm is sequential. To describe that, we will use big-O and big-Theta notation. We will also ignore implementation details, because that is too complicated for the scope of this course.\par 
+To determine time complexity, we need to determine the number of basic operations (such as addition, multiplication, comparisons, swaps, etc.) while ignoring details like the "house keeping" aspects of the algorithm (storing a value in a variable, incrementing a variable, etc.).\par 
+\subsection{Worst-case Time Complexity}
+Sometimes, the number of operations depends on the exact configuration of the input (a position in a list, ...), which is why we focus on the \textit{worst-case} time complexity of an algorithm. This provides an upper bound on the number of operations depending on the input size. It is generally much more difficult to determine the \textit{average case} time complexity, which is the average number of operations for all inputs of a particular size.
+\subsection{Complexity of important algorithms}
+Worst case complexities
+\begin{itemize}
+\item Linear Search: $\Theta (n)$
+\item Binary Search: $\Theta (log_2(n))$
+\item Bubble Sort: $\Theta (n^2)$
+\item Insertion Sort: $\Theta (n^2)$
+\item Selection Sort: $\Theta (n^2)$
+\end{itemize}
+\subsection{Effect of Complexity}
+A single operation takes around $10^{-9}$ seconds, meaning we perform 1 billion bit operations per second (on a processor running at 1 GHZ).\par 
+The bigger the time complexity of an algorithm, the longer it takes to run on any computer. For example, an algorithm that is $\Theta (n\cdot log(n))$ takes $2\cdot 10^{-2}$ seconds for an input of size $10^6$ but an algorithm of complexity $n^2$ would take 17 minutes. That difference does not seem like much when we only use algorithms with small input sizes in our daily lives but is is crucial in companies using large databases.
+\subsection{Complement: Decreasing Complexity}
+This was not seen during class, but I thought it interesting to add as a complement. \\
+Consider the following problem: \par 
+Given a sequence $(a_n)$, you want to find a value $j$ such that there exists an element $a_i$ of the sequence that in a given range $[a,b]$ for $i<j$. This means that, the greater the value of $b-a$, the less you will have to compute the sequence to find a value in that range.\par 
+For example, if we take the sequence $a_n = n\cdot sin(n)$, we will have $(a_n)$ between $n$ and $-n$. If we want to get a value between a small range $[a,b]$, we will have to compute a lot of values of $(a_n)$. However, for a bigger range, it is much more likely that there will be a value within that range early on. In this example, the complexity is $\frac{1}{b-a}$.
 
-\chapter{Incursion, Recursion}
+\chapter{Induction, Recursion}
 Induction and recursion are different approaches to proving 
-results and solving problems.\\
+results and solving problems.\par
 They both in the first place rely on the ability to achieve the 
 desired result for the smallest possible version of the problem 
-at hand.\\
+at hand.\par
 Induction extends this ability to problems of any size, while recursion reduces a problem of any size to the smallest 
-possible ones.\\
+possible ones.
 \paragraph*{Definition}
 A \textit{recursive definition} of a function $f$ with the set of non-negative integers as its domain consists of two steps:\\
 \ind Basis step: specify the value of $f$ at 0.\\
@@ -457,9 +610,251 @@ $\hspace*{100pt} = l(x) + l(yc)$ (by definition of recursive $l$)
 \end{itemize}
 \section{Recursive Algorithms}
 An algorithm is called \textit{recursive} if it solves a problem by reducing it to an instance of the same problem with a smaller input.\par
-For the algorithm to terminate, the instance of the problem must eventually be reduced to some initial case for which the solution is known.
+For the algorithm to terminate, the instance of the problem must eventually be reduced to some initial case for which the solution is known.\par 
+The first step is to find a recursive definition of the problem (or function).\par 
+The second step is to write a method (using pseudocode first) that solves the problem using the recursive definition
+\paragraph*{Example}
+To compute the factorial $n!$ of an integer $n \geqslant 0$, we do the following:
+\begin{enumerate}
+\item[-] Step 1: recursive definition of factorial function $n!$
+\item[-] Step 2: recursive procedure for computation of factorial
+\end{enumerate}
+\begin{procedure}
+\caption{factorial(n: non-negative integer)}
+\DontPrintSemicolon
+\SetAlgoNoEnd
+
+\eIf{$n=0$}{\KwRet 1}{\KwRet $n\cdot factorial(n-1)$}
+\end{procedure}
+\subsection{Intermezzo: Call Stack}
+A call stack stores information about the active subroutines of a program and works kind of like a pile of books: 
+\begin{itemize}
+\item[-] the caller pushes the return address onto the stack
+\item[-] the called subroutine, when it finished, pulls or pops the return address off the call stack and transfers control to that address
+\end{itemize}
+An active subroutine is one that has been called but is yet to complete execution, after which control is handed back to the caller (or point of call). One common error in programming is that of \texttt{StackOverflow Error}. This means that all the space allocated for the call stack has been consumed, generally by an infinitely recursive function.\par 
+\paragraph*{Example}
+If we take once again our example of the recursive factorial with a value of $n=6$, we first add to the call stack \texttt{factorial(6)}. The function becomes \texttt{return 6$\cdot$factorial(5)} and then \textit{calls} \texttt{factorial(5)}. This goes on until \texttt{factorial(2)} becomes \texttt{return 2$\cdot$factorial(1)}. This finally calls \texttt{factorial(1)}, which returns 1. The control is then return to \texttt{return 2$\cdot$factorial(1)} and so on, until the stack is empty.
+\section{Recursion and Iteration}
+We can evaluate a recursively defined function using a:
+\begin{itemize}
+\item Recursive algorithm: applies directly the recursive definition until the base is reached
+\item Iterative algorithm: starts with the base cases and applies the recursive definition to compute the function for larger values
+\end{itemize}
+\paragraph*{Example}
+Our goal is to compute $a^n$ where $a \in \R^{*}$ and $n>0$\par 
+\begin{procedure}
+\caption{power recursive(a, n)}
+\DontPrintSemicolon
+\SetAlgoNoEnd
+\eIf{n=0}{\KwRet 1}{\KwRet $a\cdot power(a,n-1)$}
+\end{procedure}
+\begin{procedure}
+\caption{power iterative(a, n)}
+\DontPrintSemicolon
+\SetAlgoNoEnd
+res = 1\;
+\For{$i=1$ \KwTo $n$}{res = a*res}
+\KwRet res
+\end{procedure}
+\subsection{Divide and Conquer}
+Strategy for solving a problem of size $n$:
+\begin{enumerate}
+\item \textbf{Divide}:
+\begin{itemize}
+\item if $n>1$: divide the problem of size $n$ into 2 (almost) equally sized subproblems
+\item else: solve the problem of size 1 directly
+\end{itemize}
+\item \textbf{Conquer}: solve the subproblems in the same way (recursively)
+\item \textbf{Merge}: merge the subsolutions into an overall solution
+\end{enumerate}
+\paragraph*{Example: Binary Search}
+Assume we have $a_1,a_2,...,a_n$ an increasing sequence of integers. We are looking for an element $x$ in this sequence.
+\begin{enumerate}
+\item Divide:
+\begin{enumerate}
+\item if $n>0$: find the middle element $a_m$ of the list
+\item else: the sequence is empty, $x$ is not in the list
+\end{enumerate}
+\item Conquer:
+\begin{enumerate}
+\item if $x=a_m$: we have found the element $x$ and can stop the search here
+\item if $x<a_m$: search the left half (up to $a_{m-1}$)
+\item if $x>a_m$: search the right half (from $a_{m+1}$ up)
+\end{enumerate}
+\end{enumerate}
+The pseudocode for that algorithm would look something like this:
+\begin{procedure}
+\caption{binary search(x,l,r: integers)}
+\DontPrintSemicolon
+\SetAlgoNoEnd
+\eIf{$l>r$}{\KwRet -1}{m:=$\lfloor (l+r)/2\rfloor$\;
+\If{$x<a_m$}{$binary\_search(x,l,m-1)$}\ElseIf{$x>a_m$}{$binary\_search(x,m+1,r)$}\Else{\KwRet $m$}}
+\end{procedure}
+We can see that each time, the length $n$ of the sequence is divided by 2. This corresponds to a complexity of $\mathcal{O}(log(n))$.\par 
+Sorting algorithms like Bubble Sort previously had a complexity$\in \Theta(n^2)$. Now, Merge Sort is significantly faster in sorting a sequence $S$ of size $n$.
+\subsection{Merging two sorted lists}
+Traverse the two lists simultaneously from left to right. Always take the smaller element of the two lists.
+\begin{procedure}
+\caption{merge($L_1,L_2$: sorted lists)}
+\DontPrintSemicolon
+\SetAlgoNoEnd
+$L$ := empty lists
+\While{$L_1$ and $L_2$ are both non-empty}{remove smallest of first elements of $L_1$ and $L_2$ from its list\;
+put it at the right end of $L$\;
+\If{this removal make one list empty}{remove all elements from the other list and append them to $L$}}
+\KwRet $L$
+\end{procedure}\\
+The worst case for this procedure is when the two list alternate, because we have to keep comparing elements. This means $|L_1|+|L_2|-1$ comparisons.
+\paragraph{Merge Sort Complexity}
+Merge sort works as follows:\\
+\begin{procedure}
+\caption{mergesort($L=a_1,a_2,...,a_n$)}
+\DontPrintSemicolon
+\SetAlgoNoEnd
+\If{$n>1$}{
+$m := \lfloor n / 2 \rfloor$\;
+$L_1 := a_1,a_2,...,a_m$\;
+$L_2 := a_{m+1},a_{m+2},...,a_n$\;
+$L := merge(mergesort(L_1),mergesort(L_2))$}
+\end{procedure}\\
+Merge sort works in layers ($k$). We set $n=2^m \Leftrightarrow m=log_2(n)$.\par 
+At $k=0$, we have 1 list of length $2^m=n$.\par 
+At $k=1$, we have 2 lists of length $2^{m-1}=\frac{n}{2}$.\par
+...\par
+At $k=m$, we have $2^m$ lists of length $1$. \\
+Now, we go backwards and merge lists\par
+At $k=m$ we need to do $2^{m-1}$ merges between lists of size 1, with a complexity of range $1+1-1=2-1$\par 
+At $k=m-1$, we have $2^{m-1}$ lists and do $2^{m-2}$ merges between lists of size 2, with a complexity range of $2+2-1=4-1$\par 
+If we generalize, for any k, we have $2^k$ lists and $2^{k-1}$ merges to do, which is a complexity of $2^{m-k} + 2^{m-k} -1 = 2^{m-k+1} -1 = 2^{m-(k-1)} -1$\\
+The total complexity is 
+\begin{align*}
+\sum_{k=1}^{m} \overbrace{2^{k-1}}^{nb.\ merges} \cdot (2^{m-(k-1)} -1) &= \sum_{k=1}^m (2^{m-(k-1)+(k-1)}-2^{k-1})\\
+&= m\cdot 2^m - \sum_{k=1}^{m} 2^{k-1}\\
+&= m\cdot 2^m - \underbrace{\dfrac{1-2^m}{1-2}}_{negligible} \in \mathcal{O}(m\cdot 2^m) = \mathcal{O}(nlog_2(n))
+\end{align*}
+
+\section{Number Representation}
+\subsection{Representation of Integers}
+In general, we use decimal notation to represent integers. For example, 965 represents 9 hundreds + 6 tens + 5 ones or $9\cdot 10^2+6\cdot 10^1+5\cdot 10^0$. We also call this \textit{base 10} notation.\par 
+However, different contexts call for different representations. For example, computers use binary numbers or base 2 notation.\par 
+We can represent numbers using any base $b$ where $b$ is a positive integer greater than 1. As an example, the ancient Mayans used a base 20 and the ancient Babylonians used base 60.\par 
+The ones we will use most in computing and communications are bases $b=2$(binary), $b=8$(octal) and $b=16$(hexadecimal).
+\subsection{Base $b$ representation}
+For a base $b$ ($b$ > 1) and any positive integer $n$, there is a unique choice of 
+\begin{itemize}
+\item $k$, a non-negative integer
+\item $a_0,a_1,...,a_k$ integers with $0 \leq a_j \leq b-1$ and $a_k \neq 0$
+\end{itemize}
+\[n=a_kb^k+a_{k-1}b^{k-1}+...+a_1b+a_0\]
+The $a_j$ coefficients are called the base $b$ digits of the representation
+\subsection{Base $b$ expansion of $n$}
+For a positive integer $n$, when $n=a_{k}b^{k}+a_{k-1}b^{k-1}+...+a_1b+a_0$, we write \[(a_k a_{k-1} ... a_1 a_0)_b \] the representation in base $b$ of $n$.
+\subsection{Common Bases}
+\begin{itemize}
+\item{\makebox[6cm]{Decimal Expansion\hfill} base 10}
+\item{\makebox[6cm]{Binary Expansion\hfill} base 2}
+\item{\makebox[6cm]{Octal Expansion\hfill} base 8}
+\item{\makebox[6cm]{Hexadecimal Expansion\hfill} base 16}
+\end{itemize}
+\paragraph*{Example}
+$(17)_{10} = 1\cdot 10^1 + 7\cdot 10^0 = (10001)_2 = 1\cdot 2^4 + 1\cdot 2^0 = (21)_8 = 2\cdot 8^1 + 1\cdot 8^0 = (11)_{16} = 1\cdot 16^1 + 1\cdot 16^0$
+\paragraph*{Binary Expansions}
+Most computers represent integers and do arithmetic with binary expansion of integers, with 0 and 1 being the only digits used (representing true and false).
+\paragraph*{Octal Expansions}
+The octal expansion uses the digits $\{0,1,2,3,4,5,6,7\}$
+\paragraph*{Hexadecimal Expansions}
+$\ $\par
+Because we only have the digits 0 to 9 but need 16 digits for the representation, we use letter to expand our usual digits set. Thus $10=A, 11=B, 12=C, 13=D, 14=E$ and $15=F$ (and 16 is simply $1\cdot 16^1$ because the digits must be smaller than the base).\par 
+The digits are then $\{0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F\}$
+\subsection{Constructing a base $b$ expansion}
+What is $(n)_10$ in binary notation?\par
+One algorithm would be to first find $k$ and then work down to find $a_k$ then $a_{k-1}$ etc. This would be a version of the cashier's algorithm but with the base instead of the coin values.\par 
+Algorithm:
+\begin{itemize}
+\item[-] Find $k$ by computing successive powers of $b$ until you find the smallest $k$ such that $b^k \leq n < b^{k+1}$
+\item[-] For each value of $i$ from 0 to $k$:
+	\begin{itemize}
+	\item[-] Set $a_{k-1}$ to be the largest number between 0 and $b-1$ for which $a_{k-1}\cdot b^{k-1} \leq n$
+	\item[-] Update the current remaining value $n := n-a_{k-1}\cdot b^{k-1}$
+	\end{itemize}
+\end{itemize}
+\subsection{Bases and Divisibility}
+When $k > 0$: 
+\begin{align*}
+n &= a_kb^k + a_{k-1}b^{k-1} + ... + a_1b + a_0\\
+  &= b(a_kb^{k-1} + a_{k-1}b^{k-2} + ... + a_1) + a_0
+\end{align*}
+If $a$ and $b$ are integers with $a \neq 0$, then $a$ divides $b$ if there exists an integer $c$ such that $b=a\cdot c$ or $\dfrac{b}{a}$ is an integer
+\paragraph*{Notation}
+The notation $a \mid b$ denotes that $a$ divides $b$. If $a$ does not divide $b$, we write $a \nmid b$.
+\subsection{Algorithm}
+\paragraph*{Theorem}
+If $a$ is an integer and $d$ is a positive integer, then there are unique integers $q$ and $r$ (with $0 \leq r < d$) such that $a=d\cdot q + r \Leftrightarrow \dfrac{a}{q} = d+\dfrac{r}{q}$\par
+$d$ is called the \textit{divisor}.\par
+$a$ is called the \textit{dividend}.\par
+$q$ is called the \textit{quotient}.\par
+$r$ is called the \textit{remainder}.\\
+For $a=d\cdot q + r$ we write:\par 
+$q = a$ \textbf{div} $d\ \ \ \ \ \ $div is a function: \textbf{div}:$\Z\times\Z^+ \to \Z$\par 
+$r = a$ \textbf{mod} $d\ \ \ \ $mod is a function: \textbf{mod}:$\Z\times\Z^+ \to \N$ \par 
+\paragraph*{Base $b$ Expansion Algorithm}
+$\ $\\
+\begin{procedure}
+\caption{base b expansion($n,b$: positive integers)}
+\DontPrintSemicolon
+\SetAlgoNoEnd
+$q := n$\;
+$k := 0$\;
+\While{$q\neq 0$}{
+$a_k := q \pmod{b}$\;
+$q := q div b$\;
+$k := k+1$\;}
+\KwRet ($a_{k-1},...,a_1,a_0$)
+\end{procedure}
+{($a_{k-1},...,a_1,a_0$)} is the base $b$ expansion of $n$. The digits are the remainders of the division given by q $\pmod{b}$.
+\paragraph*{Example}
+We are trying to compute $(12'345)_8$
+\begin{align*}
+12'345 &= 8\cdot \overbrace{1'543}^{remainder} + 1\\
+\overbrace{1'543} &= 8\cdot 192 + 7\\
+192 &= 8\cdot 24 + 0\\
+24 &= 8\cdot 3 + 0\\
+3 &= 8\cdot 0 + 3\\
+(30071)_8 &= 12'345
+\end{align*}
 
 
+\part{Counting}
+\chapter{Basic Counting Principles}
+\section{Counting Subsets of a finite set}
+We use the product rule to show that the number of different subsets of a finite set $S$ is $2^{|S|}$.\\
+Proof:
+\begin{itemize}
+\item When the elements of S are listed in an arbitrary order, there is a one-to-one correspondence between subsets of S and bit strings of length $|S|$.
+\item When the $i^{th}$ element is in the subset, the bit string has a 1 in the $i^{th}$ position and a 0 otherwise.
+\item By the product rule, there are $2^{|S|}$ such bit strings, and therefore $2^{|S|}$ subsets.
+\end{itemize}
+\paragraph*{Example}
+$A = \{a,b,c,d\}$\\
+We can represent any subset of A by a bitstring of $n$ times 0 and 1. Here, $1101$ corresponds to the subset $\{a,b,d\}$ of A.\\
+We can see that there are $2\times 2\times ... \times 2 = 2^n$ possible bitstrings. Hence, the cardinality of the power set of $S$ is $2^n$.
+\section{Counting functions}
+How many functions are there from a set with $m$ elements to a set with $n$ elements?\par 
+Let $m = \{0,1,2,...,m-1\}$. Each element of $m$ can be mapped to any element of $n$, meaning there are $n$ possibilities for every element of $m$, which leads to $n\times n\times ...\times n = n^m$ possibilities $=n^m$ functions.
+\subsection{Counting one-to-one functions}
+How many \textit{injective functions } are there from a set with $m$ elements to a set with $n$ elements?\par 
+Let $m= \{0,1,2,...,m-1\}$. The first element can be mapped to $n$ elements of $n$. The second can be mapped to $n-1$ elemnts of $n$, because the functions are injective and one element of $n$ is already mapped to by one element of $m$. This goes on until the $m^{th}$ element of $m$ can be mapped to the only remaining element of $n$. Thus, our possibilities are $n\cdot (n-1)\cdot (n-2)\cdot ...\cdot (n-n+1)$.
+\section{The Sum Rule}
+If $S_1,S_2,...,S_n$ are finite \textbf{disjoint} sets, then $|\bigcup_{i=1}^{n} S_i| = |S_1| + |S_2| + ... + |S_n|$.
+\paragraph*{Example}
+Counting Passwords: Each user on a computer system has a password, which is 6 to 8 characters long, where each character is an uppercase letter or a digit. Each password must contain at least one digit. \\
+How many possible passwords are there?\par 
+To do this, we separate the passwords into three distinct sets $P_6,P_7,P_8$ depending on the number of characters. Then, for each set, we count all the possibilities minus the possibilities without any digit.\\
+This is counted as $P_6=(26+10)^6-26^6$, $P_7=36^7-26^7$, $P_8=36^8-26^8$. Then, because the three sets are disjoint, we add them: $P=P_6+P_7+P_8$
 
+%“Every time I climb Mount Everest, I eat a pizza.”
+%— Topology professor on vacuous truth
+%https://mathprofessorquotes.com/
 
 \end{document}

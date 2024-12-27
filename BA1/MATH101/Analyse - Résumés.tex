@@ -1,0 +1,54 @@
+\documentclass[10pt,a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage[ruled, lined, longend]{algorithm2e}
+\usepackage[shortlabels]{enumitem}
+\usepackage{textcomp}
+
+\setlength{\parindent}{20pt}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ind}{\hspace*{\parindent}}
+
+\title{Analyse I - Notes et Résumés}
+\author{Faustine Flicoteaux}
+\date{Semestre d'automne 2024}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+
+\section*{Introduction}
+Ce qui suit est mes propres notes et explications. Évidemment, tout ça ne me vient pas par l'opération du Saint-Esprit, mais du cours de ma professeur, Prof. Anna Lachowska, et de vidéos et cours en ligne.\par 
+J'explique principalement des concepts que je ne comprends pas totalement, c'est donc à prendre avec des pincettes. Si vous remarquez une erreur (mathématique ou de langue), n'hésitez pas à m'en faire part à mon adresse e-mail de l'EPFL \texttt{\href{mailto:faustine.flicoteaux@epfl.ch}{faustine.flicoteaux@epfl.ch}}.\par 
+Le dernier fichier \LaTeX et le pdf correspondant peuvent être trouvés sur mon dépôt GitHub \url{https://github.com/FocusedFaust/LectureNotes}.
+
+
+\chapter{Intégration}
+\section{Techniques d'intégrations pas vues en cours}
+\subsection{La technique des "2I"}
+Souvent, on désigne l'intégrale que l'on étudie par $I$, d'où le nom de cette méthode.\par 
+Lorsque l'on trouve une égalité pour une intégrale, c'est-à-dire deux intégrales qui sont égales mais ne sont pas exactement les mêmes, grâce par exemple, aux autres méthodes listées ici, on peut les additionner pour élimer des termes et simplifier l'expression. On a alors une intégrale plus facile à manipuler. Il ne faut pas oublier cependant de diviser par 2 à la fin de notre calcul, car on a additionné l'intégrale avec elle-même ($2I$).\par 
+En gros, si on a $I=\int f(x)dx = \int g(x)dx$, on sait que $2I = \int f(x)+g(x)dx$, ce qui peut être simplifié.
+
+\subsection{Formule du roi}
+Soit $f:[a,b]\to\R$ une fonction continue. Alors 
+\[\int^a_b f(x) dx = \int^a_b f(a+b-x) dx\]
+On a un résultat analogue pour les sommes : $\sum^b_{k=a} f(k) = \sum^b_{k=a} f(a+b-k)$. Il semble alors logique que les deux soient reliés, puisqu'on peut voir une intégrale comme une somme, notamment à travers la somme des rectangles sous une fonction.\par 
+On prouve cette formule par un changement de base que je ne détaillerai pas ici mais dont l'intuition est que $x=a+b-u$.\par 
+Il est alors intéressant de noter que $\int^{\pi/2}_0 cos(x)dx = \int^{\pi/2}_0 cos(\dfrac{\pi}{2}-x)dx = \int^{\pi/2}_0 sin(x)dx$\par 
+Cette méthode peut être utile dans les cas où $a+b$ vaut une valeur remarquable, par exemple un multiple de $\pi$ dans le cas d'une intégration d'une formule trigonométrique. C'est aussi utile lorsque $a+b=0$, car on remplace $x$ par $-x$.
+
+\subsection{Formule de la reine}
+Pour une intégrale définie sur l'intervalle $[0,2a]$, on sait que 
+\[\int^{2a}_0 f(x)dx\]
+
+\end{document}

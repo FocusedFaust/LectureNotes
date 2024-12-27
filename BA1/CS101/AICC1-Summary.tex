@@ -60,15 +60,70 @@ Compound propositions are constructed using logical connectives and other propos
 A \textit{truth table} lists all possible truth values of the propositional variables occurring in a compound proposition and the corresponding truth values of the compound proposition.
 \paragraph*{Negation}
 Let $p$ be a proposition. The negation of $p$, denoted by $\neg p$ (or $\bar{p}$), is the statement "It is not the case that $p$".\par 
-The proposition $\neg p$ is read "not $p$". The truth value of $\neg p$ is the opposite of the truth value of $p$. \par
-$\Rrightarrow$ $\neg T = F$, $\neg F = T$
-\begin{tabular}{ c c c }
- cell1 & cell2 & cell3 \\ 
- cell4 & cell5 & cell6 \\  
- cell7 & cell8 & cell9    
+The proposition $\neg p$ is read "not $p$". The truth value of $\neg p$ is the opposite of the truth value of $p$. \\
+\begin{tabular}{ |c | c| }
+\hline
+ p & $\neg$ p \\
+ \hline 
+ T & F \\  
+ F & T \\
+ \hline
 \end{tabular}
 \paragraph*{Conjunction}
-Let $p$ and $q$ be propositions 
+Let $p$ and $q$ be propositions . The \textit{conjunction} of $p$ and $q$, noted $p \land q$, is the proposition "$p$ and $q$". The conjunction is true when \textit{both} $p$ and $q$ are true and is false otherwise. \\
+\begin{tabular}{ |c  c | c| }
+\hline
+ $p$ & $q$ & $p\land q$\\
+ \hline
+ T & T & T \\ 
+ T & F & F \\  
+ F & T & F \\
+ F & F & F \\
+ \hline
+\end{tabular}
+\paragraph*{Disjunction}
+Let $p$ and $q$ be propositions. The disjunction of $p$ and $q$, noted $p\lor $ is the proposition "$p$ or $q$". It is false when both $p$ and $q$ are false and is true otherwise.\\
+\begin{tabular}{ |c  c | c| }
+\hline
+ $p$ & $q$ & $p\lor q$\\
+ \hline
+ T & T & T \\ 
+ T & F & T \\  
+ F & T & T \\
+ F & F & F \\
+ \hline
+\end{tabular}\par
+In natural language, "or" has two distinct meanings : inclusive or exclusive. Inclusive means that one or both of the propositions can be true ("I am reading this document and I am in class"). Exclusive means that both cannot be true at the same time ("I am listening to the teacher or reading my notes").
+\paragraph*{Exclusive Or}
+Exclusive or, noted $p \oplus q$, is also named "xor". It is true when either $p$ or $q$ is true but not both.\\
+\begin{tabular}{ |c  c | c| }
+\hline
+ $p$ & $q$ & $p\oplus q$\\
+ \hline
+ T & T & F \\ 
+ T & F & T \\  
+ F & T & T \\
+ F & F & F \\
+ \hline
+\end{tabular}
+\paragraph*{Implication}
+Let $p$ and $q$ be propositions. The conditional statement $p \Rightarrow q$ is the proposition "if $p$ then $q$". It is false when $p$ is true and $q$ is false and is true otherwise.\par 
+In the conditional statement $p \Rightarrow q$, $p$ is called the hypothesis (or antecedent or premise) and $q$ is called the conclusion (or consequence).\\
+\begin{tabular}{ |c  c | c| }
+\hline
+ $p$ & $q$ & $p\Rightarrow q$\\
+ \hline
+ T & T & T \\ 
+ T & F & F \\  
+ F & T & T \\
+ F & F & T \\
+ \hline
+\end{tabular}\par
+If $p$ is false, the implication is always true. If $q$ is true, the implication is also always true.\par 
+$p\Rightarrow q$ is different from $q\Rightarrow p$ : "If it is sunny, I will go to the plage du pélican" is not equal to "If I go to the plage du pélican, it will be sunny" (I wish it were true).\par 
+One way to view the logical conditional is to think of an obligation or contract. A politician says "If I am elected, then I will lower the taxes." If the politician is elected but the taxes are not lowered, then we can say that they broke the campaign pledge. However, if the politician is not elected, no one will care.
+\paragraph*{Biconditional}
+$p \Leftrightarrow q$
 
 \chapter{Predicate Logic}
 

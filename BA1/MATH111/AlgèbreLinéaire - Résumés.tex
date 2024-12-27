@@ -1,0 +1,74 @@
+\documentclass[10pt,a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage[ruled, lined, longend]{algorithm2e}
+\usepackage[shortlabels]{enumitem}
+\usepackage{textcomp}
+
+\setlength{\parindent}{20pt}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\ind}{\hspace*{\parindent}}
+
+\title{Algèbre Linéaire - Notes et Résumés}
+\author{Faustine Flicoteaux}
+\date{Semestre d'automne 2024}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+
+\section*{Introduction}
+Ce qui suit est mes propres notes et explications. Évidemment, tout ça ne me vient pas par l'opération du Saint-Esprit, mais du cours de mon professeur, Prof. Jérôme Scherer, et de vidéos et cours en ligne (merci en particulier à 3Blue1Brown).\par 
+J'explique principalement des concepts que je ne comprends pas totalement, c'est donc à prendre avec des pincettes. Si vous remarquez une erreur (mathématique ou de langue), n'hésitez pas à m'en faire part à mon adresse e-mail de l'EPFL \texttt{\href{mailto:faustine.flicoteaux@epfl.ch}{faustine.flicoteaux@epfl.ch}}.\par 
+Le dernier fichier \LaTeX et le pdf correspondant peuvent être trouvés sur mon dépôt GitHub \url{https://github.com/FocusedFaust/LectureNotes}.
+
+
+\chapter{Bases et matrices}
+\section{Changements de bases}
+Soit V un espace vectoriel. On peut représenter un vecteur de cet espace en fonction d'une base arbitraire. Lorsqu'on change de base, la représentation sera différente. C'est-à-dire qu'un vecteur $\vec{b}$ n'a pas les mêmes coordonnées en fonction de la base dans laquelle il est représenté. \par 
+Soit une base $\mathcal{B}=(\vec{b_1}, \vec{b_2})$. Un vecteur $(x)_{\mathcal{B}}=(x_1,x_2)$ signifie $x_1\cdot \vec{b_1}+x_2\cdot \vec{b_2}$. Pour trouver les valeurs qu'auraient $x_1$ et $x_2$ dans une autre base, par exemple $\mathcal{C}=(\vec{c_1}, \vec{c_2})$ on utilise une matrice de changement de base, selon l'égalité suivante: 
+\[(Id)^{\mathcal{C}}_{\mathcal{B}} (x)_{\mathcal{B}} = (x)_{\mathcal{C}}\]
+La matrice $(Id)^{\mathcal{C}}_{\mathcal{B}}$ est la matrice de changement de base de $\mathcal{B}$ vers $\mathcal{C}$. Comme dit Prof. Scherer : "\textit{Elle mange des vecteurs en base $\mathcal{B}$ pour donner des vecteurs en base $\mathcal{C}$}". \par 
+Pour la trouver, on écrit la matrice augmentée $[\vec{c_1},\vec{c_2}\ |\ \vec{b_1},\vec{b_2}]$ puis on l'échelonne et la réduit. Cela permet d'exprimer les coordonnées des vecteurs de la base $\mathcal{B}$ comme combinaison linéaire des vecteurs de la base $\mathcal{C}$, c'est-à-dire que $(Id)^{\mathcal{C}}_{\mathcal{B}} = ((\vec{b_1})_{\mathcal{C}},(\vec{b_2})_{\mathcal{C}})$.\par 
+On remarque alors que la matrice de changement de base est une transformation linéaire qui permet de projeter les vecteurs d'une base sur les vecteurs d'une autre base. Tout autre vecteur sera alors projeté sur sa représentation en une autre base. C'est-à-dire qu'un vecteur $(a,b)_\mathcal{C}$ sera projeté sur $(a,b)_\mathcal{B}$ (mêmes coordonnées mais vecteurs différents) alors qu'un vecteur $(a,b)_\mathcal{B}$ sera projeté sur $(c,d)_\mathcal{C}$(même vecteur mais différentes coordonnées). 
+
+\paragraph{Changement de base inverse}
+Puisque le changement de base peut s'apparenter à une transformation linéaire, le changement inverse est la transformation linéaire inverse. $(Id)^{\mathcal{B}}_{\mathcal{C}} = ((Id)^{\mathcal{C}}_{\mathcal{B}})^{-1}$
+
+\paragraph{Astuce}
+Il y a un moyen plus rapide de calculer une matrice de changement de base : $(\vec{c_1},\vec{c_2})^{-1}\cdot (\vec{b_1},\vec{b_2}) = (Id)^{\mathcal{C}}_{\mathcal{B}}$\footnote{\textit{Cette méthode n'a pas été démontré par le prof (et encore moins par moi), c'est donc à utiliser à vos risques et périls.}}
+
+\paragraph{Cas de la base canonique}
+La base canonique se note $\mathcal{C}an = (e_1,...,e_n)$ avec $e_i$ des vecteurs dont les coordonnées valent 0 sauf quand l'index est égal à $i$, ou elle vaut 1. C'est la base la plus "naturelle" pour nous autres, pauvres mortels, pour se représenter un espace vectoriel. La matrice de changement de base est alors assez intuitive : $(Id)^{\mathcal{C}an}_{\mathcal{B}}$ est la matrice ayant pour colonnes les vecteurs de la base $\mathcal{B}$.
+
+\chapter{Corps finis}
+\paragraph{Caractéristique et cardinalité}
+La caractéristique d'un corps fini $K$ est le plus petit entier non nul $n$ tel que $n\cdot 1_K = 0$. On le note $carK$. Cette caractéristique est un nombre premier.\par 
+Soit $K$ un corps fini et $p=carK$. Alors il existe $n$ tel que $K$ a $p^n$ éléments. Ce nombre est la cardinalité de $K$.
+
+\section{Corps à partir de nombres premiers}
+Les corps finis avec un nombre premier d'élément sont de prime abord relativement simples (je dis relativement parce qu'on fait quand même de la théorie des corps). Un corps $\F_p$ est un corps à $p$ éléments $\{0,1,...,p-1\}$. Toutes les opérations se font \textit{modulo} $p$, c'est à dire qu'on ne considère que le reste de la division entière par $p$.
+
+\paragraph{Opposé}
+Chaque nombre $x\neq 0$ admet un opposé $-x$ tel que $x+(-x)=0$.\par
+Par exemple, dans le corps $\F_7$, l'opposé de 3 est 4 car $3+4=7=0$.
+
+\paragraph{Inverse}
+Chaque nombre $x\neq 0$ admet un inverse $x^{-1}$ tel que $x\cdot x^{-1}=1$.\par
+Par exemple, dans le corps $\F_7$, l'inverse de 3 est 5 car $3\cdot 5=15=1$.
+
+\section{Corps à partir de polynômes}
+Lorsque l'on veut former un corps dont le nombre d'éléments n'est pas premier, on se rend compte que l'addition et la multiplication ne permettent pas d'en faire un groupe abélien. Pour former un corps, au lieu des entiers, on utilise des polynômes $\F_p[t]$ comme éléments et la division euclidienne est remplacée par la division polynomiale.\par 
+Pour former un corps, il nous faut un polynôme $p(t)$ unitaire irréductible de degré $n$ dans $\F_p[t]$. Ensuite, on considère l'ensemble de tous les restes de division par $p(t)$. Il y en a $p^n$.
+
+\end{document}

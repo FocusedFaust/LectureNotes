@@ -33,11 +33,17 @@ Le dernier fichier \LaTeX et le pdf correspondant peuvent être trouvés sur mon
 
 
 \chapter{Intégration}
+\section{Techniques d'intégration vues en cours}
+\subsection{Relation de Chasles}
+Soient $f$ une fonction continue sur un intervalle $I$ et $a,b,c$ trois réels de $I$.
+\[\int^b_af(x)dx + \int^c_bf(x)dx = \int^c_af(x)dx\]
+Cette égalité permet de séparer en plusieurs parties une intégrale, par exemple pour une valeur de $b$ particulière et permettant d'utiliser d'autres techniques.
+
 \section{Techniques d'intégrations pas vues en cours}
 \subsection{La technique des "2I"}
 Souvent, on désigne l'intégrale que l'on étudie par $I$, d'où le nom de cette méthode.\par 
-Lorsque l'on trouve une égalité pour une intégrale, c'est-à-dire deux intégrales qui sont égales mais ne sont pas exactement les mêmes, grâce par exemple, aux autres méthodes listées ici, on peut les additionner pour élimer des termes et simplifier l'expression. On a alors une intégrale plus facile à manipuler. Il ne faut pas oublier cependant de diviser par 2 à la fin de notre calcul, car on a additionné l'intégrale avec elle-même ($2I$).\par 
-En gros, si on a $I=\int f(x)dx = \int g(x)dx$, on sait que $2I = \int f(x)+g(x)dx$, ce qui peut être simplifié.
+Lorsque l'on trouve une égalité pour une intégrale, c'est-à-dire deux inté\-grales qui sont égales mais ne sont pas exactement les mêmes, grâce par exemple, aux autres méthodes listées ici, on peut les additionner pour élimer des termes et simplifier l'expression. On a alors une intégrale plus facile à manipuler. Il ne faut pas oublier cependant de diviser par 2 à la fin de notre calcul, car on a additionné l'intégrale avec elle-même ($2I$).\par 
+En gros, si on a $I=\int f(x)dx = \int g(x)dx$, on sait que $2I = \int f(x)+g(x)dx$, ce qui peut parfois être simplifié.
 
 \subsection{Formule du roi}
 Soit $f:[a,b]\to\R$ une fonction continue. Alors 
@@ -45,10 +51,16 @@ Soit $f:[a,b]\to\R$ une fonction continue. Alors
 On a un résultat analogue pour les sommes : $\sum^b_{k=a} f(k) = \sum^b_{k=a} f(a+b-k)$. Il semble alors logique que les deux soient reliés, puisqu'on peut voir une intégrale comme une somme, notamment à travers la somme des rectangles sous une fonction.\par 
 On prouve cette formule par un changement de base que je ne détaillerai pas ici mais dont l'intuition est que $x=a+b-u$.\par 
 Il est alors intéressant de noter que $\int^{\pi/2}_0 cos(x)dx = \int^{\pi/2}_0 cos(\dfrac{\pi}{2}-x)dx = \int^{\pi/2}_0 sin(x)dx$\par 
-Cette méthode peut être utile dans les cas où $a+b$ vaut une valeur remarquable, par exemple un multiple de $\pi$ dans le cas d'une intégration d'une formule trigonométrique. C'est aussi utile lorsque $a+b=0$, car on remplace $x$ par $-x$.
+Cette méthode peut être utile dans les cas où $a+b$ vaut une valeur remarquable, par exemple un multiple de $\pi$ dans le cas d'une intégration d'une formule trigonométrique. C'est aussi utile lorsque $a+b=0$, car on remplace $x$ par $-x$.\footnote{Ces explications sont tirées d'une vidéo de Axel Arno, \url{https://www.youtube.com/watch?v=a5wgeZ78U_A}.}
 
 \subsection{Formule de la reine}
 Pour une intégrale définie sur l'intervalle $[0,2a]$, on sait que 
-\[\int^{2a}_0 f(x)dx\]
+\[\int^{2a}_0 f(x)dx = \int^{a}_0 f(x)+f(2a-x)dx \]
+Ici, le changement de variable pour démontrer la formule est $x=2a-u$, combiné à la relation de Chasles.
+
+\subsection{Formule du valet}
+Pour une fonction $T$-périodique $f(x)$, sur un intervalle $[0,nT]$, on a
+\[\int^{nT}_0 f(x)dx = n\int^T_0 f(x)dx\]
+ce qui fait sens car une fonction périodique aura toujours la même valeur pour une intégrale avec un intervalle égal à sa période, si on le décale de $n$ périodes. L'intégrale de $n$ périodes est donc égale à $n$ intégrales de la période.
 
 \end{document}

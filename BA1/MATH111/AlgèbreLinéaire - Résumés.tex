@@ -28,10 +28,26 @@
 
 
 \section*{Introduction}
-Ce qui suit est mes propres notes et explications. Évidemment, tout ça ne me vient pas par l'opération du Saint-Esprit, mais du cours de mon professeur, Prof. Jérôme Scherer, et de vidéos et cours en ligne (merci en particulier à 3Blue1Brown).\par 
-J'explique principalement des concepts que je ne comprends pas totalement, c'est donc à prendre avec des pincettes. Si vous remarquez une erreur (mathématique ou de langue), n'hésitez pas à m'en faire part à mon adresse e-mail de l'EPFL \texttt{\href{mailto:faustine.flicoteaux@epfl.ch}{faustine.flicoteaux@epfl.ch}}.\par 
+Ce qui suit est principalement mes propres notes et explications. Évidemment, tout ça ne me vient pas par l'opération du Saint-Esprit, mais du cours de mon professeur, Prof. Jérôme Scherer, et de vidéos et cours en ligne (merci en particulier à 3Blue1Brown).\par 
+J'explique principalement des concepts que je ne comprends pas totalement, ce document est donc à prendre avec des pincettes. Si vous remarquez une erreur (mathématique ou de langue), n'hésitez pas à m'en faire part à mon adresse e-mail \texttt{\href{mailto:faustine.flicoteaux@epfl.ch}{faustine.flicoteaux@epfl.ch}}.\par 
 Le dernier fichier \LaTeX et le pdf correspondant peuvent être trouvés sur mon dépôt GitHub \url{https://github.com/FocusedFaust/LectureNotes}.
 
+\chapter{Matrices}
+\section{Opérations du déterminant}
+La multiplication est préservée pour le déterminant, donc $det(A)\cdot det(B) = det(A\cdot B)$. En particulier, $det(A^{-1}) = (det(A))^{-1}$. Par contre, il n'y a pas de formule pour le déterminant d'une addition de matrices, car le déterminant n'est pas linéaire.\par 
+Échanger deux lignes ou colonnes revient à multiplier le déterminant par $-1$.\par 
+Multiplier une ligne ou une colonne par un scalaire $a$ revient à multiplier le déterminant par ce même scalaire.
+
+\section{Valeurs propres facilement repérables}
+Certaines valeurs propres peuvent être facilement repérables, sans avoir à passer par le polynôme caractéristique, ce qui nous évite de perdre pas mal de temps quand on a des grandes matrices. \par 
+Il est utile de noter que pour une matrice $A$ diagonalisable, $A^T$ a les mêmes valeurs propres.
+\begin{itemize}
+\item Si deux colonnes (ou plus) sont linéairement dépendantes, alors le $Ker$ de la matrice n'est pas nul et 0 est une valeur propre (et donc la matrice $A$ n'est pas inversible car son déterminant vaut 0). 
+\item Les matrices triangulaires (supérieures ou inférieures) on comme valeurs propres les coefficients placés dans la diagonale.
+\item Si une des colonnes est vide sauf en $a_{ii}$ avec $i$ l'index de la colonne, alors le coefficient $(a_{ii})$ est une valeur propre. En effet, si on calcule $A-(a_{ii})\cdot I_n$, on se retrouve avec une colonne nulle. On a donc forcément $dim(Ker(A)) > 0$ et donc $(a_{ii})$ est une valeur propre. 
+\item Si la somme des coefficients des lignes est la même pour toutes les lignes ou si la somme des coefficients des colonnes est la même pour toutes les colonnes, alors cette somme est valeur propre de la matrice (prouvé en exercice).
+\item Si $A$ est diagonalisable, alors la trace de $A$ est égale à la somme des valeurs propres de $A$. Ainsi, si il nous manque une seule valeur propre (attention à la multiplicité), on peut la calculer à partir de la trace.
+\end{itemize}
 
 \chapter{Bases et matrices}
 \section{Changements de bases}
@@ -43,13 +59,23 @@ Pour la trouver, on écrit la matrice augmentée $[\vec{c_1},\vec{c_2}\ |\ \vec{
 On remarque alors que la matrice de changement de base est une transformation linéaire qui permet de projeter les vecteurs d'une base sur les vecteurs d'une autre base. Tout autre vecteur sera alors projeté sur sa représentation en une autre base. C'est-à-dire qu'un vecteur $(a,b)_\mathcal{C}$ sera projeté sur $(a,b)_\mathcal{B}$ (mêmes coordonnées mais vecteurs différents) alors qu'un vecteur $(a,b)_\mathcal{B}$ sera projeté sur $(c,d)_\mathcal{C}$(même vecteur mais différentes coordonnées). 
 
 \paragraph{Changement de base inverse}
-Puisque le changement de base peut s'apparenter à une transformation linéaire, le changement inverse est la transformation linéaire inverse. $(Id)^{\mathcal{B}}_{\mathcal{C}} = ((Id)^{\mathcal{C}}_{\mathcal{B}})^{-1}$
+Puisque le changement de base peut s'appa\-renter à une transformation linéaire, le changement inverse est la transformation linéaire inverse. $(Id)^{\mathcal{B}}_{\mathcal{C}} = ((Id)^{\mathcal{C}}_{\mathcal{B}})^{-1}$
 
 \paragraph{Astuce}
 Il y a un moyen plus rapide de calculer une matrice de changement de base : $(\vec{c_1},\vec{c_2})^{-1}\cdot (\vec{b_1},\vec{b_2}) = (Id)^{\mathcal{C}}_{\mathcal{B}}$\footnote{\textit{Cette méthode n'a pas été démontré par le prof (et encore moins par moi), c'est donc à utiliser à vos risques et périls.}}
 
 \paragraph{Cas de la base canonique}
 La base canonique se note $\mathcal{C}an = (e_1,...,e_n)$ avec $e_i$ des vecteurs dont les coordonnées valent 0 sauf quand l'index est égal à $i$, ou elle vaut 1. C'est la base la plus "naturelle" pour nous autres, pauvres mortels, pour se représenter un espace vectoriel. La matrice de changement de base est alors assez intuitive : $(Id)^{\mathcal{C}an}_{\mathcal{B}}$ est la matrice ayant pour colonnes les vecteurs de la base $\mathcal{B}$.
+
+\paragraph{Astuce en examen}
+Pour une question à choix multiples de type "\textit{Soit deux bases données, quelle est la matrice de changement de base ?}" il n'est pas forcément utile de calculer la matrice entière. Il ne faut pas non plus commencer par le premier vecteur. Il est plus rapide de trouver pour les matrice proposée une colonne qui est différente pour chaque proposition. Ensuite, on peut calculer $(\vec{b_i})_\mathcal{C}$ correspondant.\par 
+Le temps est compté en examen. Il faut donc essayer d'éliminer le plus de réponses possibles en le moins de calculs possibles.
+
+\section{Matrice d'une application selon une base}
+Il peut être demandé de construire la matrice d'une application linéaire $T$ mais dans une base spécifique, disons $\mathcal{B}=(\vec{b_1},...,\vec{b_n})$. Dans ce cas la matrice sera $M = [(T(\vec{b_1}))_\mathcal{B}\ ...\ (T(\vec{b_n}))_\mathcal{B}]$
+
+\paragraph{Astuce en examen}
+Lors du calcul de la matrice d'une transformation selon une base, il faut bien penser à exprimer le résultat de chaque $T(\vec{b_i})$ selon la base demandée.
 
 \chapter{Corps finis}
 \paragraph{Caractéristique et cardinalité}
@@ -70,5 +96,39 @@ Par exemple, dans le corps $\F_7$, l'inverse de 3 est 5 car $3\cdot 5=15=1$.
 \section{Corps à partir de polynômes}
 Lorsque l'on veut former un corps dont le nombre d'éléments n'est pas premier, on se rend compte que l'addition et la multiplication ne permettent pas d'en faire un groupe abélien. Pour former un corps, au lieu des entiers, on utilise des polynômes $\F_p[t]$ comme éléments et la division euclidienne est remplacée par la division polynomiale.\par 
 Pour former un corps, il nous faut un polynôme $p(t)$ unitaire irréductible de degré $n$ dans $\F_p[t]$. Ensuite, on considère l'ensemble de tous les restes de division par $p(t)$. Il y en a $p^n$.
+
+\chapter{Astuces et reminders pour l'examen}
+\section{Calcul de l'inverse d'une matrice}
+Cette méthode m'a été transmise par mon incroyable professeur de l'année dernière, M. Ischi, et s'est avérée très utile. Elle marche sur les matrices $2x2$ et $3x3$ (au-delà, les calculs ne sont pas plus simples que la formule "officielle"). Pour une matrice $A$, on calcule les coefficients de son inverse tels que 
+\[(a^{-1})_{ij} = \dfrac{1}{detA} det((A^T)_{ij})\]
+où $(A^T)_{ij}$ est la matrice transposée à laquelle on a enlevé la ligne $i$ et la colonne $j$.
+
+\section{Contres-exemples courants}
+Il est utile de tester les propositions données avec des contres exemples typiques. Pour les matrices, on a :
+\begin{itemize}
+\item $\big(\begin{smallmatrix} 
+1 & 0\\
+0 & 0
+\end{smallmatrix}\big)$, 
+$\big(\begin{smallmatrix} 
+0 & 1\\
+0 & 0
+\end{smallmatrix}\big)$, 
+$\big(\begin{smallmatrix} 
+0 & 0\\
+1 & 0
+\end{smallmatrix}\big)$ et  
+$\big(\begin{smallmatrix} 
+0 & 0\\
+0 & 1
+\end{smallmatrix}\big)$, notamment pour l'inversibilité.
+\item La matrice identité
+\item La matrice nulle
+\item Une matrice qui ne soit pas carrée (pour l'inversibilité). Effectivement, il ne faut pas supposer qu'une matrice soit inversible, à moins que ça ne soit explicitement dit dans l'énoncé.
+\end{itemize}
+
+\section{Erreurs de nomenclature}
+Attention, orthonormé $\neq$ orthogonal. Dans les questions portant sur des bases orthonormées, il faut veiller à éliminer d'office les bases qui ne le sont pas.\par 
+Ce n'est pas une \textbf{unique} solution si la solution est un sous-espace vectoriel.
 
 \end{document}

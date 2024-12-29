@@ -27,10 +27,60 @@
 
 
 \section*{Introduction}
+\addcontentsline{toc}{section}{\protect\numberline{}Introduction}
 Ce qui suit est mes propres notes et explications. Évidemment, tout ça ne me vient pas par l'opération du Saint-Esprit, mais du cours de ma professeur, Prof. Anna Lachowska, et de vidéos et cours en ligne.\par 
 J'explique principalement des concepts que je ne comprends pas totalement, c'est donc à prendre avec des pincettes. Si vous remarquez une erreur (mathématique ou de langue), n'hésitez pas à m'en faire part à mon adresse e-mail de l'EPFL \texttt{\href{mailto:faustine.flicoteaux@epfl.ch}{faustine.flicoteaux@epfl.ch}}.\par 
 Le dernier fichier \LaTeX et le pdf correspondant peuvent être trouvés sur mon dépôt GitHub \url{https://github.com/FocusedFaust/LectureNotes}.
 
+\chapter{Suites et séries}
+\section{Limites à retenir}
+\begin{itemize}
+\item $\lim_{n\to\infty} a_0r^n = \left\{
+        \begin{array}{ll}
+            0 & \quad |r| < 1\\
+            a_0 & \quad r = 1\\
+            diverge & \quad |r| > 1 \text{ ou } r = -1
+        \end{array}\right.$
+\item $\lim_{n\to\infty} \sqrt[n]{a} = 1$ pour tout $a > 1$
+\item $\lim_{n\to\infty} \dfrac{1}{n^p}$ pour tout $p > 0$
+\item $\lim_{n\to\infty} \dfrac{sin(1/n)}{1/n} = 1$
+\item $\lim_{n\to\infty} \sqrt{1-(\dfrac{1}{n})^2} = 1$
+\item $\lim_{n\to\infty} \dfrac{p^n}{n!} = 0$ pour tout $p > 0$
+\end{itemize}
+
+\section{Séries divergentes à retenir}
+Les séries suivantes sont divergentes et utiles pour le critère de comparaison.
+\begin{itemize}
+\item $\sum_{n=1}^\infty \dfrac{1}{n} = +\infty$ (série harmonique)
+\item $\sum_{n=1}^\infty \dfrac{1}{\sqrt{n}} = +\infty$
+\item $\sum_{n=1}^\infty \dfrac{1}{n^\alpha} = +\infty$ si $\alpha\leq 1$
+\item $\sum_{n=0}^\infty r^n$ si $r\geq 1$
+\end{itemize}
+
+\section{Quelques suites célèbres}
+Les suites dont je parle ici n'ont pas été étudiées en cours et ne sont pas au programme mais je les ai trouvées intéressantes et/ou amusantes.
+\paragraph{Suite de Conway}
+Cette suite consiste à énoncer le nombre de chiffres du terme précédent.  Elle est qualifiée de suite "audioactive" ou "Look and Tell sequence" en anglais.\par 
+$a_0 = 1$ (terme initial)\par 
+$a_1 = 11$ (une fois 1)\par
+$a_2 = 21$ (deux fois 1)\par 
+$a_3 = 12\ 11$\par 
+$a_4 = 11\ 12\ 21$\par 
+$a_5 = 31\ 22\ 11$\par 
+$a_6 = 13\ 11\ 22\ 21$\par 
+... et ainsi de suite
+
+\chapter{Nombres complexes}
+\section{Relation entre forme polaire et trigo}
+\subsection{Formule d'Euler et dérivées}
+La formule d'Euler nous donne la relation suivante :
+\[e^{i\phi} = \text{cos}(\phi)+i\text{ sin}(\phi)\]
+qui nous permet de passer de la forme polaire à la forme cartésienne d'un nombre complexe. La même formule est applicable pour le conjugué :
+\[e^{-i\phi} = \text{cos}(\phi)-i\text{ sin}(\phi)\]
+car le cosinus est pair et le cosinus impair. Si on additionne maintenant les deux formes, on a
+\[e^{i\phi}+e^{-i\phi} = (\text{cos}(\phi) + i\text{ sin}(\phi)) + (\text{cos}(\phi) - i\text{ sin}(\phi)) = 2\text{ cos}(\phi)\]
+De manière similaire, on a une formule pour le sinus :
+\[e^{i\phi}-e^{-i\phi} = 2i\text{ sin}(\phi)\]
 
 \chapter{Intégration}
 \section{Techniques d'intégration vues en cours}
@@ -51,7 +101,7 @@ Soit $f:[a,b]\to\R$ une fonction continue. Alors
 On a un résultat analogue pour les sommes : $\sum^b_{k=a} f(k) = \sum^b_{k=a} f(a+b-k)$. Il semble alors logique que les deux soient reliés, puisqu'on peut voir une intégrale comme une somme, notamment à travers la somme des rectangles sous une fonction.\par 
 On prouve cette formule par un changement de base que je ne détaillerai pas ici mais dont l'intuition est que $x=a+b-u$.\par 
 Il est alors intéressant de noter que $\int^{\pi/2}_0 cos(x)dx = \int^{\pi/2}_0 cos(\dfrac{\pi}{2}-x)dx = \int^{\pi/2}_0 sin(x)dx$\par 
-Cette méthode peut être utile dans les cas où $a+b$ vaut une valeur remarquable, par exemple un multiple de $\pi$ dans le cas d'une intégration d'une formule trigonométrique. C'est aussi utile lorsque $a+b=0$, car on remplace $x$ par $-x$.\footnote{Ces explications sont tirées d'une vidéo de Axel Arno, \url{https://www.youtube.com/watch?v=a5wgeZ78U_A}.}
+Cette méthode peut être utile dans les cas où $a+b$ vaut une valeur remarquable, par exemple un multiple de $\pi$ dans le cas d'une intégration d'une formule trigonométrique. C'est aussi utile lorsque $a+b=0$, car on remplace $x$ par $-x$.\footnote{Ces explications sont tirées d'une vidéo par Axel Arno, \url{https://www.youtube.com/watch?v=a5wgeZ78U_A}.}
 
 \subsection{Formule de la reine}
 Pour une intégrale définie sur l'intervalle $[0,2a]$, on sait que 
@@ -62,5 +112,17 @@ Ici, le changement de variable pour démontrer la formule est $x=2a-u$, combiné
 Pour une fonction $T$-périodique $f(x)$, sur un intervalle $[0,nT]$, on a
 \[\int^{nT}_0 f(x)dx = n\int^T_0 f(x)dx\]
 ce qui fait sens car une fonction périodique aura toujours la même valeur pour une intégrale avec un intervalle égal à sa période, si on le décale de $n$ périodes. L'intégrale de $n$ périodes est donc égale à $n$ intégrales de la période.
+
+\chapter{Astuces et reminders pour l'examen}
+\section{Contres-exemples courants}
+Il est utile de tester les propositions données avec des contres exemples typiques. Pour les fonctions, on a :
+\begin{itemize}
+\item $f(x) = \dfrac{1}{x}$
+\item $f(x) = e^x$
+\end{itemize}
+Pour les suites :
+\begin{itemize}
+\item Les suites alternées, c'est-à-dire contenant $(-1)^n$
+\end{itemize}
 
 \end{document}

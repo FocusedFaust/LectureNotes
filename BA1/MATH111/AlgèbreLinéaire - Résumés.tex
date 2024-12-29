@@ -50,8 +50,11 @@ Il est utile de noter que pour une matrice $A$ diagonalisable, $A^T$ a les même
 \end{itemize}
 
 \chapter{Bases et matrices}
+\section{Représentation dans une base}
+Soient un espace vectoriel $V$, un vecteur $\vec{v} = \begin{pmatrix} v_1 \\ \vdots \\ v_n \end{pmatrix}$ et une base $\mathcal{B}$ de $V$. Pour trouver les coordonnées de $\vec{v}$ dans la base $\mathcal{B}$, il faut résoudre le système $B\vec{x} = \vec{v}$ avec $B$ la matrice qui représente la base $\mathcal{B}$ et $\vec{x} = \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} = (\vec{v})_\mathcal{B}$, c'est à dire le vecteur $\vec{v}$ exprimé selon la base $\mathcal{B}$.
+
 \section{Changements de bases}
-Soit V un espace vectoriel. On peut représenter un vecteur de cet espace en fonction d'une base arbitraire. Lorsqu'on change de base, la représentation sera différente. C'est-à-dire qu'un vecteur $\vec{b}$ n'a pas les mêmes coordonnées en fonction de la base dans laquelle il est représenté. \par 
+Soit V un espace vectoriel. On peut représenter un vecteur de cet espace en fonction d'une base arbitraire. Lorsqu'on change de base, la représentation sera alors différente. C'est-à-dire qu'un vecteur $\vec{b}$ n'a pas les mêmes coordonnées en fonction de la base dans laquelle il est représenté. \par 
 Soit une base $\mathcal{B}=(\vec{b_1}, \vec{b_2})$. Un vecteur $(x)_{\mathcal{B}}=(x_1,x_2)$ signifie $x_1\cdot \vec{b_1}+x_2\cdot \vec{b_2}$. Pour trouver les valeurs qu'auraient $x_1$ et $x_2$ dans une autre base, par exemple $\mathcal{C}=(\vec{c_1}, \vec{c_2})$ on utilise une matrice de changement de base, selon l'égalité suivante: 
 \[(Id)^{\mathcal{C}}_{\mathcal{B}} (x)_{\mathcal{B}} = (x)_{\mathcal{C}}\]
 La matrice $(Id)^{\mathcal{C}}_{\mathcal{B}}$ est la matrice de changement de base de $\mathcal{B}$ vers $\mathcal{C}$. Comme dit Prof. Scherer : "\textit{Elle mange des vecteurs en base $\mathcal{B}$ pour donner des vecteurs en base $\mathcal{C}$}". \par 

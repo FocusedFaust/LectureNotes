@@ -1,7 +1,7 @@
 # LectureNotes
-These are notes and summaries of my classes based on my professors' lectures and notes. I weite them as a study method and in order to keep everything neatly in one place, rather than across different files and handouts. 
+These are notes and summaries of my classes based on my professors' lectures and notes. I write them as a study method and in order to keep everything neatly in one place, rather than across different files and handouts. I also like to add extra material or things I find interesting, because it keeps me motivated when studying.
 
-At the moment, there is only the my notes for CS-101, which I am working on and will keep updating.
+At the moment, there are files for 3 of my classes, which I am working on and will keep updating until the end of the semester.
 
 ## BA1
 - CS101 : Advanced Information, Computation and Communication I

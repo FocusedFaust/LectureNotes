@@ -46,7 +46,13 @@ Le dernier fichier \LaTeX et le pdf correspondant peuvent être trouvés sur mon
 \item $\lim_{n\to\infty} \dfrac{sin(1/n)}{1/n} = 1$
 \item $\lim_{n\to\infty} \sqrt{1-(\dfrac{1}{n})^2} = 1$
 \item $\lim_{n\to\infty} \dfrac{p^n}{n!} = 0$ pour tout $p > 0$
+\item $\lim_{n\to\infty} \dfrac{\alpha^n}{n\text{log}(n)} = +\infty$ pour $\alpha>1$ parce que $\alpha^n$ grandit plus vite que $n\text{log}(n)$
 \end{itemize}
+
+\section{Ordre de croissance de quelques fonctions}
+L'ordre de croissance est utile lorsque nous étudions la limite à l'infini d'une fonction rationnelle. Si le dénominateur croît plus vite que le numérateur, la limite vaudra 0. Lorsque $x\to\infty$, on a donc :
+\[\text{cos}(x)\prec\text{ ln}(x)\prec\text{ ln}(x)^\alpha\prec x\prec x^2\prec x^{\alpha>2}\prec \alpha^x\sim e^x\prec x^x\]
+La notation est telle que $\prec$ signifie "croît moins vite que" et $\succ$ signifie "croît plus vite que".
 
 \section{Séries divergentes à retenir}
 Les séries suivantes sont divergentes et utiles pour le critère de comparaison.
@@ -56,6 +62,27 @@ Les séries suivantes sont divergentes et utiles pour le critère de comparaison
 \item $\sum_{n=1}^\infty \dfrac{1}{n^\alpha} = +\infty$ si $\alpha\leq 1$
 \item $\sum_{n=0}^\infty r^n$ si $r\geq 1$
 \end{itemize}
+
+\section{Séries convergentes à retenir}
+\begin{itemize}
+\item $\sum_{k=0}^\infty \dfrac{1}{k!} = e$
+\item $\sum_{k=0}^\infty \dfrac{1}{2^k} = 2$
+\item $\sum_{k=1}^\infty \dfrac{1}{k^\alpha} = \zeta(\alpha)$ si $\alpha > 1$ (fonction zêta de Riemann)
+\item $\sum_{k=0}^\infty (-1)^k\dfrac{1}{k!} = \dfrac{1}{e}$
+\item $\sum_{k=1}^\infty (-1)^{k-1} \dfrac{1}{k} = \text{ln}(2)$ (série harmonique alternée)
+\end{itemize}
+
+\section{Limites de quelques fonctions}
+Toujours utiles à savoir et souvent présentes en examen ou en exercice.\\
+\begin{tabular}{ |c || c | c | c| }
+\hline
+ & $x\to-\infty$ & $x\to0$  & $x\to+\infty$ \\
+ \hline 
+ $e^x$ & 0 & 1 & $+\infty$ \\  
+ $\text{ln}(x)$ & $\nexists$ & $-\infty$ & $+\infty$ \\
+ $1/x$ & 0 & $\nexists$ & 0 \\
+ \hline
+\end{tabular}
 
 \section{Quelques suites célèbres}
 Les suites dont je parle ici n'ont pas été étudiées en cours et ne sont pas au programme mais je les ai trouvées intéressantes et/ou amusantes.
@@ -106,7 +133,8 @@ Cette méthode peut être utile dans les cas où $a+b$ vaut une valeur remarquab
 \subsection{Formule de la reine}
 Pour une intégrale définie sur l'intervalle $[0,2a]$, on sait que 
 \[\int^{2a}_0 f(x)dx = \int^{a}_0 f(x)+f(2a-x)dx \]
-Ici, le changement de variable pour démontrer la formule est $x=2a-u$, combiné à la relation de Chasles.
+Ici, le changement de variable pour démontrer la formule est $x=2a-u$, combiné à la relation de Chasles.\par 
+Contrairement à la formule du roi, celle-ci est beaucoup plus situationnelle. Elle est sensée tirer parti de la symétrie d'une fonction, mais je n'ai pas réussi à trouver d'explication satisfaisante.
 
 \subsection{Formule du valet}
 Pour une fonction $T$-périodique $f(x)$, sur un intervalle $[0,nT]$, on a
@@ -118,7 +146,7 @@ ce qui fait sens car une fonction périodique aura toujours la même valeur pour
 Il est utile de tester les propositions données avec des contres exemples typiques. Pour les fonctions, on a :
 \begin{itemize}
 \item $f(x) = \dfrac{1}{x}$
-\item $f(x) = e^x$
+\item $f(x) = e^x$ et son inverse, $g(x) = \text{ln}(x)$
 \end{itemize}
 Pour les suites :
 \begin{itemize}

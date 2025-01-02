@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{wasysym}
 \usepackage{multicol}
 \usepackage{hyperref}
 \usepackage[ruled, lined, longend]{algorithm2e}
@@ -48,16 +49,17 @@ An atomic proposition is a proposition that cannot be expressed as simpler propo
 A proposition that is always true is denoted by T\\
 A proposition that is always false is denoted by F
 \paragraph*{Compound Proposition}
-Compound propositions are constructed using logical connectives and other propositions. The logical connectives are:
-\begin{itemize}
-\item[-] Negation $\neg$
-\item[-] Conjunction $\land$
-\item[-] Disjunction $\lor$
-\item[-] Implication $\Rightarrow$
-\item[-] Biconditional $\Leftrightarrow$
-\end{itemize}
+Compound propositions are constructed using logical connectives and other propositions. The logical connectives are the following, ordered by precedence:
+\begin{enumerate}
+\item Negation $\neg$
+\item Conjunction $\land$
+\item Disjunction $\lor$
+\item Implication $\Rightarrow$
+\item Biconditional $\Leftrightarrow$
+\end{enumerate}
 \paragraph*{Truth tables}
-A \textit{truth table} lists all possible truth values of the propositional variables occurring in a compound proposition and the corresponding truth values of the compound proposition.
+A \textit{truth table} lists all possible truth values of the propositional variables occurring in a compound proposition and the corresponding truth values of the compound proposition\footnote{There are many websites useful for generating truth table (which is rather tiresome to do by hand). I personally recommend \url{https://truth-table.com/}.}.
+\subsection{Logical connectives}
 \paragraph*{Negation}
 Let $p$ be a proposition. The negation of $p$, denoted by $\neg p$ (or $\bar{p}$), is the statement "It is not the case that $p$".\par 
 The proposition $\neg p$ is read "not $p$". The truth value of $\neg p$ is the opposite of the truth value of $p$. \\
@@ -121,13 +123,84 @@ In the conditional statement $p \Rightarrow q$, $p$ is called the hypothesis (or
 \end{tabular}\par
 If $p$ is false, the implication is always true. If $q$ is true, the implication is also always true.\par 
 $p\Rightarrow q$ is different from $q\Rightarrow p$ : "If it is sunny, I will go to the plage du pélican" is not equal to "If I go to the plage du pélican, it will be sunny" (I wish it were true).\par 
-One way to view the logical conditional is to think of an obligation or contract. A politician says "If I am elected, then I will lower the taxes." If the politician is elected but the taxes are not lowered, then we can say that they broke the campaign pledge. However, if the politician is not elected, no one will care.
+One way to view the logical conditional is to think of an obligation or contract. A politician says "If I am elected, then I will lower the taxes." If the politician is elected but the taxes are not lowered, then we can say that they broke the campaign pledge. However, if the politician is not elected, no one will care.\par 
+The \textbf{inverse} is the proposition $\neg p\Rightarrow\neg q$.\par
+The \textbf{converse} is the proposition $q\Rightarrow p$.\par
+The \textbf{contraposive} is the proposition $\neg q\Rightarrow\neg p$\\
+Converse and inverse are logically equivalent.
 \paragraph*{Biconditional}
-$p \Leftrightarrow q$
+Let $p$ and $q$ be propositions. The conditional statement $p \Leftrightarrow q$ is the proposition "$p$ if and only if $q$". It is true when both $p$ and $q$ have the same truth value.\\
+\begin{tabular}{ |c  c | c| }
+\hline
+ $p$ & $q$ & $p\Leftrightarrow q$\\
+ \hline
+ T & T & T \\ 
+ T & F & F \\  
+ F & T & F \\
+ F & F & T \\
+ \hline
+\end{tabular}\par
+
+\subsection{Classification of compound propositions}
+\paragraph*{Tautology} A \textit{tautology} is a proposition that is always true.\par 
+For example, $p\lor \neg p$, "\textit{When I get home, I will either read a book or do any other thing}", "\textit{If we do not succeed, we run the risk of failure} (Dan Quayle)".
+\paragraph*{Contradiction} On the other side, a \textit{contradiction} is a proposition that is always false.\par 
+For example, $p\land \neg p$, "\textit{It is not blue and red, it is red and blue}" and "\textit{Never say never}" are never (\smiley{}) true.
+\paragraph*{Contingency} A \textit{contingency} is a proposition that is neither a tautology nor a contradiction. It can be either true or false.\par 
+For example, we have the simplest of all: $p$.
+
+\subsection{Propositional satisfiability}
+A compound proposition is \textit{satisfiable} if there is an assignment of truth values to its variables that make it true. This means that the proposition can be true, and thus that it is either a tautology or a contingency.\par 
+When no such assignment exists, the proposition is \textit{unsatisfiable}. Therefore, it is a contradiction.\par 
+Modelling a problem as a compound proposition and evaluating its satisfiability is the equivalent to asking "\textit{Is there a solution?}".
+
+\subsection{Logic equivalences}
+Two compound propositions $p$ and $q$ are \textit{logically equivalent} if $p\Leftrightarrow q$ is a tautology. We write this as $p\equiv q$. This means that the truth tables output the same values for the same variable truth assignment. 
+
+\subsection{Normal forms}
+It is possible to convert an arbitrary proposition into its canonical form, also called \textbf{normal form}. This is useful to prove theorems, because two propositions are equivalent if their normal forms are equivalent themselves.
+\paragraph*{Disjunctive Normal Form}
+The DNF is the \textit{disjunction} of one or more \textit{conjunctions} of one or more variables, called the \textbf{minterms}. The full DNF is the DNF where every variable or its negation is represented exactly once in every minterm.\par 
+To construct the DNF, we use the rows of the truth table where the proposition is \textbf{true} to construct minterms: if the variable is true in that row, use it directly. If it is false, use its negation. We then connect the minterms with $\lor$s.\par 
+\begin{tabular}{ |c  c | c| }
+\hline
+ $p$ & $q$ & $p\oplus q$\\
+ \hline
+ T & T & F \\ 
+ T & F & T \\  
+ F & T & T \\
+ F & F & F \\
+ \hline
+\end{tabular}
+For example, the proposition $p\oplus q$ gives the following truth table. We use the second and third rows to get two minterms: $(p\land\neg q)$ and $(\neg p\land q)$. The (full) DNF is then $(p\land\neg q)\lor(\neg p\land q)$.
+\paragraph*{Conjunctive Normal Form}
+The CNF is a \textit{conjunction} of one or more \textit{disjunctions} of one or more variables (a clause or \textbf{maxterm}). The full CNF is the CNF where every variable or its negation is represented exactly once in every minterm.\par
+To construct the CNF, we use the rows of the truth table where the proposition is \textbf{false} to construct maxterms: if the variable is true in that row, use its negation. If it is false, use it directly. We then connect the clauses with $\land$s.\par 
+For our earlier example, we would use the first and last rows of the truth table to get two clauses: $(\neg p\lor\neg q)$ and $(p\lor q)$. The (full) CNF becomes $(\neg p\lor\neg q)\land(p\lor q)$.
+\paragraph*{Finding a CNF/DNF without a truth table}
+We produce a series of equivalences, stating with the proposition. \par 
+First, we \textbf{eliminate implications}: $p\Rightarrow q$ becomes $\neg p\lor q$. \par 
+Secondly, we move \textbf{negations inward} with DeMorgan's law.\par 
+Finally, we use the \textbf{distributive} and \textbf{associative} laws.\\
+This leaves us with a CNF or DNF. This method is faster than the truth table one, especially on long propositions, but it does not guarantee a full CNF or DNF.
 
 \chapter{Predicate Logic}
 
-This is some other text
+When propositional logic is not enough, we use predicate logic to talk about objects, their properties and relations.\par 
+The heart of predicate logic is statements involving \textit{variables}. The truth value of $P(x)$ depends on the concrete value of $x$, such as $Q(x,y):=x+y=5$. Is $Q(2,4)$ true?\par 
+Connectives from propositional logic can be applied to predicate statements. We can also construct expressions from predicates and logic connectives containing variables ($R(x,y):=P(x)\Rightarrow P(y)$).
+
+\section{Quantifiers}
+The domain of a proposition is all the possible values of $x$ (for example: integers, animals, colors).
+Quantifiers are used to express to which extent a propositional function is true over all values of the domain $U$ of its variables. 
+\paragraph*{Universal quantifier}
+The universal quantifier is the statement "$P(x)$ \textit{is true for all values of $x$ from its domain}". We usually write that "$\forall x, P(x)$" and it is read as "\textit{for all $x$, $P(x)$ is true}".\par 
+To show that $\forall xP(x)$ is false, we have to find a single $x$ for which $P(x)$ is false. That $x$ is a \textit{counterexample}.
+\paragraph*{Existential quantification}
+The existential quantification is the statement "\textit{there exists an element $x$ from domain U such that P(x) is true}". We usually write that "$\exists x, P(x)$".\par 
+To show that $\exists xP(x)$ is true, we have to find a single $x$ for which $P(x)$ is true. That $x$ is a \textit{witness}.
+\paragraph*{Uniqueness quantification}
+The uniqueness quantification is the statement "\textit{there exists a unique element $x$ from domain U such that P(x) is true}". We usually write that "$\exists! x, P(x)$".
 
 \part{Basic Structures}
 

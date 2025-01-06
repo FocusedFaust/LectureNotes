@@ -201,6 +201,38 @@ The existential quantification is the statement "\textit{there exists an element
 To show that $\exists xP(x)$ is true, we have to find a single $x$ for which $P(x)$ is true. That $x$ is a \textit{witness}.
 \paragraph*{Uniqueness quantification}
 The uniqueness quantification is the statement "\textit{there exists a unique element $x$ from domain U such that P(x) is true}". We usually write that "$\exists! x, P(x)$".
+\section{Finite domains}
+If the domain $U$ is finite, we can list all elements of $U=\{x_1,x_2,...,x_{n\in\R}\}$ (although it can be long with countable infinite) and we can express quantified statements using propositional logic.\par 
+$\forall xP(x)$ is the same as $P(x_1)\land P(x_2)\land ...\land P(x_n)$.\par 
+$\exists xP(x)$ is the same as $P(x_1)\lor P(x_2)\lor ...\lor P(x_n)$.
+\section{Precedence and Binding}
+The quantifiers $\forall$, $\exists$ and $\exists!$ have precedence over the all logical connectives. \\ 
+A quantifier \textbf{binds} the variable of a propositional function :\par 
+- $P(x)$ is a proposition with a \textbf{free variable} $x$.\par
+- $\forall xP(x)$ is a proposition with a \textbf{bound variable} $x$.
+\section{Validity and Satisfiability}
+\paragraph*{Validity}
+A statement involving predicates and quantifiers with all variables bound is \textbf{valid} if it is true for all interpretations, meaning that it is true regardless of what the constants and variables mean.\par 
+$\forall x(P(x)\Rightarrow (P(x)\lor Q(x)))$ is a tautology. It is therefore valid (and satisfiable).
+\paragraph*{Satisfiability}
+That same statement is \textbf{satisfiable} is it can be true, meaning that there is some interpretation in which it is true.\par 
+For example, consider the proposition $\forall x P(x,x)$. If $P(x,y)$ is $x\geq w$, then the proposition is true. However, if $P(x,y)$ is $x\neq y$, the proposition is false.
+\paragraph*{Unsatisfiability}
+That same statement is unsatisfiable if it is a contradiction if there is no interpretation for which it is true.\par 
+Let us consider the statement $\forall x (P(x)\land\neg P(x))$. It can be assimilated to the contradiction $p\land\neg p$. Therefore, it is unsatisfiable.
+\section{Truth values of Quantifiers}
+\begin{itemize}
+\item Method 1: perform an \textit{equivalence proof} to a true or false statement.
+\item Method 2: reason about the values of the domain
+\begin{itemize}[noitemsep]
+	\item[-]To show a state is True, show that its \textit{negation} is False.
+	\item[-]To show that a universally quantified statement is True, analyse different sub-cases of the domain.
+	\item[-]Check carefully what interesting values may occur in the domains.
+	\item[-]Find \textit{witnesses} for existential quantification.
+	\item[-]Find \textit{counterexample} for universal quantification.
+\end{itemize}
+\end{itemize}
+\paragraph*{Quantifiers truth values}
 
 \part{Basic Structures}
 
@@ -392,7 +424,7 @@ Binary search is more efficient than linear search on long lists because it remo
 \paragraph*{Goal}
 Given a list $S = a_{1},a_{2},a_{3},...,a_{n}$, return a list where the elements are sorted in increasing order. (Once again, this can be extended to other orders.)\\
 Sorting is important because a non-negligible part of computing resources are devoted to sorting (for example in large databases). \\
-A great number of fundamentally different algorithms have been invented for sorting and research is still ongoing\footnote{Recently, researches have turned to deep reinforcement learning, as a means to be faster and more efficient.}.
+A great number of fundamentally different algorithms\footnote{It can be easier to understand the following algorithms visually. The website \url{https://mszula.github.io/visual-sorting/} is really helpful for that.} have been invented for sorting and research is still ongoing\footnote{Recently, researches have turned to deep reinforcement learning, as a means to be faster and more efficient.}.
 
 \subsection{Selection Sort}
 Selection sort makes multiple passes (or iterations) through a list of length $n$:

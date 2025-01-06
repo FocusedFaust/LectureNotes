@@ -65,11 +65,13 @@ Les séries suivantes sont divergentes et utiles pour le critère de comparaison
 
 \section{Séries convergentes à retenir}
 \begin{itemize}
-\item $\sum_{k=0}^\infty \dfrac{1}{k!} = e$
+\item $\sum_{k=0}^\infty \dfrac{1}{k!} = e$ et, plus généralement, $\sum_{k=0}^\infty \dfrac{\lambda^k}{k!} = e^\lambda$
 \item $\sum_{k=0}^\infty \dfrac{1}{2^k} = 2$
 \item $\sum_{k=1}^\infty \dfrac{1}{k^\alpha} = \zeta(\alpha)$ si $\alpha > 1$ (fonction zêta de Riemann)
 \item $\sum_{k=0}^\infty (-1)^k\dfrac{1}{k!} = \dfrac{1}{e}$
 \item $\sum_{k=1}^\infty (-1)^{k-1} \dfrac{1}{k} = \text{ln}(2)$ (série harmonique alternée)
+\item $\sum_{k=0}^\infty r^k = \dfrac{1}{1-r}$ si et seulement si $|r|<1$ (série géométrique)
+\item $\sum_{k=0}^\infty k\cdot r^{k-1} = \dfrac{1}{(1-r)^2}$ si et seulement si $|r|<1$ (série géométrique dérivée)
 \end{itemize}
 
 \section{Limites de quelques fonctions}
@@ -108,6 +110,7 @@ car le cosinus est pair et le cosinus impair. Si on additionne maintenant les de
 \[e^{i\phi}+e^{-i\phi} = (\text{cos}(\phi) + i\text{ sin}(\phi)) + (\text{cos}(\phi) - i\text{ sin}(\phi)) = 2\text{ cos}(\phi)\]
 De manière similaire, on a une formule pour le sinus :
 \[e^{i\phi}-e^{-i\phi} = 2i\text{ sin}(\phi)\]
+Il ne faut pas confondre ces égalités avec les définitions des sinus et cosinus hyperboliques, ici la puissance des exponentielles est bien complexe et non pas réelle.
 
 \chapter{Intégration}
 \section{Techniques d'intégration vues en cours}

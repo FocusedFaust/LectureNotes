@@ -49,7 +49,14 @@ Il est utile de noter que pour une matrice $A$ diagonalisable, $A^T$ a les même
 \item Si $A$ est diagonalisable, alors la trace de $A$ est égale à la somme des valeurs propres de $A$. Ainsi, si il nous manque une seule valeur propre (attention à la multiplicité), on peut la calculer à partir de la trace.
 \end{itemize}
 
+\section{Factorisation QR}
+Le but de la factorisation $QR$ est de trouver une décomposition d'une matrice $A$ telle que $Q\cdot R=A$ avec la matrice $Q$ qui soit orthogonale et la matrice $R$ qui soit triangulaire supérieure.\par 
+Pour trouver la matrice $Q$, on utilise la méthode de Gram-Schmidt sur les colonnes de $A$, pour en obtenir une base orthogonale de l'espace-colonne. On divise ensuite les vecteurs obtenus pour les normaliser.\par 
+La matrice $R$ correspond aux colonnes de $A$ exprimés dans la base de $Q$. Puisque $Q\cdot R=A$ et que $Q$ est orthonormée ($Q^{-1}=Q^T$), on peut alors calculer $R=Q^T\cdot Q\cdot R=Q^T\cdot A$. \par
+Sinon, on peut remarquer que la matrice $R$ correspond à l'inverse (donc signe inverse) des opérations élémentaires effectuées lors du "Gram-Schmidt-age" de $A$. On multiplie ensuite chaque ligne de $R$ ainsi obtenu par la norme des vecteurs de $Q$ avant normalisation (méthode certes plus rapide mais plus prône aux erreurs).
+
 \chapter{Bases et matrices}
+
 \section{Représentation dans une base}
 Soient un espace vectoriel $V$, un vecteur $\vec{v} = \begin{pmatrix} v_1 \\ \vdots \\ v_n \end{pmatrix}$ et une base $\mathcal{B}$ de $V$. Pour trouver les coordonnées de $\vec{v}$ dans la base $\mathcal{B}$, il faut résoudre le système $B\vec{x} = \vec{v}$ avec $B$ la matrice qui représente la base $\mathcal{B}$ et $\vec{x} = \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} = (\vec{v})_\mathcal{B}$, c'est à dire le vecteur $\vec{v}$ exprimé selon la base $\mathcal{B}$.
 
@@ -59,13 +66,13 @@ Soit une base $\mathcal{B}=(\vec{b_1}, \vec{b_2})$. Un vecteur $(x)_{\mathcal{B}
 \[(Id)^{\mathcal{C}}_{\mathcal{B}} (x)_{\mathcal{B}} = (x)_{\mathcal{C}}\]
 La matrice $(Id)^{\mathcal{C}}_{\mathcal{B}}$ est la matrice de changement de base de $\mathcal{B}$ vers $\mathcal{C}$. Comme dit Prof. Scherer : "\textit{Elle mange des vecteurs en base $\mathcal{B}$ pour donner des vecteurs en base $\mathcal{C}$}". \par 
 Pour la trouver, on écrit la matrice augmentée $[\vec{c_1},\vec{c_2}\ |\ \vec{b_1},\vec{b_2}]$ puis on l'échelonne et la réduit. Cela permet d'exprimer les coordonnées des vecteurs de la base $\mathcal{B}$ comme combinaison linéaire des vecteurs de la base $\mathcal{C}$, c'est-à-dire que $(Id)^{\mathcal{C}}_{\mathcal{B}} = ((\vec{b_1})_{\mathcal{C}},(\vec{b_2})_{\mathcal{C}})$.\par 
-On remarque alors que la matrice de changement de base est une transformation linéaire qui permet de projeter les vecteurs d'une base sur les vecteurs d'une autre base. Tout autre vecteur sera alors projeté sur sa représentation en une autre base. C'est-à-dire qu'un vecteur $(a,b)_\mathcal{C}$ sera projeté sur $(a,b)_\mathcal{B}$ (mêmes coordonnées mais vecteurs différents) alors qu'un vecteur $(a,b)_\mathcal{B}$ sera projeté sur $(c,d)_\mathcal{C}$(même vecteur mais différentes coordonnées). 
+On remarque alors que la matrice de changement de base est une transformation linéaire (et même un endomorphisme) qui permet de projeter les vecteurs d'une base sur les vecteurs d'une autre base. Tout vecteur autre sera alors projeté sur sa représentation en une autre base. C'est-à-dire qu'un vecteur $(a,b)_\mathcal{C}$ sera projeté sur $(a,b)_\mathcal{B}$ (mêmes coordonnées mais vecteurs différents) alors qu'un vecteur $(a,b)_\mathcal{B}$ sera projeté sur $(c,d)_\mathcal{C}$(même vecteur mais différentes coordonnées). 
 
 \paragraph{Changement de base inverse}
 Puisque le changement de base peut s'appa\-renter à une transformation linéaire, le changement inverse est la transformation linéaire inverse. $(Id)^{\mathcal{B}}_{\mathcal{C}} = ((Id)^{\mathcal{C}}_{\mathcal{B}})^{-1}$
 
 \paragraph{Astuce}
-Il y a un moyen plus rapide de calculer une matrice de changement de base : $(\vec{c_1},\vec{c_2})^{-1}\cdot (\vec{b_1},\vec{b_2}) = (Id)^{\mathcal{C}}_{\mathcal{B}}$\footnote{\textit{Cette méthode n'a pas été démontré par le prof (et encore moins par moi), c'est donc à utiliser à vos risques et périls.}}
+Il y a un moyen plus rapide de calculer une matrice de changement de base : $(\vec{c_1},\vec{c_2})^{-1}\cdot (\vec{b_1},\vec{b_2}) = (Id)^{\mathcal{C}}_{\mathcal{B}}$\footnote{\textit{Cette méthode n'a pas été démontrée par le prof (et encore moins par moi), c'est donc à utiliser à vos risques et périls.}}
 
 \paragraph{Cas de la base canonique}
 La base canonique se note $\mathcal{C}an = (e_1,...,e_n)$ avec $e_i$ des vecteurs dont les coordonnées valent 0 sauf quand l'index est égal à $i$, ou elle vaut 1. C'est la base la plus "naturelle" pour nous autres, pauvres mortels, pour se représenter un espace vectoriel. La matrice de changement de base est alors assez intuitive : $(Id)^{\mathcal{C}an}_{\mathcal{B}}$ est la matrice ayant pour colonnes les vecteurs de la base $\mathcal{B}$.
@@ -75,10 +82,14 @@ Pour une question à choix multiples de type "\textit{Soit deux bases données, 
 Le temps est compté en examen. Il faut donc essayer d'éliminer le plus de réponses possibles en le moins de calculs possibles.
 
 \section{Matrice d'une application selon une base}
-Il peut être demandé de construire la matrice d'une application linéaire $T$ mais dans une base spécifique, disons $\mathcal{B}=(\vec{b_1},...,\vec{b_n})$. Dans ce cas la matrice sera $M = [(T(\vec{b_1}))_\mathcal{B}\ ...\ (T(\vec{b_n}))_\mathcal{B}]$
+Il peut être demandé de construire la matrice d'une application linéaire $T$ mais dans une base spécifique, disons $\mathcal{B}=(\vec{b_1},...,\vec{b_n})$. Dans ce cas la matrice sera $M = [(T(\vec{b_1}))_\mathcal{B}\ ...\ (T(\vec{b_n}))_\mathcal{B}]$.
 
 \paragraph{Astuce en examen}
 Lors du calcul de la matrice d'une transformation selon une base, il faut bien penser à exprimer le résultat de chaque $T(\vec{b_i})$ selon la base demandée.
+
+\section{Matrice d'une transformation linéaire}
+Soit $T:V\to W$ une transformation linéaire de $V$ vers $W$. Pour construire la matrice représentant cette transformation, on choisit une base de $V$ et une base de $W$ (habituellement des bases canoniques). Les colonnes de la matrice $A$ de $T$ sont les images des vecteurs de la base de $V$ exprimés dans la base de $W$. \par 
+On voit dans le cas d'un endomorphisme ($T:V_\mathcal{B}\to V_\mathcal{C}$) ou l'on choisit deux bases $\mathcal{B}$ et $\mathcal{C}$ différentes pour $V$, que la matrice sera les vecteurs de $\mathcal{B}$ dans la base $\mathcal{C}$.
 
 \chapter{Corps finis}
 \paragraph{Caractéristique et cardinalité}
@@ -102,9 +113,15 @@ Pour former un corps, il nous faut un polynôme $p(t)$ unitaire irréductible de
 
 \chapter{Astuces et reminders pour l'examen}
 \section{Calcul de l'inverse d'une matrice}
-Cette méthode m'a été transmise par mon incroyable professeur de l'année dernière, M. Ischi, et s'est avérée très utile. Elle marche sur les matrices $2x2$ et $3x3$ (au-delà, les calculs ne sont pas plus simples que la formule "officielle"). Pour une matrice $A$, on calcule les coefficients de son inverse tels que 
+Cette méthode m'a été transmise par mon incroyable professeur de l'année dernière, M. Ischi, et s'est avérée très utile. Elle marche principalement sur les matrices $2\times 2$ et $3\times 3$ (au-delà, les calculs ne sont pas plus simples que la formule "officielle"). Pour une matrice $A$, on calcule les coefficients de son inverse tels que 
 \[(a^{-1})_{ij} = \dfrac{1}{detA} det((A^T)_{ij})\]
-où $(A^T)_{ij}$ est la matrice transposée à laquelle on a enlevé la ligne $i$ et la colonne $j$.
+où $(A^T)_{ij}$ est la matrice transposée à laquelle on a enlevé la ligne $i$ et la colonne $j$. C'est-à-dire que chaque coefficient de la matrice inverse est le déterminant de $(A^T)_{ij}$, divisé par le déterminant de $A$. Attention cependant, parce que chaque coefficient est multiplié par un signe selon sa ligne et sa colonne, comme suit :
+\[\begin{pmatrix}
+ + & - & +\\
+ - & + & -\\
+ + & - & +
+\end{pmatrix}\]
+Attention, Il faut bien utiliser la transposée de la matrice à inverser, et non la matrice elle-même.
 
 \section{Contres-exemples courants}
 Il est utile de tester les propositions données avec des contres exemples typiques. Pour les matrices, on a :

@@ -6,6 +6,7 @@
 \usepackage{wasysym}
 \usepackage{multicol}
 \usepackage{hyperref}
+\usepackage{tikz}
 \usepackage[ruled, lined, longend]{algorithm2e}
 \usepackage[shortlabels]{enumitem}
 \usepackage{textcomp}
@@ -254,6 +255,9 @@ $\ $\par
 A function $f:A \to B$ can also be defined as a subset of $A \times B$, meaning, as a relation.\par
 A function $f$ from $A$ to $B$ contains one, and only one ordered pair $(a,b)$ for every element $a \in A$.
 
+\paragraph*{Reflexive relations}
+A relation on a set is \textit{reflexive} if, and only if, every element in said set is related to itself. In other words (or symbols rather), $R = \{(a,a)|\ a\in A\}$.
+
 \section{Symmetric and Antisymmetric Relations}
 
 \paragraph*{Definition of symmetry}
@@ -270,7 +274,7 @@ Therefore, $R$ is antisymmetric if, and only if, $\forall x \forall y ((x,y) \in
 Symmetric and antisymmetric are not opposites of each other
  
 \subparagraph*{Personal remark}
-There is only one relation for any set $A$ that is both symmetric and antisymmetric. It is the relation $R = \{(a,a)|a \in A \ \forall a\}$
+There is only one relation for any set $A$ that is both symmetric and antisymmetric. It is the relation $R = \{(a,a)|\ a\in S\subseteq A\}$ for some $S\subseteq A$.
 
 \section{Transitive Relations}
 
@@ -349,6 +353,21 @@ When $a$ and $b$ are elements of $S$ so that neither $a \preceq b$ nor $b \prece
 When $a$ and $b$ are elements of a poset $(S,\preceq)$, it is not necessary that either $a \preceq b$ or $b \preceq a$.
 \paragraph*{Example}
 $(\mathbb{Z},|)$ is a poset. However, not all elements are comparable. 3 and 9 or 2 and 4 are comparable but 5 and 7 aren't.
+\section{Complement: Relations as graphs}
+It can be easier to see relations on one or more sets as graphs. Each element is a node and each ordered pair as a directed edge (an arrow) from the first element to the second. If an element is related to itself, we draw a loop.\par 
+For example, the set $\{1,2,3\}$ and the relation $\{(1,1),(1,2),(2,3),(3,2)\}$ is represented as :\par
+\begin{tikzpicture}[thick, main/.style = {draw, circle}] 
+%\node[parameter] (nodeID) [relative position] {label};
+\node[main] (1) {1};
+\node[main] (2) [above right of=1] {2};
+\node[main] (3) [below right of=2] {3};
+\draw[->] (1) to [out=180,in=270,looseness=4] (1);
+\draw[->] (1) -- (2);
+\draw[->] (2) -- (3);
+\draw[->] (3) -- (2);
+\end{tikzpicture} \\
+We can now visualize symmetry and anti-symmetry as arrows. If the relation is symmetric (i.e. if aRb then bRa), all arrows are double-sided. However, when the relation is anti-symmetric (i.e. if aRb and bRa then a=b), all arrows are single-sided. \par 
+We see that it cannot be possible for an arrow to both be single- and double-sided. Therefore, the only possible graph that is symmetric and anti-symmetric consists only of loops. Similarly, any graph with both types of arrow is neither symmetric nor antisymmetric.
 
 \part{Algorithms}
 
@@ -1012,6 +1031,53 @@ Counting Passwords: Each user on a computer system has a password, which is 6 to
 How many possible passwords are there?\par 
 To do this, we separate the passwords into three distinct sets $P_6,P_7,P_8$ depending on the number of characters. Then, for each set, we count all the possibilities minus the possibilities without any digit.\\
 This is counted as $P_6=(26+10)^6-26^6$, $P_7=36^7-26^7$, $P_8=36^8-26^8$. Then, because the three sets are disjoint, we add them: $P=P_6+P_7+P_8$
+\section{The Substraction Rule}
+Let $A$ and $B$ be two finite sets. Then, $|A\cup B|=|A|+|B|-|A\cap B|$. This is the \textbf{inclusion-exclusion principle}.
+\paragraph*{Example}
+How many bit strings of length 8 either start with 1 bit or end with the two bits 00?\par 
+$|\underbrace{\text{start with 1}}_{\text{1xxxxxxx}}|+|\underbrace{\text{end with 00}}_{\text{xxxxxx00}}|-|\underbrace{\text{both}}_{\text{1xxxxx00}}| = 1\cdot 2^7+2^6\cdot 1\cdot 1-1\cdot 2^5\cdot 1\cdot 1 = 160$
+\section{Permutations, combinations, repetitions}
+It is important to note that while this distinction is not made in the course, i differential partial permutations from permutations, because this is what I was taught and because it make more sense to me. 
+\subsection{Partial Permutations}
+In French, "arrangement", a permutation is taking $k$ distinct element among $n$ distinct elements and putting them in a \textbf{particular order}. The number of permutations is 
+\[(A^n_k=)P(n,k) = n(n-1)(n-2)...(n-k+1)=\frac{n!}{(n-k)!}\] 
+\subsection*{Partial Permutations with repetitions}
+If, among $n$ distinct elements, we pick $k$ elements (distinct or not) and sort them in a \textbf{particular order}, the number of permutations with repetitions is
+\[\overline{A^n_k}=n^k\]
+This is because for each element we pick, we have $n$ choices. This is $n$ choices $k$ times $=n\cdot n\cdot ...\cdot n=n^k$.
+\subsection{Permutation}
+If we sort $n$ distinct elements in a \textbf{particular order} (and not part of those $n$ elements), we form a simple permutation. The formula is 
+\[P_n = n!\]
+\subsection*{Permutation with repetitions}
+If we sort in a \textbf{particular order} $n$ elements that include $n_1$ identical elements of type 1, $n_2$ identical elements of type 2, ... ($n_1+n_2+...+n_p=n$), we do a permutation with repetitions. The formula is
+\[\overline{P}(n_1,n_2,...,n_p)=\frac{n!}{n_1!n_2!...n_p!}\]
+\subsection{Combinations}
+If, among $n$ distinct elements, we pick $k$ distinct elements ($k\leq n$) and sort them in \textbf{no particular order}, the number of combinations is
+\[C^n_k = \begin{pmatrix}n\\k\end{pmatrix} = \frac{P(n,k)}{k!} = \frac{n!}{k!(n-k)!}\]
+Here, we count the number of possible permutations and divide it with the number of possible orders. What remains is the number of permutations with no order.\par 
+$C^n_k$ or $C(n,k)$ is also read as "choose $k$ from $n$", which is self-explanatory.
+\subsection*{Combinations with repetitions}
+If, among $n$ distinct elements, we pick $k$ elements (distinct or not) and sort them in \textbf{no particular order}, the number of combinations with repetitions is
+\[\overline{C^n_k} = \frac{(n+k-1)!}{k!(n-1)!} = \begin{pmatrix}n+k-1\\k\end{pmatrix}\]
+This is directly related to the "stars and bars" counting method.
+\subsection{Stars and bars}
+A combination with repetitions can be modeled as categories representing each distinct element to choose from, separated each by a bar (so $n-1$). The number of times we choose that element are stars that we put between the bars (with $k$ stars in total). \par
+If we take a step back, instead of seeing it as stars between bars, we can see it as bars between stars. Therefore, the possibilities are counted as the placement possibilities for the bars.\par 
+For $k$ elements from $n$ distinct ones, the formula is $C(n+k-1,n-1) = \begin{pmatrix}n+k-1\\n-1\end{pmatrix} = \begin{pmatrix}n+k-1\\k\end{pmatrix}$, the number of ways to place $n-1$ bars.
+\paragraph*{Stars and bars: equation edition}
+The stars and bars method is particularly useful with equations of the form $x_1+x_2+...+x_n\leq y$. The methodology for that sort of question is as follows:
+\begin{enumerate}[nosep]
+\item If some $x_i$ have a value or $x_i\leq a_i$, introduce the variable change $y_i = x_i-a_i$. The sum will then be minus all those $a_i$.
+\item If the equation is $<y$, rewrite it as $\leq y-1$.
+\item If the equation is not $=y$, introduce a "dummy variable" $x_{n+1}$, such that $x_1+x_2+...+x_n+x_{n+1}=y$.
+\item Finally, use the stars and bars method : if there is no dummy variable, $C\begin{pmatrix}n+y-1\\y\end{pmatrix}$, and if there is, $C\begin{pmatrix}(n+1)+y-1\\y\end{pmatrix}$
+\end{enumerate}
+\section{Pigeonhole Principle}
+If $k+1$ elements are placed in $k$ boxes ($k>0$), then at least one box contains 2 or more objects.
+\subsection{Generalised Pigeonhole Principle}
+If $N$ objects are placed into $k$ boxes, then at least one box contains at least $\lceil N/k\rceil$ objects.
+\subsection{Inverse Pigeonhole Principle}
+If we have $k$ boxes, we need $(N-1)\cdot k+1$ objects so that at least one box contains at least $N$ objects.
 
 %“Every time I climb Mount Everest, I eat a pizza.”
 %— Topology professor on vacuous truth

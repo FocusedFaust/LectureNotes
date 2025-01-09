@@ -97,7 +97,7 @@ La caractéristique d'un corps fini $K$ est le plus petit entier non nul $n$ tel
 Soit $K$ un corps fini et $p=carK$. Alors il existe $n$ tel que $K$ a $p^n$ éléments. Ce nombre est la cardinalité de $K$.
 
 \section{Corps à partir de nombres premiers}
-Les corps finis avec un nombre premier d'élément sont de prime abord relativement simples (je dis relativement parce qu'on fait quand même de la théorie des corps). Un corps $\F_p$ est un corps à $p$ éléments $\{0,1,...,p-1\}$. Toutes les opérations se font \textit{modulo} $p$, c'est à dire qu'on ne considère que le reste de la division entière par $p$.
+Les corps finis avec un nombre premier d'élément sont de prime abord relativement simples (je dis relativement parce qu'on fait quand même de la théorie des corps). Un corps $\F_p$ est un corps à $p$ éléments $\{0,1,...,p-1\}$. Toutes les opérations se font \textit{modulo} $p$, c'est à dire qu'on ne considère que le reste de la division entière par $p$.\par 
 
 \paragraph{Opposé}
 Chaque nombre $x\neq 0$ admet un opposé $-x$ tel que $x+(-x)=0$.\par
@@ -106,6 +106,10 @@ Par exemple, dans le corps $\F_7$, l'opposé de 3 est 4 car $3+4=7=0$.
 \paragraph{Inverse}
 Chaque nombre $x\neq 0$ admet un inverse $x^{-1}$ tel que $x\cdot x^{-1}=1$.\par
 Par exemple, dans le corps $\F_7$, l'inverse de 3 est 5 car $3\cdot 5=15=1$.
+
+\paragraph{}
+Je visualise les nombres réels comme une droite horizontale, faite d'une infinité de points et donc de valeurs. Par extension, les nombres complexes sont un plan, puisqu'ils sont constitués de deux réels (la partie réelle et la partie imaginaire)(mais c'est un sujet pour une autre fois). \par
+Par contre, je vois les corps finis comme un segment de longueur $p-1$ et ayant un point toutes les unités, qui représente un élément de ce corps. Puisque toutes les opérations se font \textit{modulo p}, un calcul qui se "promène" le long du segment, revient au début lorsqu'il dépasse la valeur $p-1$. C'est comme les effets spéciaux dans les films, quand un personnage passe la tête dans une porte et que sa tête ressort d'une autre porte du même couloir.
 
 \section{Corps à partir de polynômes}
 Lorsque l'on veut former un corps dont le nombre d'éléments n'est pas premier, on se rend compte que l'addition et la multiplication ne permettent pas d'en faire un groupe abélien. Pour former un corps, au lieu des entiers, on utilise des polynômes $\F_p[t]$ comme éléments et la division euclidienne est remplacée par la division polynomiale.\par 

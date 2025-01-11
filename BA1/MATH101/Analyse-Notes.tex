@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{multicol}
 \usepackage{hyperref}
+\usepackage{fontspec}
 \usepackage[ruled, lined, longend]{algorithm2e}
 \usepackage[shortlabels]{enumitem}
 \usepackage{textcomp}
@@ -33,7 +34,27 @@ J'explique principalement des concepts que je ne comprends pas totalement, c'est
 Le dernier fichier \LaTeX et le PDF correspondant peuvent être trouvés sur mon dépôt GitHub \url{https://github.com/FocusedFaust/LectureNotes}.
 
 \chapter{Suites et séries}
-\section{Limites à retenir}
+\section{Limites}
+\subsection{Calcul des limites}
+Lorsqu'on veut évaluer une fonction en un point $x=a$ ou à l'infini, il y a plusieurs méthodes.
+\paragraph{Limite en un point} 
+Si notre limite est indéterminée ($\infty -\infty$,$0/0$, $\infty/\infty$,...) il y a là encore plusieurs méthodes. On peut utiliser le théorème de Bernoulli-L'Hospital (en vérifiant d'abord les conditions, bien sûr).\par 
+On peut également tirer avantage d'un conjugué ($(a+b)(a-b)=a^2+b^2$) et simplifier notre fonction le plus possible.\par 
+Enfin, on peut calculer les limites à gauche et à droite, qui existent forcément. Si elles sont égales, la limite existe et $\lim_{x\to a}f(x) = \lim_{x\to a^+}f(x) = \lim_{x\to a^-}f(x)$. Sinon ou si les limites latérales sont infinies, la limite n'existe pas.
+\paragraph{Limite à l'infini}
+Pour une limite à l'infini ($x\to +\infty$), on étudie la stabilité du comportement de la fonction (convergence vers une valeur finir, comportement oscillatoire, ...). Si une fonction élémentaire bornée est multiplié par une autre fonction qui tend vers 0, alors la limite générale tend vers 0.\par 
+Sinon, on peut tirer avantage de la "factorisation forcée", ce qui veut dire extraire la variable qui tend à l'infini, particulièrement dans le cas de fractions. Par exemple, 
+\[\lim_{x\to +\infty}\frac{\sqrt{x}}{\sqrt{2x+\sqrt{3x+\sqrt{5x}}}} = 
+\lim_{x\to +\infty}\frac{\sqrt{x}}{\sqrt{x}\sqrt{2+\underbrace{\frac{\sqrt{3x+\sqrt{5x}}}{x}}_{\to 0}}}= \frac{1}{\sqrt{2}}\]
+
+\subsection{Existence des limites}
+Une limite n'existe pas si ses limites latérales n'existent pas (i.e. $\lim_{x\to a^+}\neq\lim_{x\to a^-}$). Cependant, une limite latérale existera toujours (ce qui ne veut pas dire qu'elle converge).
+
+\subsection{Limite des suites récurrentes}
+Soit $(a_n)$, une suite définie par récurrence. On peut calculer si la suite converge en remplaçant les termes de la suite par la limite, car à l'infini, deux termes sont infiniment proches. On trouve alors des racines de l'équation des limites, Si il y en a plusieurs (de racines), on peut éliminer celles qui sont positives/négatives selon l'évolution de la suite((dé)croissante).\par 
+Par exemple, soit $a_n=a_{n-1}^2-2$ et $a_0=2$, alors on a l'équation $l=l^2-2\Rightarrow l^2-l-2=(x+1)(x-2)=0$. On sait que $a_n$ est croissante, sa limite est donc 2.
+
+\subsection{Limites à l'infini à retenir}
 \begin{itemize}
 \item $\lim_{n\to\infty} a_0r^n = \left\{
         \begin{array}{ll}
@@ -44,7 +65,7 @@ Le dernier fichier \LaTeX et le PDF correspondant peuvent être trouvés sur mon
 \item $\lim_{n\to\infty} \sqrt[n]{a} = 1$ pour tout $a > 1$
 \item $\lim_{n\to\infty} \dfrac{1}{n^p}$ pour tout $p > 0$
 \item $\lim_{n\to\infty} \dfrac{sin(1/n)}{1/n} = 1$
-\item $\lim_{n\to\infty} \sqrt{1-(\dfrac{1}{n})^2} = 1$
+\item $\lim_{n\to\infty} \sqrt{1-\left(\dfrac{1}{n}\right)^2} = 1$
 \item $\lim_{n\to\infty} \dfrac{p^n}{n!} = 0$ pour tout $p > 0$
 \item $\lim_{n\to\infty} \dfrac{\alpha^n}{n\text{log}(n)} = +\infty$ pour $\alpha>1$ parce que $\alpha^n$ grandit plus vite que $n\text{log}(n)$
 \end{itemize}
@@ -83,6 +104,7 @@ Toujours utiles à savoir et souvent présentes en examen ou en exercice.\\
  $e^x$ & 0 & 1 & $+\infty$ \\  
  $\text{ln}(x)$ & $\nexists$ & $-\infty$ & $+\infty$ \\
  $1/x$ & 0 & $\nexists$ & 0 \\
+ $0^x$ & $\nexists$ & 1 & 0 \\
  \hline
 \end{tabular}
 
@@ -111,6 +133,9 @@ car le cosinus est pair et le cosinus impair. Si on additionne maintenant les de
 De manière similaire, on a une formule pour le sinus :
 \[e^{i\phi}-e^{-i\phi} = 2i\text{ sin}(\phi)\]
 Il ne faut pas confondre ces égalités avec les définitions des sinus et cosinus hyperboliques, ici la puissance des exponentielles est bien complexe et non pas réelle.
+
+\section{Équations dans les complexes}
+Pour toute équation dans les complexes, il est plus simple de les ramener à leur forme polaire. Ensuite, il lors du calcul de l'angle, il faut bien penser au $+2k\pi$. C'est-à-dire $a\phi = b\phi +2k\pi \Rightarrow \phi = \frac{2k\pi}{a-b}$ pour $k=\{0,1,...,(a+b)-1\}$.
 
 \chapter{Intégration}
 \section{Techniques d'intégration vues en cours}
@@ -145,15 +170,33 @@ Pour une fonction $T$-périodique $f(x)$, sur un intervalle $[0,nT]$, on a
 ce qui fait sens car une fonction périodique aura toujours la même valeur pour une intégrale avec un intervalle égal à sa période, si on le décale de $n$ périodes. L'intégrale de $n$ périodes est donc égale à $n$ intégrales de la période.
 
 \chapter{Astuces et reminders pour l'examen}
+\section{Identités trigonométriques}
+$\text{cos}(x)\cdot\text{sin}(x) = \dfrac{1}{2}\text{sin}(2x)$
+
 \section{Contres-exemples courants}
 Il est utile de tester les propositions données avec des contres exemples typiques. Pour les fonctions, on a :
 \begin{itemize}
 \item $f(x) = \dfrac{1}{x}$
 \item $f(x) = e^x$ et son inverse, $g(x) = \text{ln}(x)$
+\item Une fonction constante, par exemple lorsque $f_k(x)\neq x$, $\forall x\in [0,k]$ ou toute équation semblable.
 \end{itemize}
 Pour les suites :
 \begin{itemize}
 \item Les suites alternées, c'est-à-dire contenant $(-1)^n$
 \end{itemize}
+
+\section{Continuité, bijectivité et monotonie}
+Une fonction $f$ bijective et continue est strictement monotone. Cependant, une fonction strictement monotone n'est pas forcément bijective, on prendra par exemple
+$f:\R\to\R$ telle que $f=e^x$. L'exponentielle est strictement croissante mais pas bijective sur $R$. Elle l'est seulement sur $R^+$.
+\[\text{bijection continue }\begin{smallmatrix}
+\rightarrow \\
+\nleftarrow
+\end{smallmatrix}\text{ monotonie stricte}\]
+Le domaine de définition de l'inverse d'une fonction est l'image de cette fonction.\par
+$f^{-1}(x) = a \Leftrightarrow f(a) = x$
+
+\section{Et à l'examen}
+Penser à prendre de grandes respirations, et prendre son temps pour vérifier les calculs. Une erreur de signe est si vite arrivée. \par 
+Et finalement, {\fontspec{Aurebesh}May the force be with you}!
 
 \end{document}

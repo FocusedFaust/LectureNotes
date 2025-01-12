@@ -5,12 +5,20 @@
 \usepackage{amssymb}
 \usepackage{multicol}
 \usepackage{hyperref}
+\usepackage{tikz}
 \usepackage{fontspec}
 \usepackage[ruled, lined, longend]{algorithm2e}
 \usepackage[shortlabels]{enumitem}
 \usepackage{textcomp}
 
 \setlength{\parindent}{20pt}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=darkgray
+}
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
@@ -35,6 +43,11 @@ Le dernier fichier \LaTeX et le PDF correspondant peuvent être trouvés sur mon
 
 \chapter{Suites et séries}
 \section{Limites}
+\subsection{Liminf et Limsup}
+Si $\lim_{n\to+\infty}(a_n)$ existe, alors  $\lim_{n\to+\infty}(a_n) = \liminf_{n\to+\infty}(a_n) = \limsup_{n\to+\infty}(a_n)$. Lorsqu'on cherche $\limsup$ ou $\liminf$ d'une suite, alors on peut essayer de calculer la limite de cette suite.\par 
+L'inverse est vrai aussi, et si $\limsup_{n\to+\infty}(a_n) = \liminf_{n\to+\infty}(a_n) = l$, alors $(a_n)$ converge vers $l$.\par 
+Dans le cas d'une suite dont les bornes dépendent d'oscillations ($(-1)^n$), il peut être utile de diviser la suite en deux sous-suites et de les étudier séparément.
+
 \subsection{Calcul des limites}
 Lorsqu'on veut évaluer une fonction en un point $x=a$ ou à l'infini, il y a plusieurs méthodes.
 \paragraph{Limite en un point} 
@@ -122,6 +135,9 @@ $a_6 = 13\ 11\ 22\ 21$\par
 ... et ainsi de suite
 
 \chapter{Nombres complexes}
+\section{Forme cartésienne to forme polaire}
+Soit $z=a+ib$. Alors $z=\sqrt{a^2+b^2}\cdot e^{i\phi}$ où $\phi=arctan(b/a)$.
+
 \section{Relation entre forme polaire et trigo}
 \subsection{Formule d'Euler et dérivées}
 La formule d'Euler nous donne la relation suivante :
@@ -179,6 +195,7 @@ Il est utile de tester les propositions données avec des contres exemples typiq
 \item $f(x) = \dfrac{1}{x}$
 \item $f(x) = e^x$ et son inverse, $g(x) = \text{ln}(x)$
 \item Une fonction constante, par exemple lorsque $f_k(x)\neq x$, $\forall x\in [0,k]$ ou toute équation semblable.
+\item Particulièrement pour la continuité, les fonctions par parties.
 \end{itemize}
 Pour les suites :
 \begin{itemize}

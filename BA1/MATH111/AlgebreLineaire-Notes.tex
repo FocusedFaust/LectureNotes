@@ -23,6 +23,7 @@
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
 \newcommand{\ind}{\hspace*{\parindent}}
 
 \title{Algèbre Linéaire - Notes et Résumés}
@@ -61,7 +62,8 @@ Il est utile de noter que pour une matrice $A$ diagonalisable, $A^T$ a les même
 Le but de la factorisation $QR$ est de trouver une décomposition d'une matrice $A$ telle que $Q\cdot R=A$ avec la matrice $Q$ qui soit orthogonale et la matrice $R$ qui soit triangulaire supérieure.\par 
 Pour trouver la matrice $Q$, on utilise la méthode de Gram-Schmidt sur les colonnes de $A$, pour en obtenir une base orthogonale de l'espace-colonne. On divise ensuite les vecteurs obtenus pour les normaliser.\par 
 La matrice $R$ correspond aux colonnes de $A$ exprimés dans la base de $Q$. Puisque $Q\cdot R=A$ et que $Q$ est orthonormée ($Q^{-1}=Q^T$), on peut alors calculer $R=Q^T\cdot Q\cdot R=Q^T\cdot A$. \par
-Sinon, on peut remarquer que la matrice $R$ correspond à l'inverse (donc signe inverse) des opérations élémentaires effectuées lors du "Gram-Schmidt-age" de $A$. On multiplie ensuite chaque ligne de $R$ ainsi obtenu par la norme des vecteurs de $Q$ avant normalisation (méthode certes plus rapide mais plus prône aux erreurs).
+Sinon, on peut remarquer que la matrice $R$ correspond à l'inverse (donc signe inverse) des opérations élémentaires effectuées lors du "Gram-Schmidt-age" de $A$. On multiplie ensuite chaque ligne de $R$ ainsi obtenu par la norme des vecteurs de $Q$ avant normalisation (méthode certes plus rapide mais plus prône aux erreurs).\par 
+Additionnellement, une manière de trouver un coefficient particulier de $R$, on calcule $r_{ij} = q_i\cdot a_j$.
 
 \chapter{Bases et matrices}
 
@@ -123,7 +125,50 @@ Par contre, je vois les corps finis comme un segment de longueur $p-1$ et ayant 
 Lorsque l'on veut former un corps dont le nombre d'éléments n'est pas premier, on se rend compte que l'addition et la multiplication ne permettent pas d'en faire un groupe abélien. Pour former un corps, au lieu des entiers, on utilise des polynômes $\F_p[t]$ comme éléments et la division euclidienne est remplacée par la division polynomiale.\par 
 Pour former un corps, il nous faut un polynôme $p(t)$ unitaire irréductible de degré $n$ dans $\F_p[t]$. Ensuite, on considère l'ensemble de tous les restes de division par $p(t)$. Il y en a $p^n$.
 
+\subsection{Trouver des polynômes irréductibles}
+Lors de la construction d'un corps fini, il nous est parfois explicitement demandé de trouver un polynôme irréductible. Pour cela, il y a plusieurs méthodes. 
+\begin{enumerate}
+\item Énumérer les polynômes non-constants de degré inférieur à celui voulu et diviser tous les polynômes de degré voulu par ceux-ci. Cela peut être laborieux, surtout pour les degrés élevés.
+\item Tester les racines possibles. Cela est particulièrement efficace pour les coefficients dans $\F_p$ avec $p$ relativement petit. 
+\item Il y a également une méthode reposant sur la divisibilité de $x^{p^n}-x$, mais je ne la connais pas assez. Si cela vous intéresse, je vous conseille d'aller chercher du côté de la "condition de divisibilité"\footnote{En gros (très gros même), $p(x)$ est irréductible dans $\F_{p^n}$ si il divise $x^{p^n}-x$, mais pas $x^{p^k}-x\ \forall k<n$.}.
+\end{enumerate}
+
+\section{Linéarité et distributivité modulaire}
+L'opération "modulo" n'est absolument pas linéaire. Cependant, il existe une certaine distributivité de l'arithmétique modulaire.
+\[(a+b)\ mod\ n = ((a\ mod\ n)+(b\ mod\ n))\ mod\ n\]
+\[(a-b)\ mod\ n = ((a\ mod\ n)-(b\ mod\ n))\ mod\ n\]
+\[(a\cdot b)\ mod\ n = ((a\ mod\ n)\cdot(b\ mod\ n))\ mod\ n\]
+\paragraph{Preuve}
+On prouve la distributivité de la soustraction ainsi, pour les curieux.\par 
+Soit:
+\[a \mod n = r_1 \quad \text{et} \quad b \mod n = r_2,\text{ où :}\]
+\[a = k_1 n + r_1 \quad \text{et} \quad b = k_2 n + r_2,\]
+pour \(k_1,k_2\in\N\), et \(0 \leq r_1, r_2 < n\).
+La différence \(a - b\) est :
+\[a - b = (k_1 n + r_1) - (k_2 n + r_2) = (k_1 - k_2)n + (r_1 - r_2).\]
+En prenant le module \(n\), il nous reste :
+\[(a - b) \mod n = (r_1 - r_2) \mod n.\]
+D'un autre côté, on considère l'expression :
+\[\big((a \mod n) - (b \mod n)\big) \mod n.\]
+En substituant \(a \mod n = r_1\) et \(b \mod n = r_2\), on a :
+\[\big((a \mod n) - (b \mod n)\big) \mod n = (r_1 - r_2) \mod n.\]
+Ainsi,
+\[(a - b) \mod n = \big((a \mod n) - (b \mod n)\big) \mod n.\]
+
 \chapter{Astuces et reminders pour l'examen}
+\section{Est-ce un sous-espace vectoriel ?}
+Pour montrer si un ensemble est un sous-espace vectoriel, il faut prouver que
+\begin{enumerate}
+\item l'addition de deux éléments appartient toujours à l'ensemble
+\item un élément multiplié par un scalaire reste dans l'ensemble
+\end{enumerate}
+Particulièrement, il faut que l'élément nul (i.e. $\overrightarrow{0}, p(x)=0,$ ...) appartienne à l'ensemble. Si il n'y est pas, c'est éliminatoire. Ensuite, on vérifie les deux points mentionnés, selon l'ensemble en question.\par 
+Par exemple, pour un ensemble $W^\bot$ orthogonal au sous-espace vectoriel $W$ de $R^n$. 
+\begin{enumerate}
+\item Soit $x,y\in W^\bot$ et $w\in W$. $(x+y)\cdot w=x\cdot w+y\cdot w=0+0=0$, ce qui démontre le point 1 ci-dessus.
+\item Soit $\alpha\in\R$ et $x\in W^\bot$. Alors $(\alpha x)\cdot w=\alpha(x\cdot w)=\alpha0=0$.
+\end{enumerate}
+
 \section{Calcul de l'inverse d'une matrice}
 Cette méthode m'a été transmise par mon incroyable professeur de l'année dernière, M. Ischi, et s'est avérée très utile. Elle marche principalement sur les matrices $2\times 2$ et $3\times 3$ (au-delà, les calculs ne sont pas plus simples que la formule "officielle"). Pour une matrice $A$, on calcule les coefficients de son inverse tels que 
 \[(a^{-1})_{ij} = \dfrac{1}{detA} det((A^T)_{ij})\]
@@ -162,5 +207,36 @@ $\big(\begin{smallmatrix}
 \section{Erreurs de nomenclature}
 Attention, orthonormé $\neq$ orthogonal. Dans les questions portant sur des bases orthonormées, il faut veiller à éliminer d'office les bases qui ne le sont pas.\par 
 Ce n'est pas une \textbf{unique} solution si la solution est un sous-espace vectoriel.
+
+\appendix
+\chapter{Corps finis complexes}
+Je me suis posé la question à un moment dans mes révisions : "Peut-on construire un corps fini complexe, c'est-à-dire un corps $\C_p$ qui soit tous les nombres complexes ayant des coefficients dans $\F_p$ ?". J'ai posé la question à Yacine (ce crack en analyse) et on a étudié la possibilité. \par 
+Il faudrait pour cela que chaque nombre $\neq 0$ ait un opposé et un inverse. Pour les opposés, ça semble plutôt simple puisque $-ai = pi-ai = (p-a)i$ et donc, par extension, $-(a+ib)=-a-ib=(p-a)+(p-b)i$.\par 
+Pour les inverses cependant, la situation est plus délicate. L'inverse d'un complexe se définit comme
+\[z^{-1}=\frac{a-ib}{a^2+b^2}\]
+On a alors souvent des fractions comme coefficients. Cependant, ce n'est pas un problème car $1/n = n^{-1}$, c'est donc l'inverse de $n$, qui doit exister dans $\F_p$ aussi (si $n\neq 0$, on y vient). Donc si $n\neq 0$, on utilise son inverse. Les problèmes commencent quand $a^2+b^2=0$.\par
+Dans ce cas-là, il n'y a pas d'inverse (et on est bien embêté). Une conclusion s'impose alors : on ne peut pas construire de $\C_p$ quand l'équation $(a^2+b^2)\ mod\ p=0$ a au moins une solution. Cela exclut par exemple $\F_2$ ($1^2+1^2=0$) et $\F_5$ ($2^2+4^2=4+1=0$) comme candidats pour un corps complexe (désolée les gars). \par 
+Cependant, il nous reste des candidats. Nous avons donc entrepris de construire à la main le corps $\C_3$.
+\section{Construction de $\C_3$}
+\begin{center}
+\begin{tikzpicture}
+\draw[step=1cm,gray,very thin] (0,0) grid (2,2);
+\draw[thick,->] (0,0) -- (2,0);
+\draw[thick,->] (0,0) -- (0,2);
+\foreach \x in {0,1,2}
+   \draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\x$};
+\foreach \y in {0,1,2}
+    \draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\y i$};
+\foreach \Point in {(0,0), (0,1), (0,2), (1,0), (1,1), (1,2), (2,0), (2,1), (2,2)}{
+    \node at \Point {\textbullet};
+}
+\end{tikzpicture}
+\end{center}\par 
+Voici une grille où chaque point représente un élément de $\C_3$. On voit que les coefficients sont dans $\F_3$ et que le nombre imaginaire $i$ est présent.\par 
+Les opérations usuelles ont lieu comme pour $\F_3$. Par exemple, $(2+2i)+(1)=3+2i=2i$. On remarque que l'opération modulo se fait selon un axe. C'est-à-dire que si on "dépasse" 2 horizontalement, on reste sur la même ordonnée, et inversement à la verticale. \par 
+Pour la multiplication, il faut faire attention car on prend en compte $i$ tel que $i^2=-1$. Ainsi, $(2+2i)\cdot(2+i)=4+2i+4i+2i^2=4+6i-2=1+1=2$.
+
+\section{Définition}
+On définit le corps $\C_p$ tel que $\C_p = \{a+ib\ |\ a,b\in\F_p\}$. 
 
 \end{document}

@@ -47,6 +47,15 @@ La multiplication est préservée pour le déterminant, donc $det(A)\cdot det(B)
 Échanger deux lignes ou colonnes revient à multiplier le déterminant par $-1$.\par 
 Multiplier une ligne ou une colonne par un scalaire $a$ revient à multiplier le déterminant par ce même scalaire.
 
+\section{Rang d'une matrice, injectivité, surjectivité}
+\paragraph{Rang}
+Le théorème du rang nous dit que pour une matrice $A$ de taille $m\times n$ ($m$ lignes et $n$ colonnes), $dim(Im(A))+dim(Ker(A))=n$. \par 
+Pour une application linéaire $T:V\to W$ et la matrice $B$ représentant cet transformation, on a que $dim(Im(A))+dim(Ker(A))=dim(V)$.
+\paragraph{Injectivité}
+Une matrice est injective si sa forme échelonnée-réduite a un pivot dans chaque colonne.
+\paragraph{Surjectivité} 
+Une matrice est surjective si sa forme échelonnée-réduite a un pivot dans chaque ligne.
+
 \section{Valeurs propres facilement repérables}
 Certaines valeurs propres peuvent être facilement repérables, sans avoir à passer par le polynôme caractéristique, ce qui nous évite de perdre pas mal de temps quand on a des grandes matrices. \par 
 Il est utile de noter que pour une matrice $A$ diagonalisable, $A^T$ a les mêmes valeurs propres.
@@ -58,12 +67,20 @@ Il est utile de noter que pour une matrice $A$ diagonalisable, $A^T$ a les même
 \item Si $A$ est diagonalisable, alors la trace de $A$ est égale à la somme des valeurs propres de $A$. Ainsi, si il nous manque une seule valeur propre (attention à la multiplicité), on peut la calculer à partir de la trace.
 \end{itemize}
 
-\section{Factorisation QR}
+\section{Factorisation \texorpdfstring{$QR$}{QR}}
 Le but de la factorisation $QR$ est de trouver une décomposition d'une matrice $A$ telle que $Q\cdot R=A$ avec la matrice $Q$ qui soit orthogonale et la matrice $R$ qui soit triangulaire supérieure.\par 
 Pour trouver la matrice $Q$, on utilise la méthode de Gram-Schmidt sur les colonnes de $A$, pour en obtenir une base orthogonale de l'espace-colonne. On divise ensuite les vecteurs obtenus pour les normaliser.\par 
 La matrice $R$ correspond aux colonnes de $A$ exprimés dans la base de $Q$. Puisque $Q\cdot R=A$ et que $Q$ est orthonormée ($Q^{-1}=Q^T$), on peut alors calculer $R=Q^T\cdot Q\cdot R=Q^T\cdot A$. \par
 Sinon, on peut remarquer que la matrice $R$ correspond à l'inverse (donc signe inverse) des opérations élémentaires effectuées lors du "Gram-Schmidt-age" de $A$. On multiplie ensuite chaque ligne de $R$ ainsi obtenu par la norme des vecteurs de $Q$ avant normalisation (méthode certes plus rapide mais plus prône aux erreurs).\par 
 Additionnellement, une manière de trouver un coefficient particulier de $R$, on calcule $r_{ij} = q_i\cdot a_j$.
+
+\section{Théorème et décomposition spectrale}
+Si une matrice est symétrique, il découle plusieurs propriétés. Premièrement, son inverse (et la transposée) sont aussi symétriques. Deuxièmement, cette matrice est orthodiagonalisable. Ceci veut dire qu'il existe une base \textbf{orthogonale} de ses vecteurs propres.\par 
+Pour orthodiagonaliser une matrice symétrique, on la diagonalise comme habituellement, puis on vérifie que ses vecteurs propres sont bien orthogonaux. Si ils ne le sont pas, on les orthogonalise grâce au procédé de Gram-Schmidt.\par 
+La matrice $P$ dont les colonnes sont les vecteur propres orthogonaux est une matrice orthogonale. $P^TAP$ est donc diagonale ($P^{-1}=P^T$).
+\paragraph{Décomposition spectrale} 
+Soit $A$ symétrique, $U$ orthogonale et $U^TAU=D$ diagonale. Le \textbf{spectre} est l'ensemble des valeurs propres de $A$. La décomposition spectrale de $A$ est
+\[A=\lambda_1\overrightarrow{u_1}\overrightarrow{u_1}^T+\ldots+\lambda_n\overrightarrow{u_n}\overrightarrow{u_n}^T\]
 
 \chapter{Bases et matrices}
 
@@ -203,6 +220,7 @@ $\big(\begin{smallmatrix}
 \item La matrice nulle
 \item Une matrice qui ne soit pas carrée (pour l'inversibilité). Effectivement, il ne faut pas supposer qu'une matrice soit inversible, à moins que ça ne soit explicitement dit dans l'énoncé.
 \end{itemize}
+Il arrive parfois dans les vrais/faux qu'on nous présente une proposition contenant des $\alpha_i$, des réels arbitraires. Attention, car ces réels peuvent être 0. L'indépendance linéaire ne tient plus.
 
 \section{Erreurs de nomenclature}
 Attention, orthonormé $\neq$ orthogonal. Dans les questions portant sur des bases orthonormées, il faut veiller à éliminer d'office les bases qui ne le sont pas.\par 
@@ -217,7 +235,8 @@ Pour les inverses cependant, la situation est plus délicate. L'inverse d'un com
 On a alors souvent des fractions comme coefficients. Cependant, ce n'est pas un problème car $1/n = n^{-1}$, c'est donc l'inverse de $n$, qui doit exister dans $\F_p$ aussi (si $n\neq 0$, on y vient). Donc si $n\neq 0$, on utilise son inverse. Les problèmes commencent quand $a^2+b^2=0$.\par
 Dans ce cas-là, il n'y a pas d'inverse (et on est bien embêté). Une conclusion s'impose alors : on ne peut pas construire de $\C_p$ quand l'équation $(a^2+b^2)\ mod\ p=0$ a au moins une solution. Cela exclut par exemple $\F_2$ ($1^2+1^2=0$) et $\F_5$ ($2^2+4^2=4+1=0$) comme candidats pour un corps complexe (désolée les gars). \par 
 Cependant, il nous reste des candidats. Nous avons donc entrepris de construire à la main le corps $\C_3$.
-\section{Construction de $\C_3$}
+
+\section{Construction de \texorpdfstring{$\C_3$}{C3}}
 \begin{center}
 \begin{tikzpicture}
 \draw[step=1cm,gray,very thin] (0,0) grid (2,2);
@@ -235,6 +254,17 @@ Cependant, il nous reste des candidats. Nous avons donc entrepris de construire 
 Voici une grille où chaque point représente un élément de $\C_3$. On voit que les coefficients sont dans $\F_3$ et que le nombre imaginaire $i$ est présent.\par 
 Les opérations usuelles ont lieu comme pour $\F_3$. Par exemple, $(2+2i)+(1)=3+2i=2i$. On remarque que l'opération modulo se fait selon un axe. C'est-à-dire que si on "dépasse" 2 horizontalement, on reste sur la même ordonnée, et inversement à la verticale. \par 
 Pour la multiplication, il faut faire attention car on prend en compte $i$ tel que $i^2=-1$. Ainsi, $(2+2i)\cdot(2+i)=4+2i+4i+2i^2=4+6i-2=1+1=2$.
+
+\section{Construction des opposés}
+Chaque élément doit avoir son opposé, c'est-à-dire que $\forall x\exists y$ tels que $x+y=0$. Pour chaque élément $a+ib$, son inverse est $(p-a)+(p-b)i$. \par 
+Par exemple, l'opposé de $2+i$ est $1+2i$, car $(2+i)+(1+2i)=3+3i=0$. Graphiquement, si on part du point $2+i$, on se déplace une fois à droite, donc on revient à l'abscisse 0, puis on monte deux fois, pour revenir à une ordonnée de 0.
+
+\section{Construction des inverses}
+La construction des inverses est plus subtile, car on a vu plus haut que ce n'était pas possible pour tous les $p$ premiers. Il faut que $a^2+b^2\neq0\forall a,b\in\F_p$. Dans $\F_3$, c'est bien le cas. On peut alors calculer l'inverse d'un élément de deux manières différentes :
+\begin{enumerate}
+\item Avec la définition de l'inverse d'un complexe, donc $z^{-1}=\frac{a-ib}{a^2+b^2}$. Si on a une fraction, il faut bien penser à prendre l'inverse selon $\F_p$.
+\item En résolvant l'équation $(a+ib)\cdot(c+id)=1\Rightarrow ac+iad+ibc+i^2bd=(ac-bd)+i(ad+bc)=1\Rightarrow ac-bd=1\text{ et }ad+bd=0$
+\end{enumerate}
 
 \section{Définition}
 On définit le corps $\C_p$ tel que $\C_p = \{a+ib\ |\ a,b\in\F_p\}$. 

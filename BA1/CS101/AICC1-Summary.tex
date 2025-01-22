@@ -6,6 +6,7 @@
 \usepackage{wasysym}
 \usepackage{multicol}
 \usepackage{hyperref}
+\usepackage{tabularx}
 \usepackage{tikz}
 \usepackage[ruled, lined, longend]{algorithm2e}
 \usepackage[shortlabels]{enumitem}
@@ -242,6 +243,47 @@ Let us consider the statement $\forall x (P(x)\land\neg P(x))$. It can be assimi
 \end{itemize}
 \end{itemize}
 \paragraph*{Quantifiers truth values}
+$ $\\
+$ $\\
+\begin{tabularx}{\textwidth}{c |X |X }
+ 				 & As is & Negated\\
+ \hline
+ $\forall xP(x)$ & $P(x)$ is true for every $x$ in the domain & There is an $x$ in the domain for which $P(x)$ is false\\
+ & & $\Rightarrow\neg\forall xP(x)\equiv\exists x\neg P(x)$\\
+ \hline 
+ $\exists xP(x)$ & There is at least one $x$ in the domain for which $P(x)$ is true & $P(x)$ is false for every $x$ in the domain\\
+  & & $\Rightarrow\neg\exists xP(x)\equiv\forall x\neg P(x)$\\
+ \hline
+\end{tabularx}
+\paragraph*{Empty Domain}
+If the domain is empty ($U=\{\}$), then 
+\begin{itemize}
+\item $\forall xP(x)$ is True
+\item $\exists xP(x)$ is False
+\end{itemize}
+However, we don't consider the empty domain for determining validity and satisfiability.
+\subsection{Logical Equivalence}
+Two statements are \textbf{logically equivalent} if and only if both have the same truth values in every possible interpretation, no matter the predicates or the domain. This means that they both have the same value, no matter if $P(x)$ means "$x$ is a unicorn" or "$x$ is even".
+\section{Nested Quantifiers}
+\textbf{Nested quantifiers} are quantifiers that appear \textit{within the scope} of a other quantifiers in a logical expression. They allow us to express more complex relationships between variables.\par 
+The \textbf{ordering} of those quantifiers is critical to the statement!\\
+$ $\\
+\begin{tabularx}{\textwidth}{c |X |X }
+ 				 & As is & Negated\\
+ \hline
+ $\forall x\forall yP(x,y)$ & $P$ is true for every pair $(x,y)$ & There is a pair $(x,y)$ for which $P$ is false\\
+ \hline 
+ $\forall x\exists yP(x,y)$ & For every $x$, there is a $y$ for which $P$ is true & There is a $x$ such that $P(x,y)$ is false for every $y$\\
+ \hline
+ $\exists x\forall yP(x,y)$ & There is a $x$ for which $P(x,y)$ is true for every $y$ & For every $x$, there is a $y$ for which $P(x,y)$ is false\\
+  \hline
+  $\exists x\exists yP(x,y)$ & There is a pair $(x,y)$ for which $P$ is true & $P$ is false for every pair $(x,y)$\\
+  \hline
+\end{tabularx}
+$ $\\
+$ $\par
+For a better visualisation, it is possible to represent the domain for $x$ and for $y$ as dots in two columns and connect them when $P$ is true for the pair.
+%TODO Add graph with TikZ
 
 \part{Basic Structures}
 
@@ -375,7 +417,7 @@ For example, the set $\{1,2,3\}$ and the relation $\{(1,1),(1,2),(2,3),(3,2)\}$ 
 \draw[->] (3) -- (2);
 \end{tikzpicture} \\
 We can now visualize symmetry and anti-symmetry as arrows. If the relation is symmetric (i.e. if aRb then bRa), all arrows are double-sided. However, when the relation is anti-symmetric (i.e. if aRb and bRa then a=b), all arrows are single-sided. \par 
-We see that it cannot be possible for an arrow to both be single- and double-sided. Therefore, the only possible graph that is symmetric and anti-symmetric consists only of loops. Similarly, any graph with both types of arrow is neither symmetric nor antisymmetric.
+We see that it cannot be possible for an arrow to both be single- and double-sided. Therefore, the only possible graph that is symmetric and anti-symmetric consists only of loops. Similarly, any graph with both types of arrow is neither symmetric nor antisymmetric.\footnote{This section is largely based on the StackExange discussion here: \url{https://math.stackexchange.com/questions/1475354/can-a-relation-be-both-symmetric-and-antisymmetric-or-neither}.}
 
 \part{Algorithms}
 
@@ -1106,6 +1148,37 @@ If $k+1$ elements are placed in $k$ boxes ($k>0$), then at least one box contain
 If $N$ objects are placed into $k$ boxes, then at least one box contains at least $\lceil N/k\rceil$ objects.
 \subsection{Inverse Pigeonhole Principle}
 If we have $k$ boxes, we need $(N-1)\cdot k+1$ objects so that at least one box contains at least $N$ objects.
+
+\chapter{Probability}
+\section{Expected Value}
+The expected value or "espérance" in French is what result you expect to get for the random variable $X$ over the space $S$. It's a bit like an average outcome. However, it may not be included in the space. For example, if I throw a pentagonal die\footnote{Singular for dice (I didn't know it either).} (D7), the expected value would be 3.5, although you cannot get a decimal value on a die.\par 
+The expectancy is calculated as
+\[E(X)=\sum_{s\in S}p(s)X(s)\]
+The expected value is linear, meaning that $E(X_1+X_2+...+X_n)=E(X_1)+E(X_2)+...+E(X_n)$ and $E(aX+b)=aE(X)+b$. This is useful if two random variables' expected values differ from a constant. We can have a kind of "changement de variable" as $E(Y)=E(X)+c$.
+\section{Variance}
+The variance is "the expected value of the squared deviation from the mean of a random variable\footnote{Thanks Wikipedia \url{https://en.wikipedia.org/wiki/Variance}}". This is not very clear but to me, it just means that the variance is how much you can expect to vary from the expected value. However, this is not mathematical, just a way to visualise better.\par 
+The variance of a random variable $X$ over a sample space $S$ is computed as 
+\[V(X)=\sum_{s\in S}(X(s)-E(X))^2\cdot p(s)\]
+However, that can be a hassle to calculate. The other formula for the variance is $V(X)=E(X^2)-E(X)^2$, and id $E(X)=\mu$, then $V(X)=E((X-\mu)^2)$.
+\section{Bernoulli Trials}
+Bernoulli trials are a probability law for an event that has two outcomes (True/False, heads/tails, red/green, ...) one considered as a "success" and the other as a "failure\footnote{We are still proud of you, kiddo.}". This is the same as saying that the universe $U$ has two elements ($\{0,1\}$ for example). The random variable $X$ has the value 1 if one event succeeds and 0 if it doesn't. We have $p$ the probability of success and $q$ the probability of failure ($p+q=1$). \par 
+The probability of $k$ successes over $n$ (independent) trials is 
+\[p(X=k)=C(n,k)\cdot p^k\cdot q^{n-k}\]
+\paragraph{Expected value}
+The expected value of $n$ Bernoulli trials with a probability $p$ of success is $E(X)=n\cdot p$.
+\paragraph{Variance}
+The variance of $n$ Bernoulli trials is $V(X)=np(1-p)$.
+\section{Conditional Probability}
+Conditional probability is the probability of an event $A$ happening knowing that an event $B$ has happened. We write $P(A\mid B)=$ "probability of $A$ knowing $B$".\par 
+This is usually computed as $P(A\mid B)=\frac{P(A\cap B)}{P(A)}$.
+\subsection{Bayes' Theorem}
+Bayes' theorem is useful when we have no information about the intersection of the two events. Instead, we compute
+\[P(A\mid B)= \frac{P(B\mid A)P(A)​}{P(B)}\]
+\subsection{Generalized Bayes' Theorem}
+If $A_1\cup 1_2\cup\ldots\cup A_n=U$ and $\forall i,j\ A_i\cap A_j=\emptyset$, then 
+\[P(A_k\mid B)=\frac{P(B\mid A_k)P(A_k)}{P(B)}\]
+This is useful when the space is divided in multiple incompatible events.
+ 
 
 %“Every time I climb Mount Everest, I eat a pizza.”
 %— Topology professor on vacuous truth

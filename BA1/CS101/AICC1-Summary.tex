@@ -36,8 +36,9 @@
 
 
 \section*{Introduction}
-These are my notes for the Advanced Information, Communication and Computation I (CS-101) course given during the fall semester of 2024 at EPFL. Please note that the content is not mine but belongs to Professor Thomas Bourgeat and Professor Tanja Käser, who taught it. I have however changed some formulations, added definitions from other sources and personal notes, when I thought it useful.\par
-This summary is not exempt of errors. If you find one, you can contact me at my EPFL e-mail address: \texttt{\href{mailto:faustine.flicoteaux@epfl.ch}{faustine.flicoteaux@epfl.ch}} or through the GitHub page \url{https://github.com/FocusedFaust/LectureNotes}.
+These are my notes for the Advanced Information, Communication and Computation I (CS-101) course given during the fall semester of 2024 at EPFL. Please note that the content is not mine but belongs to Professor Thomas Bourgeat and Professor Tanja Käser, who taught it. I have however changed some formulations, added definitions from other sources and personal notes, when I thought it was useful.\par
+This summary is not exempt of errors. If you find one, you can contact me at my EPFL e-mail address: \texttt{\href{mailto:faustine.flicoteaux@epfl.ch}{faustine.flicoteaux@epfl.ch}} or through the GitHub page \url{https://github.com/FocusedFaust/LectureNotes}.\par 
+Note that the GitHub repository is also where I have the latest pdfs and \TeX documents, for this course and others.
 
 \part{Logic and Mathematical Reasoning}
 
@@ -414,10 +415,13 @@ Finding a word in a dictionary, finding a name in a student list, finding an amo
 The linear search algorithm goes through the list, one element at a time, from the first to the last.
 \begin{algorithm}
 \DontPrintSemicolon
+\SetAlgoNoEnd
 $i$ := 1\;
-location := 1\;
+location := -1\;
 \While{($i \leq n$ and $x \neq a_{i}$)}{$i = i+1$}
 \If{$i \leq n$}{location := $i$}
+\KwRet location
+\caption{Linear Search Algorithm}
 \end{algorithm}
 
 \subsection{Binary Search}
@@ -712,7 +716,7 @@ We also say the "$f$ is little-o of $g$" or "$f$ is little-omicron of $g$"
 \paragraph*{Examples}
 $\ $\par
 $x^2$ is $\mathcal{O}(x^3)$ and it is also $o(x^3)$ as $\lim_{x\to \infty} \frac{x^2}{x^3} = 0$\par
-$x^2+x+1 is \mathcal{O}(x^2)$ but it is not $o(x^2)$ as $\lim_{x\to \infty} \frac{x^2+x+1}{x^2} =1$\par 
+$x^2+x+1\text{ is }\mathcal{O}(x^2)$ but it is not $o(x^2)$ as $\lim_{x\to \infty} \frac{x^2+x+1}{x^2} =1$\par 
 In general, we can say that $x^n$ is $o(x^{n+1})\ \forall x \geq 0$ because $\lim_{n\to \infty} \frac{x^n}{x^{n+1}} =0$
 \subsection{Little-o and Big-O}
 If $f(x)$ and $g(x)$ are functions such that $f(x)$ is $o(g(x))$, then $f(x)$ is $\mathcal{O}(g(x))$\par 
@@ -754,8 +758,8 @@ The bigger the time complexity of an algorithm, the longer it takes to run on an
 \subsection{Complement: Decreasing Complexity}
 This was not seen during class, but I thought it interesting to add as a complement. \\
 Consider the following problem: \par 
-Given a sequence $(a_n)$, you want to find a value $j$ such that there exists an element $a_i$ of the sequence that in a given range $[a,b]$ for $i<j$. This means that, the greater the value of $b-a$, the less you will have to compute the sequence to find a value in that range.\par 
-For example, if we take the sequence $a_n = n\cdot sin(n)$, we will have $(a_n)$ between $n$ and $-n$. If we want to get a value between a small range $[a,b]$, we will have to compute a lot of values of $(a_n)$. However, for a bigger range, it is much more likely that there will be a value within that range early on. In this example, the complexity is $\frac{1}{b-a}$.
+Given a sequence $(a_n),n\in\N$, you want to find a value $j$ such that there exists an element $a_i$ of the sequence that is in a given range $[a,b]$ for $i<j$. This means that, the greater the value of $b-a$, the less you will have to compute the sequence to find a value in that range.\par 
+For example, if we take the sequence $a_n = n\cdot sin(n)$, we will have $(a_n)$ between $n$ and $-n$. If we want to get a value between a small range $[a,b]$, we will have to compute a lot of values of $(a_n)$. However, for a bigger range, it is much more likely that there will be a value within that range early on. In this example, the complexity is $\frac{1}{b-a}$, which is decreasing.
 
 \chapter{Induction, Recursion}
 Induction and recursion are different approaches to proving 
@@ -770,11 +774,22 @@ A \textit{recursive definition} of a function $f$ with the set of non-negative i
 \ind Basis step: specify the value of $f$ at 0.\\
 \ind Recursive step: Give a rule for finding its value at $f(n)$, with $n$ an integer, from its values at smaller values of $n$.\\
 A function $f(n): \Z_{\geqslant 0} \to \R$ is the same as a sequence $a_0,a_1,a_2,...$ where $a_i$ is a real number for every $i \in \Z_{\geqslant 0}$\footnote{aka a "\textit{suite}" $(a_n)$}.\\
-Recursive functions can be seen as a more generalized general version of recursive sequences, because their domain of definition is not limited to integers.
+Recursive functions can be seen as a more generalized version of recursive sequences, because their domain of definition is not limited to integers.
 \paragraph*{Example}
 The factorial function $n!$ can be defined recursively as $f(0)=1$ (basis step) and $f(n+1)=(n+1)\cdot f(n)$.\\
 The Fibonacci numbers are defined as\\
 $f_{0}=0$\\$f_{1}=1$\\$f_{n}=f_{n-1}+f_{n-2}$
+\section{Induction}
+Mathematical induction can be expressed as the rule of inference, for $n\in\Z^+$
+\[(P(1)\land\forall k(P(k)\to P(k+1)))\to\forall nP(n)\]
+This means that $P(1)\to P(2)\to P(3)\to\ldots$.
+\subsection{Proving mathematical induction}
+Firstly, express the statement you want to prove in the form of "$\forall n\geq b,P(n)$ (for a certain $b$).\par
+Then, evaluate your basis step. This means that you have to prove your statement for the aforementioned $b$. If you chose $P(n)$ for all positive integers, then $b=1$. If you stated $P(n)$ for all non-negative integers, then $b=0$. \par 
+Thirdly, prove the induction. There, we assume that $P(n)$ is true for an arbitrary $n$ and we want to show that it implies that $P(n+1)$ is true. You have to prove $P(n+1)$ by using $P(n)$.\par 
+Finally, we can conclude that by mathematical induction, $P(n)$ is true for all $n\geq b$.
+\subsection{Strong induction}
+To prove a statement $P(n)$, we can use induction a bit differently. The basis step is the same but instead or proving $p(n)\to P(n+1)$, we prove that $[P(1)\land P(2)\land\ldots\land P(k)]\to P(k+1)$.
 \section{Recursion on Strings}
 \paragraph*{Definition}
 The set $\Sigma^{*}$ of strings over the alphabet $\Sigma$ is defined inductively by\par
@@ -926,7 +941,7 @@ In general, we use decimal notation to represent integers. For example, 965 repr
 However, different contexts call for different representations. For example, computers use binary numbers or base 2 notation.\par 
 We can represent numbers using any base $b$ where $b$ is a positive integer greater than 1. As an example, the ancient Mayans used a base 20 and the ancient Babylonians used base 60.\par 
 The ones we will use most in computing and communications are bases $b=2$(binary), $b=8$(octal) and $b=16$(hexadecimal).
-\subsection{Base $b$ representation}
+\subsection{Base \texorpdfstring{$b$}{b} representation}
 For a base $b$ ($b$ > 1) and any positive integer $n$, there is a unique choice of 
 \begin{itemize}
 \item $k$, a non-negative integer
@@ -934,7 +949,7 @@ For a base $b$ ($b$ > 1) and any positive integer $n$, there is a unique choice 
 \end{itemize}
 \[n=a_kb^k+a_{k-1}b^{k-1}+...+a_1b+a_0\]
 The $a_j$ coefficients are called the base $b$ digits of the representation
-\subsection{Base $b$ expansion of $n$}
+\subsection{Base \texorpdfstring{$b$}{b} expansion of \texorpdfstring{$n$}{n}}
 For a positive integer $n$, when $n=a_{k}b^{k}+a_{k-1}b^{k-1}+...+a_1b+a_0$, we write \[(a_k a_{k-1} ... a_1 a_0)_b \] the representation in base $b$ of $n$.
 \subsection{Common Bases}
 \begin{itemize}
@@ -953,7 +968,7 @@ The octal expansion uses the digits $\{0,1,2,3,4,5,6,7\}$
 $\ $\par
 Because we only have the digits 0 to 9 but need 16 digits for the representation, we use letter to expand our usual digits set. Thus $10=A, 11=B, 12=C, 13=D, 14=E$ and $15=F$ (and 16 is simply $1\cdot 16^1$ because the digits must be smaller than the base).\par 
 The digits are then $\{0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F\}$
-\subsection{Constructing a base $b$ expansion}
+\subsection{Constructing a base \texorpdfstring{$b$}{b} expansion}
 What is $(n)_10$ in binary notation?\par
 One algorithm would be to first find $k$ and then work down to find $a_k$ then $a_{k-1}$ etc. This would be a version of the cashier's algorithm but with the base instead of the coin values.\par 
 Algorithm:
@@ -1029,8 +1044,14 @@ We can see that there are $2\times 2\times ... \times 2 = 2^n$ possible bitstrin
 How many functions are there from a set with $m$ elements to a set with $n$ elements?\par 
 Let $m = \{0,1,2,...,m-1\}$. Each element of $m$ can be mapped to any element of $n$, meaning there are $n$ possibilities for every element of $m$, which leads to $n\times n\times ...\times n = n^m$ possibilities $=n^m$ functions.
 \subsection{Counting one-to-one functions}
-How many \textit{injective functions } are there from a set with $m$ elements to a set with $n$ elements?\par 
-Let $m= \{0,1,2,...,m-1\}$. The first element can be mapped to $n$ elements of $n$. The second can be mapped to $n-1$ elemnts of $n$, because the functions are injective and one element of $n$ is already mapped to by one element of $m$. This goes on until the $m^{th}$ element of $m$ can be mapped to the only remaining element of $n$. Thus, our possibilities are $n\cdot (n-1)\cdot (n-2)\cdot ...\cdot (n-n+1)$.
+\paragraph{Injective functions}
+$ $\\
+How many \textit{injective functions} are there from a set with $m$ elements to a set with $n\geq m$ elements?\par 
+Let $m= \{0,1,2,...,m-1\}$. The first element can be mapped to $n$ elements of $n$. The second can be mapped to $n-1$ elements of $n$, because the functions are injective and one element of $n$ is already mapped to by one element of $m$. This goes on until the $m^{th}$ element of $m$ can be mapped to the only remaining element of $n$. Thus, our possibilities are $n\cdot (n-1)\cdot (n-2)\cdot\ldots\cdot (n-m)=\frac{n!}{(n-m)!}$.
+\paragraph{Surjective functions}
+$ $\\
+How many \textit{surjective functions} are there from a set $A$ with $m$ elements to a set $B$ with $n\geq m$ elements?\par 
+We work backwards here. Every element of $B$ must be mapped to at least one element of $A$. This is not possible if $m<n$. Therefore, we need $m=n$. There, the first element of $B$ has $n$ choices, the second has $n-1$, and so on. Therefore, there are $n!$ surjective functions.
 \section{The Sum Rule}
 If $S_1,S_2,...,S_n$ are finite \textbf{disjoint} sets, then $|\bigcup_{i=1}^{n} S_i| = |S_1| + |S_2| + ... + |S_n|$.
 \paragraph*{Example}
@@ -1053,7 +1074,7 @@ If, among $n$ distinct elements, we pick $k$ elements (distinct or not) and sort
 \[\overline{A^n_k}=n^k\]
 This is because for each element we pick, we have $n$ choices. This is $n$ choices $k$ times $=n\cdot n\cdot ...\cdot n=n^k$.
 \subsection{Permutation}
-If we sort $n$ distinct elements in a \textbf{particular order} (and not part of those $n$ elements), we form a simple permutation. The formula is 
+If we sort $n$ distinct elements in a \textbf{particular order} (and not only part of those $n$ elements), we form a simple permutation. The formula is 
 \[P_n = n!\]
 \subsection*{Permutation with repetitions}
 If we sort in a \textbf{particular order} $n$ elements that include $n_1$ identical elements of type 1, $n_2$ identical elements of type 2, ... ($n_1+n_2+...+n_p=n$), we do a permutation with repetitions. The formula is

@@ -7,6 +7,7 @@
 \usepackage{multicol}
 \usepackage{hyperref}
 \usepackage{tabularx}
+\usepackage{subfig}
 \usepackage{tikz}
 \usepackage[ruled, lined, longend]{algorithm2e}
 \usepackage[shortlabels]{enumitem}
@@ -280,10 +281,61 @@ $ $\\
   $\exists x\exists yP(x,y)$ & There is a pair $(x,y)$ for which $P$ is true & $P$ is false for every pair $(x,y)$\\
   \hline
 \end{tabularx}
+
+\begin{figure}[htp]
+\subfloat[$\forall x\forall y$]{
+\begin{tikzpicture}
+\foreach \Point in {(0,0), (1,0), (0,1), (1,1), (0,2), (1,2), (0,3), (1,3)}{
+    \node at \Point {\textbullet};
+}
+\foreach \Point in {(0,0), (0,1), (0,2), (0,3)}{
+	\draw[-] \Point -- (1,0);
+	\draw[-] \Point -- (1,1);
+	\draw[-] \Point -- (1,2);
+	\draw[-] \Point -- (1,3);
+}
+
+\end{tikzpicture}}
+\hfill
+\subfloat[$\forall x\exists y$]{
+\begin{tikzpicture}
+\foreach \Point in {(0,0), (1,0), (0,1), (1,1), (0,2), (1,2), (0,3), (1,3)}{
+    \node at \Point {\textbullet};
+}
+\draw[-] (0,0) -- (1,1);
+\draw[-] (0,1) -- (1,1);
+\draw[-] (0,2) -- (1,2);
+\draw[-] (0,2) -- (1,3);
+\draw[-] (0,3) -- (1,2);
+\end{tikzpicture}}
+\hfill
+\subfloat[$\exists x\forall y$]{
+\begin{tikzpicture}
+\foreach \Point in {(0,0), (1,0), (0,1), (1,1), (0,2), (1,2), (0,3), (1,3)}{
+    \node at \Point {\textbullet};
+}
+\draw[-] (0,0) -- (1,1);
+\foreach \Point in {(1,0), (1,1), (1,2), (1,3)}{
+    \draw[-] (0,2) -- \Point;
+}
+\end{tikzpicture}}
+\hfill
+\subfloat[$\exists x\exists y$]{
+\begin{tikzpicture}
+\foreach \Point in {(0,0), (1,0), (0,1), (1,1), (0,2), (1,2), (0,3), (1,3)}{
+    \node at \Point {\textbullet};
+}
+\draw[-] (0,0) -- (1,1);
+\draw[-] (0,2) -- (1,0);
+\draw[-] (0,2) -- (1,3);
+\end{tikzpicture}}
+\caption{Nested quantifiers}
+\end{figure}
 $ $\\
 $ $\par
 For a better visualisation, it is possible to represent the domain for $x$ and for $y$ as dots in two columns and connect them when $P$ is true for the pair.
-%TODO Add graph with TikZ
+\par 
+We can see here some visual representation of nested quantifiers. The segments represent the pairs $(x,y)$ for which an arbitrary $P(x)$ would be true according to the quantifiers. This is not something to learn by heart but rather to understand. Then, it will come naturally. 
 
 \part{Basic Structures}
 
@@ -826,7 +878,7 @@ Mathematical induction can be expressed as the rule of inference, for $n\in\Z^+$
 \[(P(1)\land\forall k(P(k)\to P(k+1)))\to\forall nP(n)\]
 This means that $P(1)\to P(2)\to P(3)\to\ldots$.
 \subsection{Proving mathematical induction}
-Firstly, express the statement you want to prove in the form of "$\forall n\geq b,P(n)$ (for a certain $b$).\par
+Firstly, express the statement you want to prove in the form of "$\forall n\geq b,P(n)$" (for a certain $b$).\par
 Then, evaluate your basis step. This means that you have to prove your statement for the aforementioned $b$. If you chose $P(n)$ for all positive integers, then $b=1$. If you stated $P(n)$ for all non-negative integers, then $b=0$. \par 
 Thirdly, prove the induction. There, we assume that $P(n)$ is true for an arbitrary $n$ and we want to show that it implies that $P(n+1)$ is true. You have to prove $P(n+1)$ by using $P(n)$.\par 
 Finally, we can conclude that by mathematical induction, $P(n)$ is true for all $n\geq b$.
@@ -1102,6 +1154,7 @@ How many possible passwords are there?\par
 To do this, we separate the passwords into three distinct sets $P_6,P_7,P_8$ depending on the number of characters. Then, for each set, we count all the possibilities minus the possibilities without any digit.\\
 This is counted as $P_6=(26+10)^6-26^6$, $P_7=36^7-26^7$, $P_8=36^8-26^8$. Then, because the three sets are disjoint, we add them: $P=P_6+P_7+P_8$
 \section{The Substraction Rule}
+\label{section:substraction_rule}
 Let $A$ and $B$ be two finite sets. Then, $|A\cup B|=|A|+|B|-|A\cap B|$. This is the \textbf{inclusion-exclusion principle}.
 \paragraph*{Example}
 How many bit strings of length 8 either start with 1 bit or end with the two bits 00?\par 
@@ -1178,7 +1231,16 @@ Bayes' theorem is useful when we have no information about the intersection of t
 If $A_1\cup 1_2\cup\ldots\cup A_n=U$ and $\forall i,j\ A_i\cap A_j=\emptyset$, then 
 \[P(A_k\mid B)=\frac{P(B\mid A_k)P(A_k)}{P(B)}\]
 This is useful when the space is divided in multiple incompatible events.
- 
+\section{Extra tips and tricks}
+I don't have much to add to make counting easier but I remember one thing that a teacher said about both counting and probability. In essence, if the question is about the probability of events $A$ \textbf{and} $B$, you should multiply the respective probabilities. However, if the question is about the probability of events $A$ \textbf{or} $B$, you should add their respective probabilities. \par 
+\textbf{Warning:} Be careful about that, it is not automatically true. Therefore you should always check your understanding of the problem and your calculations. (I cannot be held responsible if this technique doesn't work.) I have added a few examples for you to better understand what I mean.
+\paragraph{Examples} 
+\begin{itemize}
+\item Let the probability of me drinking milk be $p(milk)$ and the probability of me eating a dal\footnote{A delicious Indian meal made with lentils (hence the name, dal means lentil in Sanskrit).} be $p(dal)$. The probability of me having \textbf{milk and a dal} for lunch would be $p(milk)\cdot p(dal)$.
+\item Let the probability of a cow having three spots be $p(3)$ and the probability of it having five spots be $p(5)$. The probability of a cow having \textbf{3 or 5} spots would be $p(3)+p(5)$.
+\end{itemize} 
+Notice how when I use "\textbf{or}", the events do not overlap (they are incompatible), otherwise, we would have to use the Substraction Rule (see \ref{section:substraction_rule}). I could replace "or" by "either ... or" and the meaning would not have been changed.
+
 
 %“Every time I climb Mount Everest, I eat a pizza.”
 %— Topology professor on vacuous truth

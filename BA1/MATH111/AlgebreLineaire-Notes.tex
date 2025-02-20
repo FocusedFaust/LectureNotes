@@ -123,7 +123,7 @@ On voit dans le cas d'un endomorphisme ($T:V_\mathcal{B}\to V_\mathcal{C}$) ou l
 La caractéristique d'un corps fini $K$ est le plus petit entier non nul $n$ tel que $n\cdot 1_K = 0$. On le note $carK$. Cette caractéristique est un nombre premier.\par 
 Soit $K$ un corps fini et $p=carK$. Alors il existe $n$ tel que $K$ a $p^n$ éléments. Ce nombre est la cardinalité de $K$.
 
-\section{Corps à partir de nombres premiers}
+\section{Corps à partir de nombres premiers} \label{Visualisation}
 Les corps finis avec un nombre premier d'élément sont de prime abord relativement simples (je dis relativement parce qu'on fait quand même de la théorie des corps). Un corps $\F_p$ est un corps à $p$ éléments $\{0,1,...,p-1\}$. Toutes les opérations se font \textit{modulo} $p$, c'est à dire qu'on ne considère que le reste de la division entière par $p$.\par 
 
 \paragraph{Opposé}
@@ -254,12 +254,14 @@ Cependant, il nous reste des candidats. Nous avons donc entrepris de construire 
 Voici une grille où chaque point représente un élément de $\C_3$. On voit que les coefficients sont dans $\F_3$ et que le nombre imaginaire $i$ est présent.\par 
 Les opérations usuelles ont lieu comme pour $\F_3$. Par exemple, $(2+2i)+(1)=3+2i=2i$. On remarque que l'opération modulo se fait selon un axe. C'est-à-dire que si on "dépasse" 2 horizontalement, on reste sur la même ordonnée, et inversement à la verticale. \par 
 Pour la multiplication, il faut faire attention car on prend en compte $i$ tel que $i^2=-1$. Ainsi, $(2+2i)\cdot(2+i)=4+2i+4i+2i^2=4+6i-2=1+1=2$.
+\subsection{Représentation}
+Comme je l'ai dit plus tôt (ici \ref{Visualisation}), on peut voir les corps finis comme des effets spéciaux. Mais on peut voir ce corps complexe comme un anneau. Imaginons que je prenne le quadrillage vu ce-dessus, et que je colle les deux faces horizontales ensemble. J'obtiens alors un cylindre vide. Si je colle ensuite les deux extrémités de ce tube ensemble, j'ai un anneau. On voit alors que toutes les opérations sont modulaires car on ne peut pas "sortir" de l'anneau.
 
-\section{Construction des opposés}
+\subsection{Construction des opposés}
 Chaque élément doit avoir son opposé, c'est-à-dire que $\forall x\exists y$ tels que $x+y=0$. Pour chaque élément $a+ib$, son inverse est $(p-a)+(p-b)i$. \par 
 Par exemple, l'opposé de $2+i$ est $1+2i$, car $(2+i)+(1+2i)=3+3i=0$. Graphiquement, si on part du point $2+i$, on se déplace une fois à droite, donc on revient à l'abscisse 0, puis on monte deux fois, pour revenir à une ordonnée de 0.
 
-\section{Construction des inverses}
+\subsection{Construction des inverses}
 La construction des inverses est plus subtile, car on a vu plus haut que ce n'était pas possible pour tous les $p$ premiers. Il faut que $a^2+b^2\neq0\forall a,b\in\F_p$. Dans $\F_3$, c'est bien le cas. On peut alors calculer l'inverse d'un élément de deux manières différentes :
 \begin{enumerate}
 \item Avec la définition de l'inverse d'un complexe, donc $z^{-1}=\frac{a-ib}{a^2+b^2}$. Si on a une fraction, il faut bien penser à prendre l'inverse selon $\F_p$.
@@ -267,6 +269,7 @@ La construction des inverses est plus subtile, car on a vu plus haut que ce n'é
 \end{enumerate}
 
 \section{Définition}
-On définit le corps $\C_p$ tel que $\C_p = \{a+ib\ |\ a,b\in\F_p\}$. 
+On définit le corps $\C_p$ tel que $\C_p = \{a+ib\ |\ a,b\in\F_p\}$. \par 
+En réalité, notre corps n'est pas un "corps complexe" mais plutôt une extension quadratique de $\F_p$, c'est-à-dire $\F_{p^2}$, contenant $p^2$ éléments. Cependant, ça reste intéressant, c'est pourquoi j'ai tenu à inclure cette extension.
 
 \end{document}

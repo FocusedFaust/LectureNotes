@@ -1,0 +1,81 @@
+\documentclass[10pt,a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{subfig}
+\usepackage{tikz}
+\usepackage[ruled, lined, longend]{algorithm2e}
+\usepackage[shortlabels]{enumitem}
+\usepackage{textcomp}
+
+\setlength{\parindent}{20pt}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=darkgray
+}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ind}{\hspace*{\parindent}}
+
+\title{AICC II - Notes and Summary}
+\author{Faustine Flicoteaux}
+\date{Fall Semester 2024}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+
+\section*{Introduction}
+These are my notes for the Advanced Information, Communication and Computation II (COM-102) course given during the spring semester of 2025 at EPFL. Please note that the content is not mine but belongs to Professor Michael Gastpar, who taught the class. I have however changed some formulations, added definitions from other sources and personal notes, when I thought it was useful.\par
+This summary is not exempt of errors. If you find one, you can contact me at my EPFL e-mail address: \texttt{\href{mailto:faustine.flicoteaux@epfl.ch}{faustine.flicoteaux@epfl.ch}} or through the GitHub page \url{https://github.com/FocusedFaust/LectureNotes}.\par 
+Note that the GitHub repository is also where I have the latest pdfs and \TeX documents, for this course and others.
+
+\chapter{Entropy and Data Compression}
+
+\section{Entropy}
+Entropy is not an easy concept to grasp at first, so I decided to write down what I understand to help myself.
+
+\subsection{Definition}
+Entropy is part of Information Theory, which studies the quantification, storage and transmission of information. Formally, entropy is "the measure of the average uncertainty of a probability distribution". \par 
+When we share a bit of information, this bit must have different possibilities, otherwise it doesn't mean anything.\par 
+For example, if I say "I feel good", information is communicated because I could feel sad, or nostalgic, or grateful (and much more). Same thing if the weather forecast announces rain, because it could be sunny or cloudy too.
+\paragraph{Example: fair coin}
+Say that I flip a fair coin. I either get heads or tails, with equal probabilities. This means that I can encode the result of the flip in a single bit (say 1 for heads and 0 for tails). Because all of the information fits in one bit, the entropy of the experiment is equal to 1 bit.
+\paragraph{Example: tournament}
+Say now that we want to encode the result of a sport tournament. Furthermore, let us say that 8 teams have entered that tournament and are equally as good. Because we have 8 equally likely outcomes, we can assign a number to each team. For that, we will need 3 bits, as $2^3=8$. Therefore, the entropy of the system is equal to 3.
+
+\subsection{Entropy in equiprobable spaces}
+When all outcomes are equally likely, we can compute the number of bits needed as $H(X)=log_2(\text{number of outcomes})$. We can then store $2^n$ different states in a bitstring of length $n$.\par
+However, it is not always the case that all outcomes are equally likely. Take a page of a book for example. Each letter is not as equally likely as the others. Then, how do we share information and how do we do it more efficiently?\par 
+
+\subsection{Entropy in other spaces}
+I like to visualise this using the possibility tree, which we construct for example when asking questions to guess the answer. Remember one of the first exercises of Introduction to Programming, where we had to write a program to guess what mushroom we thought of.\par
+For non random-distribution spaces, we use the Shannon formula of entropy.
+\begin{align*}
+H(X)=& \sum_{i} p_i\cdot \text{"how far down the possibility tree we are"}\\
+	=& -\sum_{i} p_i\cdot log_2(n) \\
+	=& -\sum_{i} p_i\cdot log_2(p_i) 
+\end{align*}
+with $n$ the number of outcomes or the number of bits needed.
+\paragraph{Example: the letter machine}
+Let us imagine a machine that outputs a letter out of four, $l\in\{A,B,C,D\}$. If all four outcomes are equally likely (25\% chance), we could encode A as 00, B as 01, C as 10 and D as 11.\par 
+However, if A has 0.7 probability, B has 0.2 and C and D have 0.05 each, we could encode it differently. A would be 0, B would be 10, C would be 110 and D 111. The analogy here is the question tree when guessing the outcome. First, we ask if the letter is A. Then, if it is B, etc. Each answer corresponds to a digit in the encoding of the answer.\par 
+The entropy here would be $H(X)=\sum_{l}p_l\cdot\text{ number of bits required }=p_A\cdot 1+p_B\cdot 2+p_C\cdot 3+p_D\cdot 3=1.4$. Therefore, we need on average 1.4 bits to encode the outcome of the machine.\par 
+Notice how, in the question tree, a "yes" corresponds to 0 and a "no" corresponds to 1. This is because left-hand zeroes can be dropped (001 = 1) and would change the meaning of the number.
+
+\subsection{Entropy Distribution}
+Entropy is maximal when all outcomes are equally likely, because we need the most bits to encode the outcome. When the entropy drops, it is the same as having to ask less questions to guess the result.
+
+\end{document}

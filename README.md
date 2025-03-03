@@ -1,7 +1,7 @@
 # LectureNotes
 These are notes and summaries of my classes based on my professors' lectures and notes. I write them as a study method and in order to keep everything neatly in one place, rather than across different files and handouts. I also like to add extra material or things I find interesting, because it keeps me motivated when studying.
 
-At the moment, there are files for 3 of my classes, which I am working on and will keep updating until the end of the semester.
+At the moment, there are files for 3 of my past classes, and one for a current class, which I am working on and will keep updating until the end of the semester.
 
 ## BA1
 - CS101 : Advanced Information, Computation and Communication I ([Latest PDF](https://github.com/FocusedFaust/LectureNotes/blob/master/BA1/CS101/AICC1-Summary.pdf))
@@ -15,6 +15,11 @@ At the moment, there are files for 3 of my classes, which I am working on and wi
 - MATH111 : Algèbre linéaire ([Latest PDF](https://github.com/FocusedFaust/LectureNotes/blob/master/BA1/MATH111/Alg%C3%A8breLin%C3%A9aire%20-%20R%C3%A9sum%C3%A9s.pdf))
 
   Ces résumés sont basés sur le cours et expliquent des notions que je ne maîtrise pas bien. J'ai aussi rajouté des astuces et des erreures fréquentes lorsque je fais les anciens examens.
+
+## BA2
+- COM102 : Advanced Information, Computation and Communication II ([Latest PDF](https://github.com/FocusedFaust/LectureNotes/blob/master/BA2/COM102/AICC2-Summary.pdf))
+
+  I have decided to start compiling notes I take after the classes to better understand and review the material.
 
 ## Modifications and mistakes
 Should you find any mistake, whether it is grammatical, ortographic or theoretical, do not hesitate to contact me! Suggestions are welcome too and I only wish to improve and learn more.

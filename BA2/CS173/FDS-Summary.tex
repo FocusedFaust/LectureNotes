@@ -1,0 +1,546 @@
+\documentclass[10pt,a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{subfig}
+\usepackage{tikz}
+\usepackage{xcolor} %color text background
+\usepackage[x11names]{xcolor} %color names
+\usepackage[ruled, lined, longend]{algorithm2e}
+\usepackage[shortlabels]{enumitem}
+\usepackage{textcomp}
+
+\setlength{\parindent}{20pt}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=darkgray
+}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ind}{\hspace*{\parindent}}
+\newcommand{\xor}{\oplus}
+
+\title{Fundamentals of Digital Systems - Notes and Summary}
+\author{Faustine Flicoteaux}
+\date{Spring Semester 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section*{Introduction}
+These are my notes for the Fundamentals of Digitals System (CS-173) course given during the spring semester of 2025 at EPFL. Please note that the content is not mine but belongs to Professor Mirjana Stojilovic, who taught it.\par 
+The first chapter of this document is also heavily based on the one of Ali El Azdi, that can be found at \url{https://github.com/elazdi-al/FDS/blob/main/FDS.pdf}. I have however changed some formulations and such.\par
+This summary is not exempt of errors. If you find one, you can contact me at my EPFL e-mail address: \texttt{\href{mailto:faustine.flicoteaux@epfl.ch}{faustine.flicoteaux@epfl.ch}} or through the GitHub page \url{https://github.com/FocusedFaust/LectureNotes}.\par 
+Note that the GitHub repository is also where I have the latest pdfs and \TeX documents, for this course and others.
+
+\chapter{Number Systems (W1.1)}
+
+\section{Digital Representations}
+In a digital representation, a number is represented by an ordered n-tuple:\par 
+The n-tuple is called a \textbf{digit vector}, each element is a \textbf{digit}\par
+The number of digits $n$ is called the \textbf{precision} of the representation. (with leftward-increasing indexing)
+\[ X  = (X _{n-1}, X _{n-1}, \ldots, X _{0}) \]
+$X _{0}$ is called the zero-origin.\\
+Each digit is given \textbf{a set of values} $D_{i}$ (eg. For base 10 representation of numbers, $D_i = \{0,1,2, \dots, 9\}$)\\
+The \textbf{set size}, the maximum number of representable digit vectors is: $K = \prod_{i=0}^{n-1} |D_{i}|$
+
+\subsection{(Non)Redundant Number Systems}
+A number system is non-redundant if each digit-vector represents a different integer, meaning that they have different weights. For example, the decimal system is non-redundant.
+
+\section{Weighted Number Systems}
+The rule of representation of a Weighted (Positional) Number Systems is as follows :
+\[x = \sum_{i=0}^{n-1} X_{i}W_{i}$$ where $$W = (W_{n-1}, W_{n-2}, \dots, W_{0})\]
+Each $W_i$ is the weight of the the $i^{th}$ digit, its importance in the representation of the number.
+
+\subsection{Radix Systems}
+When weights are in this format : 
+\begin{equation}
+    \begin{cases}
+        W_{0} = 1\\
+        W_{i+1} = W_{i}R_{i}\text{ with } 1\leq i\leq n-1
+    \end{cases}
+\end{equation}
+Also written : $W_{0} = 1, \; \prod_{j=0}^{i-1} R_{j}$, it is a \textbf{radix} system.
+	
+\subsection{Fixed and Mixed-Radix Number Systems}
+In a \textbf{fixed-radix system}, all elements of the radix-vector (i.e. all $R_i$) have the same value \( r \) (\textit{the radix})
+The weight vector in a fixed-radix system is given by:
+\[W = \left( r^{n-1}, r^{n-2}, \ldots, r^2, r, 1 \right)\]
+and the integer $x$ becomes:
+\[x = \sum_{i=0}^{n-1} X_i \times r^i\]
+In a \textbf{mixed-radix system}, the elements of the radix-vector differ
+\paragraph{Examples of Fixed and Mixed radix systems}
+$ $\\
+Fixed: The base of number systems.
+\begin{itemize}
+	\item[-] Decimal – radix 10
+	\item[-] Binary – radix 2
+	\item[-] Octal – radix 8
+	\item[-] Hexadecimal – radix 16
+\end{itemize}
+Mixed: An example of a mixed radix representation, such as time:
+\begin{itemize}
+	\item[-] Radix-vector \(R = (24, 60, 60)\)
+	\item[-] Weight-vector \(W = (3600, 60, 1)\)
+\end{itemize}
+
+\subsection{Canonical Number Systems}
+In a \textbf{canonical number system}, the set of values for a digit \( D_i \) is with \( |D_i| = R_i \), the corresponding element of the radix vector
+\[D_i = \{0, 1, \ldots, R_i - 1\}\]
+Canonical digit sets with fixed radix:
+\begin{itemize}
+	\item Decimal: \{0, 1, \ldots, 9\}
+	\item Binary: \{0, 1\}
+	\item Hexadecimal: \{0, 1, 2, \ldots, 15\}
+\end{itemize}
+Range of values of \( x \) represented with \( n \) fixed-radix-\( r \) digits:
+\[0 \leq x \leq r^n - 1\]
+A system with fixed positive radix r and a canonical set of digit values is called a radix-r conventional number system.    
+	
+\section{Representation of Signed Integers}
+\subsection{Sign-Magnitude Representation (SM)}
+A signed integer $x$ is represented by a pair $(x_s, x_m)$, where $x_s$ is the \textit{sign} and $x_m$ is the \textit{magnitude} (a positive integer).\par 
+The sign (positive or negative) is represented by a the most significant bit (MSB) of the digit vector:
+\begin{itemize}
+    	\item[] 0 for positive
+    	\item[] 1 for negative
+\end{itemize}
+The magnitude can be represented as any positive integer. In a conventional radix-\( r \) system, the range of \( n \)-digit magnitude is:
+\[ 0 \leq x_m \leq r^n - 1 \]
+The Sign-and-Magnitude representation is considered a \textbf{redundant} system because both $00000000_2$ and $10000000_2$ represent zero.\par
+\textbf{SM} consists of an equal number of positive and negative integers.\par
+An $n$-bit integer in sign-and-magnitude lies within the range \textit{(because of 0's double representation and that MSB is used for the sign)}: 
+\[[-\left(2^{n-1} - 1\right), +\left(2^{n-1} - 1\right)]\] 
+The main disadvantage of SM is that it's complex to design digital circuits for arithmetic operations (addition, subtraction, etc.).
+%TODO continue notes
+\subsection{True-and-Complement (TC)}
+
+\subsubsection{Mapping}
+A signed integer $x$ is represented by a positive integer $x_R$, $C$ is a positive integer called the \textit{complementation constant}.
+\[ x_R \equiv x \mod C \]	          
+For $|x| < C$, by the definition of the modulo function, we have:
+\[x_R = 
+	\begin{cases} 
+		x				& \text{if } x \geq 0 \quad \text{(True form)}    \\
+		C - |x| = C + x 	& \text{if } x < 0 \quad \text{(Complement form)} 
+	\end{cases}
+		      \]
+	
+\subsubsection{Unambiguous Representation}
+To have an unambiguous representation, the two regions should not overlap, translating to the condition:
+		$\forall x, \max |x| < \frac{C}{2}$
+
+\subsubsection{Converse Mapping}
+Converse mapping:
+\[x = 
+	\begin{cases} 
+		x_R     & \text{if } x_R < \frac{C}{2} \quad \text{(Positive values)} \\
+		x_R - C & \text{if } x_R > \frac{C}{2} \quad \text{(Negative values)} 
+	\end{cases}\]
+When $x_R = \frac{C}{2}$, it is usually assigned to $x = -\frac{C}{2}$. Asymmetrical representation simplifies sign detection.
+
+\subsection{Two's Complement System}
+This is the True-and-Compelement system with $C = 2^n$, where $n$ is the number of bits used to represent the integer.\par 
+The range is asymmetrical:
+\[ -2^{n-1} \leq x \leq 2^{n-1} - 1\]
+but the representation of zero is unique.
+	
+\subsubsection{Sign Detection in Two's Complement System}
+Since $|x| < C/2$ and assuming the sign is 0 for positive and 1 for negative numbers:
+\[
+	\text{sign}(x) = 
+	\begin{cases} 
+		0 & \text{if } x_R < C/2    \\
+		1 & \text{if } x_R \geq C/2 
+	\end{cases}
+\]
+Therefore, the sign is determined from the most-significant bit:
+\[
+	\text{sign}(x) = 
+	\begin{cases} 
+		0 & \text{if } x_{n-1} = 0 \\
+		1 & \text{if } x_{n-1} = 1 
+	\end{cases}
+	\quad \text{equivalent to} \quad \text{sign}(x) = x_{n-1}
+\]
+
+\subsubsection{Mapping from Bit-Vectors to Values}
+The value of an integer represented by a bit-vector $b_{n-1}b_{n-2}\ldots b_1b_0$ can be universally expressed as:
+\[\text{Value} = (-2^{n-1} \cdot b_{n-1}) + \sum_{i=0}^{n-2} b_i \cdot 2^i\]
+where $b_{n-1}$ is the MSB (sign bit) and is $0$ for non-negative numbers and $1$ for negative numbers.
+	
+\paragraph{Examples}
+	\begin{itemize}
+		\item[] $X = 011011_2 = 0 \cdot 2^5 + 1 \cdot 2^4 + 1 \cdot 2^3 + 0 \cdot 2^2 + 1 \cdot 2^1 + 1 \cdot 2^0 = 16 + 8 + 2 + 1 = 27_{10}$
+		\item[] $X = 11011_2 = -1 \cdot 2^4 + 1 \cdot 2^3 + 0 \cdot 2^2 + 1 \cdot 2^1 + 1 \cdot 2^0 = -16 + 8 + 2 + 1 = -5_{10}$
+		\item[] $X = 10000000_2 = -1 \cdot 2^7 = -128_{10}$
+		\item[] $X = 10000011_2 = -1 \cdot 2^7 + 1 \cdot 2^1 + 1 \cdot 2^0 = -128 + 2 + 1 = -125_{10}$
+	\end{itemize}
+	  
+\subsubsection{Change of Sign in Two's Complement System}
+The two's complement system represents negative numbers by inverting the bits of their positive counterparts and adding one. This process is equivalent to subtracting the number from $2^n$.\par
+For an $n$-bit number $x$:
+\[z = -x = (\sim x) + 1 = C - x_R\]
+where $(\sim x)$ is the bitwise NOT of $x$ and $x_R$ is the decimal representation of $x$.
+	  
+\section{Range Extension and Arithmetic Shifts}
+\subsection{Range Extension}
+This is performed when a value $x$ represented by a digit-vector of $n$ bits needs to be represented by a digit-vector of $m$ bits, where $m > n$. $x$ is represented as:
+\begin{align*}
+	X & = (X_{n-1}, X_{n-2}, \ldots, X_1, X_0) \\
+	Z & = (Z_{m-1}, Z_{m-2}, \ldots, Z_1, Z_0) 
+\end{align*}
+
+\subsection{Range Extension Algorithm in Sign-and-Magnitude}
+In sign-and-magnitude system, the range-extension algorithm is defined as:
+\begin{align*}
+	z_s & = x_s \text{ (sign bit)}                          \\
+	Z_i & = 0 \quad \text{for } i = m - 1, m - 2, \ldots, n \\
+	Z_i & = X_i \quad \text{for } i = n - 1, \ldots, 0      
+\end{align*}
+Example: Consider $X = 11010101_2 = -85_{10}$, is equivalent to $Z = 10001010101 = -85_{10}$ in an 8-bit system.\par
+The algorithm extends the range of \( X \) by adding zeros to the right of the most significant bit, preserving the sign bit.	
+	
+\subsection{Arithmetic Shifts}
+Two elementary transformations often used in arithmetic operations are scaling (multiplying and dividing) by the radix.\par 
+In the conventional radix-2 number system for integers:
+\begin{itemize}
+	\item[] Left arithmetic shift: multiplication by 2, expressed as \( z = 2x \).
+	\item[] Right arithmetic shift: division by 2, expressed as \( z = x/2 \), with rounding towards zero when \( x \) is negative.
+\end{itemize}
+	
+\subsubsection{Left Arithmetic Shift in Sign-and-Magnitude System}
+Algorithm (assuming the overflow does not occur):
+\begin{align*}
+	z_s     & = x_s \text{ (sign bit retained)}                      \\
+	Z_{i+1} & = X_i, \quad \text{for } i = 0, \ldots, n-2            \\
+	Z_0     & = 0 \text{ (insert zero at the least significant bit)} 
+\end{align*}
+	
+\subsubsection{Right Arithmetic Shift in Sign-and-Magnitude System}
+Algorithm:
+\begin{align*}
+	z_s     & = x_s \text{ (sign bit retained)}                     \\
+	Z_{i-1} & = X_i, \quad \text{for } i = 1, \ldots, n - 1         \\
+	Z_{n-1} & = 0 \text{ (insert zero at the most significant bit)} 
+\end{align*}
+
+\subsubsection{Left Arithmetic Shift in Two's Complement System}
+Algorithm (assuming that overflow does not occur):
+\begin{align*}
+	Z_{i+1} & = X_{i}, \quad \text{for } i = 0, \ldots, n-2          \\
+	Z_{0}   & = 0 \text{ (insert zero at the least significant bit)} 
+\end{align*}
+
+\subsubsection{Right Arithmetic Shift in Two's Complement System}
+Algorithm (assuming that overflow does not occur):
+\begin{align*}
+	Z_{n-1} & = X_{n-1}                                   \\
+	Z_{i-1} & = X_i, \quad \text{for } i = 1, \ldots, n-1 
+\end{align*}
+The most significant bit (MSB) is duplicated to keep the sign of the number the same.\par 
+	
+\section{Hamming Weight and Distance}
+\subsection{Hamming Weight (HW)}
+The Hamming weight of a binary sequence is the number of symbols that are equal to one (1s).\par 
+For example, the Hamming weight of $11010101$ is 5, as there are five 1s in the bit sequence.
+	
+\subsection{Hamming Distance (HD)}
+The Hamming distance between two binary sequences of equal length is the number of positions at which the corresponding symbols are different.\par
+For example, the Hamming distance between $11010101$ and $01000111$ is 3, as they differ in three positions.
+
+
+\chapter{Number systems (Part II) (W1.2)}
+\section{Addition and Substraction of Unsigned Integers}
+
+\subsection{Addition of binary numbers}
+Binary numbers act relatively close to the "exclusive or" in propositional logic, with the difference being the "carry". Just like regular addition by hand, we right-align the LS digits and start from the least significant column. Then, the rules are:
+\begin{itemize}
+\item $0+0=0$
+\item $0+1=1$
+\item $1+0=1$
+\item $1+1=10$ we carry the 1 to the next digit
+\end{itemize}
+The carry taking part in the sum are called "\textbf{carry-in}" and those produced as part of the partial result (which we write on top of the addition) are called "\textbf{carry-out}".
+
+\subsubsection{How many bits?}
+How many bits are needed to represent the sum of two $n$-bit unsigned binary numbers?\par 
+The minimum possible value is $s_{min}=0+0=0$\par 
+The maximum possible value is $s_{max}=(2^n-1)+(2^n-1)=2\cdot 2^n-2=2^{n+1}-2$ This leads us to conclude that we need $n+1$ bits.\par 
+However, in hardware, we do not always need the extra bit. When the magnitude of the result exceeds the largest representable value, we say an \textbf{overflow} occurs and the result in incorrect.
+
+\subsection{Substraction of binary numbers}
+The idea is the same as for decimal numbers. The direction is from the right to the left, starting with the least-significant digit. Instead of the carry, we have the borrow, which is substracted in the next column. The rules are:
+\begin{itemize}
+\item $0-0=0$
+\item $1-0=1$
+\item $0-1=1$ with a borrow on the next column
+\item $1-1=0$
+\end{itemize}
+
+\paragraph{Negative Result?}
+If the result should be negative, we cannot represent it using an unsigned system. Therefore, an \textbf{underflow} occurs, and the result is incorrect.
+
+\section{Two's Complement Arithmetic}
+%TODO Add graphic
+We represent integers graphically as being around a circle. When Performing an addition, we go clockwise. When performing a substraction, we go counter-clockwise.\par 
+There is a line dividing the circle in two, representing the sign change. This is because at some point when doing additions/substraction, the carry-out/borrow is stored in the sign bit, changing its value. This is the same as adding a positive value to a negative integer and getting a positive result and vice-versa.\par 
+This means that the result will always be correct as long as the range is not exceeded.\par
+This is a good technique for hardware implementation, as the same hardware can perform the addition of unsigned numbers.
+\paragraph{Overflow}
+Adding two numbers of different signs never produces an overflow. If the signs of the two numbers are the same but different from the sign of the sum, then overflow occurred.\par
+Otherwise, if the carry-in and the carry-out of the sign position are different, overflow occurred.
+\subsection{Two's complement Substraction}
+If we remember last chapter, to substract $x$, we can add the opposite value that we now know how to construct ($-x=\sim x+1$).
+
+\subsection{Unsigned Integer Multiplication}
+The formal calculation is:
+\begin{align*}
+X\cdot Y &= X\cdot \sum^{n-1}_0 Y_i\cdot 2^i \\
+		 &= \sum^{n-1}_0 X\cdot Y\cdot 2^i \\
+		 &= Y_{n-1}\cdot \underbrace{X\cdot 2^{n-1}}_{\text{left-shifted by n-1}} + \ldots + Y_1\cdot \underbrace{X\cdot 2^1}_{\text{left-shifted by 1}} + Y_0\cdot \underbrace{X\cdot 2^0}_{\text{multiplicand}}
+\end{align*}
+This means that we multiply by each digit of $Y$, shifting each time by the radix of that digit and summing with the previous result.
+\paragraph{How many bits?}
+When multiplying a number with $n$ bits by another with $m$ bits. How many bits at most will be needed to represent the result ?\par 
+\textbf{$n+m$}, because we shift each time and each intermediate result needs one more bit than the one before.
+
+\subsection{Two's Complement Multiplication}
+The algorithm for Two's Complement Multiplication is inspired by the previous algorithm, except that the $n-1^{th}$ bit is multiplied by minus one.
+\[X\cdot Y = \underbrace{-}_{sign}Y_{n-1}\cdot \underbrace{X\cdot 2^{n-1}}_{\text{left-shifted by n-1}} + \ldots + Y_1\cdot \underbrace{X\cdot 2^1}_{\text{left-shifted by 1}} + Y_0\cdot \underbrace{X\cdot 2^0}_{\text{multiplicand}}\]
+When doing hand multiplication, we have to be aware of the sign. To do that, we extend each multiplicand with another sign bit.
+
+\chapter{Number systems (Part III) (W2.1)}
+\section{Fixed-Point Numbers}
+Fixed-point numbers are either
+\begin{enumerate}
+\item Integers
+\item Rational numbers of the form $x=a/2^f$
+\end{enumerate}
+the fixed-point representation of a number $x$ consists of integer $x_{int}$ and fraction $x_{fr}$ such that $x=x_{int}+x_{fr}$.\par
+The digit point representation is 
+\[X=(\underbrace{X_{m-1}X_{m-2}\ldots X_1X_0}_{\text{integer component}}\underbrace{.}_{radix-point}\underbrace{X_{-1}X_{-2}\ldots X_{-f}}_{\text{fractional component}})\]
+The position of the radix-point is assumed to be fixed (hence the name). If it is not shown, it is assumed that the number is an integer.\par 
+We see that each $X_i$ with $i<0$ has a weight that is also $<0$. In decimal system, the weight would be $10^i$ so $0.0\ldots01$.
+
+\section{Finite Precision Maths}
+
+\subsection{Precision}
+The \textbf{precision} is the maximum number of non-zero bits (see earlier).
+\paragraph{Examples} $X=(X_{m-1}X_{m-2}\ldots X_1X_0.X_{-1}X_{-2}\ldots X_{-f})$\par 
+If $m=5$ and $f=5$, the precision is 10.\par 
+If $m=10$ and $f=6$, the precision is 16.\par 
+If $m=8$ and $f=0$ (integer), the precision is 8.
+\medskip
+In the general case, Precision$(x)=m+f$
+
+\subsection{Resolution}
+The \textbf{resolution} is the smallest possible difference between two consecutive numbers.
+\paragraph{Examples} $X=(X_{m-1}X_{m-2}\ldots X_1X_0.X_{-1}X_{-2}\ldots X_{-f})$\par 
+If $m=5$ and $f=5$, the resolution is $1/2^5=1/32=0.03125$.\par 
+If $m=10$ and $f=6$, the resolution is $1/2^6$.\par 
+If $m=8$ and $f=0$ (integer), the resolution is $1/2^0=1/1=1$.
+\medskip
+In the general case, Resolution$(x)=2^{-f}$ and it is \textbf{fixed}.
+
+\subsection{Range}
+The \textbf{range} is the difference between the most positive and the most negative number representable.\par 
+In the general case, for fixed-point and two's complement, 
+\[\text{Range}(x)=x_{max}-x_{min}=\sum^{m-2}_{i=-f}2^i-(-2^{m-1})\]
+
+\subsection{Accuracy}
+The \textbf{accuracy} is the magnitude of the maximum difference between a \textbf{real} value and its representation.\par 
+The worst case (max difference) occurs for a real value exactly between two representable numbers.\par 
+In the general case, Accuracy$(x)=$Resolution$(x)/2$
+
+\subsection{Dynamic Range}
+The \textbf{dynamic range} is the ratio of the the \textbf{maximum absolute value} representable and the \textbf{minimum positive absolute} value representable.
+\paragraph{Example} 
+Two's complement with $m=5$ and $f=3$
+\begin{itemize}
+\item The maximum absolute value representable is $|x|_{max}=|-2^4|=16$
+\item The minimum positive absolute value representable is $|x_{positive,nonzero}|_{min}=|2^{-3}|=1/8$
+\item The dynamic range is $|x|_{max}/|x_{positive,nonzero}|_{min}=128$
+\end{itemize}
+In the general case, for fixed-point and two's complement, Dynamic Range$(x)=2^{m-1}/2^{-f}=2^{m-1+f}$
+
+\section{Floating-Point Number Representation}
+As with any other number representation in a digital system, Floating-Point (FP) representation is encoded in a finite number of bits. It represents only a finite subset of the infinite set of real numbers.
+
+\subsection{Significand, Exponent, Base}
+FP representation is similar to the "notation scientifique" that many of us know and which is in base 10.
+\[x=M^*\times b^E\]
+\begin{itemize}
+\item[ ] $M^*$ is the signed \textbf{significand} (also called mantissa)
+\item[ ] $E$ is the signed \textbf{exponent}
+\item[ ] $b$ is a constant called the \textbf{base}
+\end{itemize}
+
+\subsection{Significand}
+\subsubsection{Sign-and-Magnitude}
+This the the most used representation for significand because it simplifies multiplication in hardware. The floating-point representation becomes
+\[x=(-1)^S\times M\times b^E\]
+where $S\in\{0,1\}$ is the sign and $M$ is the magnitude of the signed significant.\par 
+The representation is
+\[X=(S\underbrace{E_{m-1}E_{m-2}\ldots E_1E_0}_{exponent}\underbrace{M_{n-1}M_{n-2}\ldots M_0}_{magnitude})\]
+with a $(n+1)$-bit significand in sign-and-magnitude and an $m$-bit exponent.\par 
+This representation however is redundant, as multiple magnitude and exponent combinations can give the same number. This is the case unless we \textbf{normalize the magnitude}: $1\leq M<2$ (this would be the same as moving the floating-point and multiplying by $b^i$ with $i$ depending on the movement).
+
+\subsubsection{Hidden Bit and Fraction}
+As the significand is normalized, the first digit of the magnitude is always binary 1 (because normalization makes $1\leq M<2$).
+\begin{itemize}
+\item[ ]The first digit of the significand is omitted (hidden bit) because it is always the same.
+\item[ ]The binary point is assumed to the right of the hidden bit and the represented part of the significand is called a fraction $F$ ans 
+\end{itemize}
+\paragraph{Remark:} 
+Here, hidden means "given". It is a given that there is a bit here.
+
+\subsubsection{Summary}
+The common significand representation is the following:
+\begin{itemize}
+\item Sign-and-Magnitude
+\item Normalized
+\item One hidden bit
+\end{itemize}
+The corresponding significand value becomes
+\[(-1)^S\times(\underbrace{1}_{\substack{hidden \\ bit}}+\underbrace{\sum^n_{i=1}M_{n-i}2^{-i}}_{fraction})\]
+
+\subsection{Exponent}
+The exponent needs to be signed, because when \textbf{positive}, it represents very large numbers (large absolute value) and when \textbf{negative}, it represents very small numbers (small absolute value).
+
+\subsubsection{Biased Representation}
+Exponents can take any representation but one representation is called \textbf{biased} and simplifies comparison in hardware.\par 
+The biased representation of a digit vector $X=(X_{n-1}\ldots X_1X_0)$ is 
+\[x=\sum^{n-1}_{i=0}X_i\cdot 2^i-B\]
+where $B$ is the bias. Typically, $B=2^{n-1}-1$, which centers representable numbers around 0. They stay sorted just like unsigned integers but cover both the positive and negative numbers.
+%TODO add graphics (slide 47)
+
+\subsubsection{Summary}
+For the binary digit vector $X=(SE_{m-1}E_{m-2}\ldots E_1E_0.M_{n-1}M_{n-2}\ldots M_0)$ the biased exponent value becomes
+\[e=\sum^{m-1}_{j=0} E_j2^j-(2^{m-1}-1)\]
+
+\subsection{Rounding}
+The result of a floating-point operation is a real number that, to be represented exactly might require a significand with an infinite number of digits. To obtain a representation close to the exact result, we perform 
+what is called \textbf{rounding}.
+
+\subsection{Floating-Point Format Summary}
+\[X=(S\text{\colorbox{LightGoldenrod1}{$E_{m-1}E_{m-2}\ldots E_1E_0$}}.\text{\colorbox{LightBlue1}{$M_{n-1}M_{n-2}\ldots M_0$}})\]
+\[x=(-1)^S\times\left(\text{\colorbox{LightBlue1}{$1+\sum^{n}_{i=1}M_{n-i}2^{-1}$}}\right)\times 
+	2^{\text{\colorbox{LightGoldenrod1}{$\sum^{m-1}_{j=0}E_j2^j-(2^{m-1}-1)$}}}\]
+
+\subsubsection{Rounding Modes}
+Let us consider the real number $x_{real}$ and the consecutive floating-point numbers $F_1$ and $F_2$, such that $F_1\leq x_{real}\leq F_2$.\par 
+There are various rounding modes, such as:
+\begin{itemize}
+\item Round to the \textbf{nearest} or to \textbf{even} when tie
+\begin{equation*}
+R_{near}(x_{real}) = 
+    \begin{cases}
+        F_1 & if |x_{real}-F_1|<|x_{real}-F_2|\\
+        F_2 & if |x_{real}-F_1|>|x_{real}-F_2|\\
+        even(F_1,F_2) & if |x_{real}-F_1|=|x_{real}-F_2|
+    \end{cases}
+\end{equation*}
+\item Round towards \textbf{zero} (truncate)
+\begin{equation*}
+R_{near}(x_{real}) = 
+    \begin{cases}
+        F_1 & if x_{real}\geq 0\\
+        F_2 & if x_{real} < 0
+    \end{cases}
+\end{equation*}
+\item Round towards plus or towards minus \textbf{infinity}
+\begin{equation*}
+R_{pinf}(x_{real})=F_2, R_{ninf}(x_{real})=F_1
+\end{equation*}
+\end{itemize}
+
+\section{IEEE Standard 754}
+The FP format in IEEE 754 is what we described earlier, with \par
+$X=(SE_{m-1}E_{m-2}\ldots E_1E_0M_{n-1}M_{n-2}\ldots M_0)$.\\
+Basic formats include:
+\begin{itemize}
+\item Single precision (32 bits)
+	\begin{itemize}
+	\item Sign S: 1 bit
+	\item Exponent E: 8 bits
+	\item Fraction F: 23 bits
+	\end{itemize}
+\item Double precision (64 bits)
+	\begin{itemize}
+	\item Sign S: 1 bit
+	\item Exponent E: 11 bits
+	\item Fraction F: 52 bits
+	\end{itemize}
+\end{itemize}
+The default rounding mode is to round to nearest and to even when tie.
+
+\subsection{Special Values}
+The floating-point \textbf{zero} is represented with $E=0,F=0$. The sign $S$ differentiates between positive and negative zero.\par 
+Positive and negative \textbf{infinity} are with biased exponents to all ones and $F=0$.\par 
+\textbf{NaN} (not a number) is used to represent results of invalid operations. The sign is either 0 or 1, biased exponents are all ones, $F\neq0$.
+
+\subsection{Exceptions Handling}
+The following five exceptions set a flag (i.e., "activate an alarm") and the computation continues:
+\begin{itemize}
+\item Overflow (value is too large, result is set to infinity)
+\item Underflow (value is too small)
+\item Division by zero
+\item Inexact result (not an exact floating-point number)
+\item Invalid result (NaN is produced)
+\end{itemize}
+
+\chapter{Number systems (Part IV) (W3.1)}
+
+\section{Fixed-Point Arithmetic}
+\subsection{+ and -}
+Performing additions or substractions on two binary numbers $x(m,f)$ and $y(m,f)$ is done in \textbf{the same way} as if the operands were integers. However, overflow can still happen.
+\begin{equation*}
+	\begin{cases}
+        x+y=x_{int}+x_{fr}+y_{int}+y_{fr}\\
+        x-y=x_{int}+x_{fr}-(y_{int}+y_{fr})
+    \end{cases}
+\end{equation*}
+
+\subsubsection{How many bits?}
+The largest integer-part exponent is $max(m_x-1,m_y-1)$. Consequently, $m_{x\pm y}=max(m_x,m_y)+1$.\medskip \\
+The smallest fractional-part exponent is $min(-f_x,-f_y)$. Consequently, $f_{x\pm y}=max(f_x,f_y)$.
+
+\subsection{x}
+Multiplication on two binary numbers $x(m,f)$ and $y(m,f)$ uses the same algorithm as if the operands were integers. Binary point location changes and overflow can still happen.
+
+\section{Floating-Point Arithmetic}
+Let $x$ and $y$ be represented as $(S_x, M_x, E_x)$ and $(S_y, M_y, E_y)$. The signed significands are normalized.
+
+\subsection{+ and -}
+\[z=x\pm y=M^*_x\times 2^{E_x} \pm M^*_y\times 2^{E_y}\]
+There are four main steps to computing an addition or substraction.
+\begin{enumerate}
+\item Add/subtract significand (mantissa) and set the exponent. The mantissa of the number with the smaller exponent has to be multiplied by two to the power of the difference between the exponents (this operation is called alignment) and then added/subtracted to the mantissa of the other number
+\begin{equation*}
+M^*_z = 
+	\begin{cases}
+        M^*_x \pm (M^*_y\times 2^{(E_y-E_x)}) &\text{if }E_x\geq E_y\\
+        (M^*_x\times 2^{(E_x-E_y)}) \pm M^*_y &\text{if }E_x<E_y
+    \end{cases}
+E_z = max(E_x, E_y)
+\end{equation*}
+\item \textbf{Normalize} the result and then, if required, \textbf{adjust the exponent}
+\item \textbf{Round} the result and then, if required, normalizeitand adjust the exponent
+\item Set flags for \textbf{special values}, if required
+\end{enumerate}
+
+
+\end{document}

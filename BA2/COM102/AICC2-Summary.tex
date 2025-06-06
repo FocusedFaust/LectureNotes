@@ -9,6 +9,7 @@
 \usepackage{tabularx}
 \usepackage{subfig}
 \usepackage{tikz}
+\usetikzlibrary{tikzmark}
 \usepackage[ruled, lined, longend]{algorithm2e}
 \usepackage[shortlabels]{enumitem}
 \usepackage{textcomp}
@@ -77,5 +78,77 @@ Notice how, in the question tree, a "yes" corresponds to 0 and a "no" correspond
 
 \subsection{Entropy Distribution}
 Entropy is maximal when all outcomes are equally likely, because we need the most bits to encode the outcome. When the entropy drops, it is the same as having to ask less questions to guess the result.
+
+\section{Cross-Entropy}
+If two random variables are not independent, then
+
+\section{Source Coding}
+When analysing a code, there exist some implications, that I have grouped here:
+\newpage
+\begin{center}
+\begin{tabular}{c c}
+ 					& reverse is prefix-free\\
+					& $\Downarrow$\\
+code is prefix-free 	& reverse is uniquely decodable\\
+$\Downarrow$			& $\Updownarrow$
+\end{tabular}
+\end{center}
+\vspace{-5mm}
+\begin{gather*}
+\text{code is uniquely decodable}\\
+\Downarrow\\
+\text{Kraft's inequality is satisfied}\\
+\Updownarrow\\
+\exists\text{ a code with the same lengths that is prefix free}\\
+\Downarrow\\
+\exists\text{ a code with the same lengths that is uniquely decodable}
+\end{gather*}
+
+\subsection{A few definitions}
+A code being \textbf{instantaneous} is the same as it being \textbf{prefix-free}, which means that no codeword is the prefix of another.\par 
+A code is \textbf{uniquely decodable} if there exist no sequence of codewords that can be decoded in more than one way.
+
+\subsection{The Kraft-McMillan inequality}
+This inequality gives a sufficient condition for a code to be uniquely decodable given a set of codeword lengths. Let the code $C=\{c_1, c_2, c_3, ..., c_n\}$ over an encoding alphabet of length $r$ (and not $n$, which is the encoded alphabet's length) have the codeword lengths $l_1, l_2, l_3, ..., l_n$. The inequality is as follows:
+\[ \sum_{i=1}^{n} r^{-l_i} \leq 1 \]
+If this inequality is respected, then there exist a code with such codeword lengths that is uniquely decodable. However, it doesn't mean that this code is $C$, it could be another encoding.
+
+\chapter{Modular Arithmetic and Finite Fields}
+``If you had nightmares about gcd computation in high school, your nightmares were true'' - Michael Gastpar\par
+\textit{(It's really not that scary but it's mostly annoying to do by hand)}
+
+\section{Extended Euclid Algorithm}
+Euclid's algorithm allows us to compute the integers $x$ and $y$ of Bézout's identity such that
+\[ ax+by = \gcd (a,b) \]
+To do so, we draw a table with 6 columns and as many rows as necessary. The leftmost column is used for the successive gcd computations. We know that $\gcd(x, a\cdot x + b) = \gcd(a\cdot x + b, b)$. Therefore, for each line, we simplify the previous calculus. Then, in the second column, we keep the result of the euclidean division, which we name $q$. Once we have rippled trough until we have a computation of the form $\gcd (c, 0) = c$, we go back up. The third ($\tilde{u}$) and fourth ($\tilde{v}$) columns hold the values 1 and 0, respectively. \par 
+Now, until our table is complete, we ripple trough upwards. At each step, we compute $u$ and $v$ using the values of $\tilde{u}$ and $\tilde{v}$ one row lower. Then, until we 
+
+\paragraph{Example}
+We would like to find $u,v$ such that $549u + 174v = \gcd (549, 174)$
+\begin{center}
+\begin{tabular}{cl | r | c | c | c | c}
+ & & $q$ & $\tilde{u}$ & $\tilde{v}$ & $u=\tilde{v}$ & $v=(\tilde{u}-q\tilde{v})$\\
+g& = gcd(549, 174) & \textcolor{gray}{$549=3\cdot174+27 \rightarrow$}3 & & & 13 & -41\\
+  & = gcd(174, 27) & \textcolor{gray}{$174=6\cdot27+12 \rightarrow$}6 & -2 & 13 & -2 & 13\\
+  & = gcd(27, 12) & \textcolor{gray}{$27=1\cdot12+3 \rightarrow$}2 & 1 & -2 & 1\tikzmark{e} & -2\\
+  & = gcd(12, 3) & \textcolor{gray}{$12=4\cdot3+0 \rightarrow$}4 & 0\tikzmark{d} & 1\tikzmark{b} & 0\tikzmark{c} & 1\tikzmark{a}\\
+  & = gcd(3, 0) = 3 & 0 & 1 & 0 & &
+\end{tabular}
+\begin{tikzpicture}[overlay, remember picture, shorten >=.5pt, shorten <=.5pt, transform canvas={yshift=.25\baselineskip}]
+    \draw [->, draw=teal!80, line width=1pt, bend left] ([xshift=-5pt]{pic cs:a}) to ({pic cs:b});
+    \draw [->, draw=teal!80, line width=1pt, bend left] ([xshift=-5pt]{pic cs:c}) to ({pic cs:d});
+    \draw [->, draw=magenta!80, line width=1pt] ([xshift=5pt]{pic cs:b}) to ([xshift=-5pt]{pic cs:e});
+  \end{tikzpicture}
+\end{center}
+In \textcolor{magenta}{magenta} is the first step of the upwards calculations, using the previously stored values. In \textcolor{teal}{teal} we see the second step, which is storing the computed values.
+In the end, we computed $3=549\cdot13+174\cdot(-41)$
+
+\subsection*{Modular Inverse}
+This algorithm is particularly useful when trying to find the multiplicative inverse of a number in a finite field.\par 
+Let us say we are trying to find $b=a^{-1}\mod m$. We can rewrite it as $a\cdot b + m\cdot c = 1$. The $c$ does not matter because any scalar product of $m$ gets ditched trough the modularisation. Therefore, we can do the euclidean algorithm starting at $\gcd(m, a)$
+
+\section{Euler's Totient Function}
+Euler's Totient function $\phi(n)$ returns the number of integers $\{1,2,...,n-1\}$ that are relatively prime to $n$. Its formula is:
+\[\phi(n) = n\cdot\prod_{p|n}\left( 1-\frac{1}{p}\right)\]
 
 \end{document}

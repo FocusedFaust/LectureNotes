@@ -21,6 +21,13 @@ At the moment, there are files for 3 of my past classes, and one for a current c
 
   I have decided to start compiling notes I take after the classes to better understand and review the material.
 
+## BA3
+- CS214 : Software Construction
+  
+  These are not regular LaTeX notes, instead I started making summaries of the notions I'm supposed to know using Obsidian. The format is markdown, so anyone should be able to read them without the app. 
+  
+  These notes are really short summaries of key points of the [Scala](https://www.scala-lang.org/) programming language, that we had to learn in class.
+
 ## Modifications and mistakes
 Should you find any mistake, whether it is grammatical, ortographic or theoretical, do not hesitate to contact me! Suggestions are welcome too and I only wish to improve and learn more.
 

@@ -13,9 +13,9 @@
 ### Variance
 
 ⇒ Variance is used to control how type parameters behave with subtyping
-⇒ `[+A] // covariant`
+⇒ `[A] // invariant`
 	`[-A] // contravariant`
-	`[A] // invariant`
+	`[+A] // covariant`
 ⇒ **Invariance**: used by default, subtyping will not be reflected in the parameterized type. For example, a `Box[Cat]` and `Box[Animal]` can't have a subtyping relationship, even if `Cat` and `Animal` do
 ⇒ **Covariance**: given `class Cov[+T]`, this means that if `A` is a subtype of `B`, then `Cov[A]` is a subtype of `Cov[B]`
 ⇒ **Contravariance**: this is mostly used in serializers, and is the opposite of the covariance. Given `class Contra[-T]`, if `A` is a subtype of `B`, then `Contra[B]` is a subtype of `Contra[A]`

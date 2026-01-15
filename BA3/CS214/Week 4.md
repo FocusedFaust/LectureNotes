@@ -31,7 +31,7 @@
 
 ### Lists and List operations
 
-⇒ Lists in Scala are immutable, and instanciated with either `List(obj1, obj2)` or `obj1 :: obj2 :: Nil`
+⇒ Lists in Scala are immutable, and instanciated with either `List(obj1, obj2)` or `obj1 :: obj2 :: Nil` (`Nil` is needed, otherwise there is no starting list, could also be `List()`)
 ⇒ It is not necessary to declare the list's type, except in case of mixed types, where we specify either `List[A | B]`(union types) or `List[Any]`, but the second option is more permissive and can lead to type error
 ⇒ To *prepend* an element: `elem :: list`, to prepend another list, `list1 ::: list2`. It is generally slower to *append* elements because lists are singly-linked
 

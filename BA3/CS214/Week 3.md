@@ -8,7 +8,7 @@
 
 ### Operators
 
-⇒ Operators are methods in Sc\*la (don't ask). any method with a single parameter can be used as an *infix operator* (like +, -, \*, /)
+⇒ Operators are methods in Sc\*la (don't ask). Any method with a single parameter can be used as an *infix operator* (like +, -, \*, /)
 ⇒ Conversely, operators can be called with dot-notation: `10.+(1)`
 ⇒ Any legal identifier as an operator, including symbols, as long as they are defined
 

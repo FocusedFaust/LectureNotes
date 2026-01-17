@@ -42,3 +42,4 @@ whileLoop (i > 0) {
 
 ⇒ The lazy evaluation of values is possible in Scala with the syntax `lazy val x = expr`
 ⇒ This means that the expression is only evaluated on its first access.
+⇒ As a reminder, `var` is evaluated once at initialization, `def` is evaluated every time it is called and `lazy val` is evaluated on first call.
